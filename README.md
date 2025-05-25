@@ -12,3 +12,5 @@ A machine learning pipeline for optimizing game discount strategies using Steam 
 [airflow](https://medium.com/@mrunmayee.dhapre/ml-pipeline-in-airflow-71ca7e1f03ba)
 [airflow2](https://medium.com/@mohamadhasan.sarvandani/learning-apache-airflow-with-simple-examples-c1b05b4761b0)
 [ I'm getting an error while importing a module from another folder.](https://www.reddit.com/r/learnpython/comments/10l5j6t/cant_import_class_from_a_module_in_another_folder/)
+
+[another suggestion])https://stackoverflow.com/questions/73166298/cant-do-python-imports-from-another-dir)
