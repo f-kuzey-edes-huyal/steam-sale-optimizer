@@ -24,6 +24,31 @@ def parse_release_date(date_str):
             continue
     return None
 
+def get_game_details(driver, app_link):
+    try:
+        driver.get(app_link)
+        time.sleep(1.5)
+        soup = BeautifulSoup(driver.page_source, "html.parser")
+
+        developer_tag = soup.find("div", class_="dev_row").find("a")
+        developer = developer_tag.text.strip() if developer_tag else None
+
+        publisher = None
+        publisher_row = soup.find_all("div", class_="dev_row")
+        for row in publisher_row:
+            if "Publisher" in row.text:
+                pub_tag = row.find("a")
+                publisher = pub_tag.text.strip() if pub_tag else None
+                break
+
+        price_tag = soup.select_one(".game_purchase_price, .discount_final_price")
+        price = price_tag.text.strip() if price_tag else None
+
+        return developer, publisher, price
+    except Exception as e:
+        print(f"[WARN] Failed to get details for {app_link}: {e}")
+        return None, None, None
+
 def get_recent_games(pages=5):
     base_url = "https://store.steampowered.com/search/"
     games = []
@@ -72,13 +97,15 @@ def get_recent_games(pages=5):
                 print(f"[SKIP] No appid found in {app_link}")
                 continue
 
+            developer, publisher, base_price = get_game_details(driver, app_link)
+
             games.append({
                 "game_id": appid,
                 "title": title,
                 "release_date": release_date.strftime("%Y-%m-%d"),
-                "developer": None,
-                "publisher": None,
-                "base_price": None
+                "developer": developer,
+                "publisher": publisher,
+                "base_price": base_price
             })
 
         print(f"[INFO] Page {page} -> Collected {len(games)} games so far.")
@@ -86,4 +113,3 @@ def get_recent_games(pages=5):
 
     driver.quit()
     return pd.DataFrame(games)
-
