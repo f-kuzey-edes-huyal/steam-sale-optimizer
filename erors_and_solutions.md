@@ -1,1 +1,1 @@
-
+- I had a problem while trying to scrape games released in the last three years. The issue was that the release date format changes depending on the country (e.g., day-month vs. month-day). This caused errors during parsing. To fix it, I updated the code to try multiple date formats instead of just one.  
