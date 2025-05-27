@@ -16,3 +16,5 @@ A machine learning pipeline for optimizing game discount strategies using Steam 
 [another suggestion])https://stackoverflow.com/questions/73166298/cant-do-python-imports-from-another-dir)
 
 [https://steamapi.xpaw.me/#IPlayerService/GetOwnedGames]
+
+[Scraping information of all games from Steam with Python](https://medium.com/codex/scraping-information-of-all-games-from-steam-with-python-6e44eb01a299)
