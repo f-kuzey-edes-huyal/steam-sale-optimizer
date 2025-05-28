@@ -25,3 +25,7 @@ In short, no. We believe if you need to get Steam data, you can get it from Stea
 SteamDB is a community website and we do not make money, and maintaining the site is already enough work for us. Creating a good API is a lot of work and a big vector for abuse which we are not equipped to deal with.
 
 Take a look at "How are we getting this information?" question above for more information about getting information from Steam directly."
+
+# Notes for Myself
+
+- I have to change my data scraping criteria. Selecting only the most recently published games may not be the best approach. I need to rethink it.
