@@ -29,3 +29,4 @@ Take a look at "How are we getting this information?" question above for more in
 # Notes for Myself
 
 - I have to change my data scraping criteria. Selecting only the most recently published games may not be the best approach. I need to rethink it.
+- There are many free games. From what I’ve learned, some of them use different strategies like making the game free to play but charging players for in-game items such as clothes or weapons. Others earn money through ads, especially on mobile platforms.
