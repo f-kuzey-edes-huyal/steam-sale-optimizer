@@ -26,6 +26,8 @@ SteamDB is a community website and we do not make money, and maintaining the sit
 
 Take a look at "How are we getting this information?" question above for more information about getting information from Steam directly."
 
+[https://www.reddit.com/r/gamedev/comments/x0qs4z/we_gathered_data_about_54000_games_in_steam_and/]
+
 # Notes for Myself
 
 - I have to change my data scraping criteria. Selecting only the most recently published games may not be the best approach. I need to rethink it.
