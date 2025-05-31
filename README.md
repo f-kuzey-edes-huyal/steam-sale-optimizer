@@ -19,13 +19,6 @@ A machine learning pipeline for optimizing game discount strategies using Steam 
 
 [Scraping information of all games from Steam with Python](https://medium.com/codex/scraping-information-of-all-games-from-steam-with-python-6e44eb01a299)
 
-"Does SteamDB have an API? [https://steamdb.info/faq/#how-are-we-getting-this-information]
-In short, no. We believe if you need to get Steam data, you can get it from Steam directly using their WebAPI or using libraries like SteamKit (see above).
-
-SteamDB is a community website and we do not make money, and maintaining the site is already enough work for us. Creating a good API is a lot of work and a big vector for abuse which we are not equipped to deal with.
-
-Take a look at "How are we getting this information?" question above for more information about getting information from Steam directly."
-
 [https://www.reddit.com/r/gamedev/comments/x0qs4z/we_gathered_data_about_54000_games_in_steam_and/]
 
 [https://www.gamedeveloper.com/business/genre-viability-on-steam-and-other-trends---an-analysis-using-review-count]
