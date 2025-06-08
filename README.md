@@ -23,6 +23,9 @@ A machine learning pipeline for optimizing game discount strategies using Steam 
 
 [https://www.gamedeveloper.com/business/genre-viability-on-steam-and-other-trends---an-analysis-using-review-count]
 
+[https://medium.com/thedeephub/postgresql-integration-with-python-a-simple-guide-34b675e4bffd]
+[https://db-engines.com/en/ranking]
+
 # Notes for Myself
 
 - I have to change my data scraping criteria. Selecting only the most recently published games may not be the best approach. I need to rethink it.
