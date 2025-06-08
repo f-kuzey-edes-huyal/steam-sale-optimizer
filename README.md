@@ -25,6 +25,7 @@ A machine learning pipeline for optimizing game discount strategies using Steam 
 
 [https://medium.com/thedeephub/postgresql-integration-with-python-a-simple-guide-34b675e4bffd]
 [https://db-engines.com/en/ranking]
+[https://neon.com/postgresql/postgresql-python/query]
 
 # Notes for Myself
 
