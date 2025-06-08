@@ -105,7 +105,7 @@ def scrape_steam_top_games(max_games=2500):
     driver = create_driver()
     games = []
 
-    for page in range(1, 3):  # Adjust for more pages if needed
+    for page in range(1, 5000):  # Adjust for more pages if needed
         print(f"Scraping page {page}...")
         url = f"https://store.steampowered.com/search/?filter=topsellers&ignore_preferences=1&page={page}"
         driver.get(url)

@@ -101,11 +101,11 @@ def get_additional_game_info(game_url, driver):
 
     return info
 
-def scrape_steam_top_games(max_games=2500):
+def scrape_steam_top_games(max_games=500):
     driver = create_driver()
     games = []
 
-    for page in range(1, 3):  # Adjust for more pages if needed
+    for page in range(1, max_games):  # Adjust for more pages if needed
         print(f"Scraping page {page}...")
         url = f"https://store.steampowered.com/search/?filter=topsellers&ignore_preferences=1&page={page}"
         driver.get(url)
@@ -179,7 +179,7 @@ def scrape_steam_top_games(max_games=2500):
         if col not in df.columns:
             df[col] = ""
 
-    df.to_csv("data/steam_games.csv", index=False)
+    df.to_csv("data/raw/steam_games.csv", index=False)
     print(f"\n✅ Scraping complete. Total games collected: {len(df)}")
     return df
 
