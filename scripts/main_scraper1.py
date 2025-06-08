@@ -4,7 +4,7 @@ import pandas as pd
 import os
 
 def main():
-    df = scrape_steam_top_games(max_games=100)  # Adjust as needed
+    df = scrape_steam_top_games(max_games=5000)  # Adjust as needed
     all_reviews = []
     for appid in df['game_id']:
         print(f"Fetching reviews for AppID: {appid}")
@@ -14,7 +14,7 @@ def main():
         all_reviews.extend(reviews)
     # Save reviews
     reviews_df = pd.DataFrame(all_reviews)
-    reviews_df.to_csv("data/steam_reviews.csv", index=False)
+    reviews_df.to_csv("data/raw/steam_reviews.csv", index=False)
     print("Review scraping complete.")
 
 if __name__ == "__main__":
