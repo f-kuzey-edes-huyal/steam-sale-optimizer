@@ -1,6 +1,11 @@
 game_id,name,release_date,release_year,total_reviews,positive_percent,developer,publisher,genres,platforms,current_price,discounted_price,discount_percent
-730,Counter-Strike 2,"21 Aug, 2012",2012,8825933,86,,,"Free To Play, Action","Linux, Windows",Free To Play,,
-1551360,Forza Horizon 5,"8 Nov, 2021",2021,208040,88,,,"Adventure, Simulation, Action, Sports, Racing",Windows,$32.78,$16.39 USD,-50%
-1172710,Dune: Awakening,"10 Jun, 2025",2025,11473,88,,,,,,,
-2622380,ELDEN RING NIGHTREIGN,"29 May, 2025",2025,61529,78,,,"RPG, Action",Windows,$25.99 USD,,
-2050650,Resident Evil 4,"24 Jan, 2019",2019,118169,97,,,,,,,
+730,Counter-Strike 2,"21 Aug, 2012",2012,8827352,86,,,"Action, Free To Play","Linux, Windows",Free To Play,,
+1172710,Dune: Awakening,"10 Jun, 2025",2025,13155,89,,,,,,,
+1551360,Forza Horizon 5,"8 Nov, 2021",2021,208184,88,,,"Racing, Adventure, Sports, Action, Simulation",Windows,$32.78,$16.39 USD,-50%
+2622380,ELDEN RING NIGHTREIGN,"29 May, 2025",2025,63417,79,,,"Action, RPG",Windows,$25.99 USD,,
+3489700,Stellar Blade™,"11 Jun, 2025",2025,0,0,,,,,,,
+2138720,REMATCH,"19 Jun, 2025",2025,0,0,,,"Action, Sports, Indie",Windows,$14.99 USD,,
+346110,ARK: Survival Evolved,"27 Aug, 2017",2017,549494,84,,,"Massively Multiplayer, RPG, Indie, Adventure, Action","Mac, Windows",$14.99,$4.49 USD,-70%
+2050650,Resident Evil 4,"24 Jan, 2019",2019,118278,97,,,,,,,
+1627720,Lies of P,"18 Sep, 2023",2023,39687,91,,,,,,,
+381210,Dead by Daylight,"14 Jun, 2016",2016,580486,79,,,,,,,
