@@ -8,6 +8,9 @@ A machine learning pipeline for optimizing game discount strategies using Steam 
 ```pip install -e . ```
 
 ```docker-compose up --build```
+
+```docker-compose build```
+```docker-compose up -d```
 #important links
 
 [steam scraping](https://medium.com/@thekareemyusuf/building-a-dataset-of-steam-games-with-web-scraping-2abb02409f08)
