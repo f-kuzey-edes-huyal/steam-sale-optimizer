@@ -61,6 +61,7 @@ services:
       - ./dags:/opt/airflow/dags
       - ./data:/opt/airflow/data
       - ./logs:/opt/airflow/logs
+      - ./scripts:/opt/airflow/scripts
     command: >
       bash -c "
         airflow scheduler

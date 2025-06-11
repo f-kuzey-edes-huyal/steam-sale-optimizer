@@ -1,3 +1,4 @@
+
 import os
 import pandas as pd
 from sqlalchemy import create_engine, text
@@ -26,8 +27,8 @@ def load_csv_to_postgres_and_export():
         r.review,
         r.game_id,
         s.name AS game_name,
-        s.genre,
-        a.owners,
+        s.genres,
+        a.owners
     FROM reviews r
     LEFT JOIN steamdata s ON r.game_id = s.game_id
     LEFT JOIN steam_api a ON r.game_id = a.game_id;
@@ -40,28 +41,3 @@ def load_csv_to_postgres_and_export():
     combined_df = pd.read_sql("SELECT * FROM combined", engine)
     combined_df.to_csv('/opt/airflow/data/combined_output.csv', index=False)
     print("✅ Exported final CSV")
-🗂️ dags/combine_steam_csvs_dag.py
-python
-CopyEdit
-from airflow import DAG
-from airflow.operators.python import PythonOperator
-from datetime import datetime
-import sys
-sys.path.append('/opt/airflow/scripts')
-
-from load_and_combine import load_csv_to_postgres_and_export
-
-with DAG(
-    dag_id='secure_combine_steam_csvs',
-    schedule_interval='@once',
-    start_date=datetime(2024, 1, 1),
-    catchup=False,
-    tags=['secure', 'steam'],
-) as dag:
-
-    combine_task = PythonOperator(
-        task_id='load_combine_export',
-        python_callable=load_csv_to_postgres_and_export,
-    )
-
-    combine_task
