@@ -21,6 +21,16 @@ A machine learning pipeline for optimizing game discount strategies using Steam 
 [2025-06-12, 14:47:11 UTC] {taskinstance.py:441} ▶ Post task execution logs
 ```
 
+
+```
+docker exec -it steam-sale-optimizer-airflow-scheduler-1 /bin/bash
+
+google-chrome --version
+
+chromedriver --version
+
+```
+
 #important links
 
 [steam scraping](https://medium.com/@thekareemyusuf/building-a-dataset-of-steam-games-with-web-scraping-2abb02409f08)
