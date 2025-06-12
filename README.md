@@ -31,6 +31,15 @@ chromedriver --version
 
 ```
 
+ChatGPT: Proxy settings caused an issue while scraping data via Airflow from SteamSpy.
+I adjusted the proxy settings in the review-fetching script, but this caused the main script to re-activate the proxy.
+I used the following two lines, which led to this behavior:
+
+```
+session = requests.Session()
+session.trust_env = True
+```
+
 #important links
 
 [steam scraping](https://medium.com/@thekareemyusuf/building-a-dataset-of-steam-games-with-web-scraping-2abb02409f08)
