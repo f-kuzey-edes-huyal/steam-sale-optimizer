@@ -32,13 +32,7 @@ chromedriver --version
 ```
 
 Proxy settings caused an issue while scraping data via Airflow from SteamSpy.
-I adjusted the proxy settings in the review-fetching script, but this caused the main script to re-activate the proxy.
-I used the following two lines, which led to this behavior:
-
-```
-session = requests.Session()
-session.trust_env = True
-```
+I adjusted the proxy settings in the review-fetching script.
 
 #important links
 
