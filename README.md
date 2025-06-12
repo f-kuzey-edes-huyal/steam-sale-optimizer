@@ -12,13 +12,14 @@ A machine learning pipeline for optimizing game discount strategies using Steam 
 ```docker-compose build```
 ```docker-compose up -d```
 
-```503e9fd6adc0
+```
 *** Found local files:
 ***   * /opt/airflow/logs/dag_id=scrape_and_combine_steam_csvs_dag/run_id=manual__2025-06-12T14:47:06.328632+00:00/task_id=scrape_steam_data/attempt=1.log
 [2025-06-12, 14:47:10 UTC] {local_task_job_runner.py:120} ▶ Pre task execution logs
 [2025-06-12, 14:47:10 UTC] {logger.py:11} INFO - ====== WebDriver manager ======
 [2025-06-12, 14:47:11 UTC] {logger.py:11} INFO - Get LATEST chromedriver version for google-chrome
-[2025-06-12, 14:47:11 UTC] {taskinstance.py:441} ▶ Post task execution logs```
+[2025-06-12, 14:47:11 UTC] {taskinstance.py:441} ▶ Post task execution logs
+```
 
 #important links
 
