@@ -30,13 +30,20 @@ RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearm
     apt-get install -y google-chrome-stable && \
     rm -rf /var/lib/apt/lists/*
 
-# Install matching ChromeDriver version 137.0.7151.69
-ENV CHROMEDRIVER_VERSION=137.0.7151.69
+# Install matching ChromeDriver version 137.0.7151.103
+ENV CHROMEDRIVER_VERSION=137.0.7151.103
 RUN wget -O /tmp/chromedriver_linux64.zip https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/${CHROMEDRIVER_VERSION}/linux64/chromedriver-linux64.zip && \
     unzip /tmp/chromedriver_linux64.zip -d /tmp/ && \
     mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver && \
     chmod +x /usr/local/bin/chromedriver && \
     rm -rf /tmp/chromedriver_linux64.zip /tmp/chromedriver-linux64
+
+# Add this: set the PATH correctly (some setups require this)
+ENV PATH="/usr/local/bin:$PATH"
+
+# Also add this: tell Selenium to use headless mode by default (optional but helps debugging)
+ENV CHROME_BIN="/usr/bin/google-chrome"
+ENV CHROMEDRIVER_BIN="/usr/local/bin/chromedriver"
 
 # Switch back to airflow user
 USER airflow
