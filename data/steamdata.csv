@@ -1,6 +1,3 @@
 game_id,name,release_date,release_year,total_reviews,positive_percent,developer,publisher,genres,platforms,current_price,discounted_price,discount_percent
-730,Counter-Strike 2,"21 Aug, 2012",2012,8827825,86,,,"Action, Free To Play","Linux, Windows",Free To Play,,
-1172710,Dune: Awakening,"10 Jun, 2025",2025,13815,88,,,,,,,
-1551360,Forza Horizon 5,"8 Nov, 2021",2021,208233,88,,,"Racing, Sports, Simulation, Adventure, Action",Windows,$32.78,$16.39 USD,-50%
-2622380,ELDEN RING NIGHTREIGN,"29 May, 2025",2025,63867,79,,,"Action, RPG",Windows,$25.99 USD,,
-3489700,Stellar Blade™,"11 Jun, 2025",2025,0,0,,,,,,,
+730,Counter-Strike 2,"21 Aug, 2012",2012,8831514,86,,,"Action, Free To Play","Linux, Windows",Free To Play,,
+578080,PUBG: BATTLEGROUNDS,"21 Dec, 2017",2017,2561622,59,,,"Action, Adventure, Massively Multiplayer, Free To Play",Windows,Free To Play,,

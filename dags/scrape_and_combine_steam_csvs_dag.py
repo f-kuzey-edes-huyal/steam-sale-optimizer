@@ -6,6 +6,11 @@ sys.path.append('/opt/airflow/scripts')
 
 from airflow_main_scraper1 import scrape_steam_data
 from load_and_combine import load_csv_to_postgres_and_export
+import os
+
+#os.environ.pop('http_proxy', None)
+#os.environ.pop('https_proxy', None)
+
 
 default_args = {
     'owner': 'airflow',
