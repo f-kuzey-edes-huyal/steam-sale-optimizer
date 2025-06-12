@@ -1,0 +1,5 @@
+textblob
+selenium
+webdriver-manager
+python-dateutil
+pandas

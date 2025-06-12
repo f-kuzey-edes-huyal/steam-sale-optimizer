@@ -182,8 +182,8 @@ def scrape_steam_top_games(max_games=10):
             if col not in df.columns:
                 df[col] = ""
 
-        os.makedirs("data/raw", exist_ok=True)
-        df.to_csv("data/raw/steam_games.csv", index=False)
+        os.makedirs("data", exist_ok=True)
+        df.to_csv("data/steamdata.csv", index=False)
         print(f"\n🎉 Scraping complete. Total games collected: {len(df)}")
         return df
 

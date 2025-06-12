@@ -43,7 +43,7 @@ def get_steamspy_data(appid, max_retries=3, delay=2):
     print(f"Failed to fetch SteamSpy data for appid {appid} after {max_retries} attempts.")
     return {}
 
-def fetch_and_save_steamspy_data(game_ids, save_path="data/raw/steamspy_data.csv"):
+def fetch_and_save_steamspy_data(game_ids, save_path="data/steam_api.csv"):
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
     steamspy_data_list = []
