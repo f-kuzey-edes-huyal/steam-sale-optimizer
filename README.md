@@ -5,6 +5,8 @@ A machine learning pipeline for optimizing game discount strategies using Steam 
 
 
 
+
+
 ```pip install -e . ```
 
 ```docker-compose up --build```
@@ -33,6 +35,8 @@ chromedriver --version
 
 Proxy settings caused an issue while scraping data via Airflow from SteamSpy.
 I adjusted the proxy settings in the review-fetching script.
+
+I had to adjust my scripts to run my DAG file successfully with Apache Airflow orchestration. The main change was setting up the proxy settings for the driver. Without these settings, the requests were blocked or failed because Airflow runs in a different environment where internet access goes through a proxy.
 
 #important links
 
