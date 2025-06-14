@@ -58,6 +58,7 @@ I had to adjust my scripts to run my DAG file successfully with Apache Airflow o
 [https://medium.com/thedeephub/postgresql-integration-with-python-a-simple-guide-34b675e4bffd]
 [https://db-engines.com/en/ranking]
 [https://neon.com/postgresql/postgresql-python/query]
+[https://learn.microsoft.com/en-us/azure/machine-learning/how-to-deploy-mlflow-models-online-endpoints?view=azureml-api-2&tabs=cli]
 
 # Notes for Myself
 
