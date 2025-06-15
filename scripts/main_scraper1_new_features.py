@@ -6,7 +6,7 @@ import pandas as pd
 import os
 
 def main():
-    df = scrape_steam_top_games(max_games=5)  # Adjust as needed
+    df = scrape_steam_top_games(max_games=500)  # Adjust as needed
     game_ids = df['game_id'].tolist()
 
     # Fetch and save SteamSpy data separately
