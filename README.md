@@ -69,3 +69,8 @@ I had to adjust my scripts to run my DAG file successfully with Apache Airflow o
 - <img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/motivation.png?raw=true" width="300">
 - Reviews are in multiple languages, so we need to find a way to handle that. Also, consider how to use these reviews effectively. Should we use a multimodal model that processes both text and other features, or convert the reviews into numerical scores like sentiment polarity?
 -  I will need the ```reviewer_id``` for database normalization, as I aim to include 20 reviews per game.
+-  For my initial analysis, I plan to use Steam Spy, which provides a range of values for the owners column. I aim to calculate the log mean of these values and use it in my analysis. From what I understand from the blog I read, Steam now makes user libraries private by default. Because of this, the values from Steam Spy may introduce some uncertainty into my analysis.
+
+A good way to improve this approach is to use the number of reviewers. For example, I might assume that for every 1 review, there are about 70 game owners. However, as far as I understand, this review ratio depends on the type of game. After I get my pipeline fully working, I will focus on developing a better method.
+
+
