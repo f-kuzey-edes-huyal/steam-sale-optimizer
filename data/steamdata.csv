@@ -1,3 +1,6 @@
-game_id,name,release_date,release_year,total_reviews,positive_percent,developer,publisher,genres,platforms,current_price,discounted_price,discount_percent
-730,Counter-Strike 2,"21 Aug, 2012",2012,8831514,86,,,"Action, Free To Play","Linux, Windows",Free To Play,,
-578080,PUBG: BATTLEGROUNDS,"21 Dec, 2017",2017,2561622,59,,,"Action, Adventure, Massively Multiplayer, Free To Play",Windows,Free To Play,,
+game_id,name,release_date,release_year,total_reviews,positive_percent,developer,publisher,genres,tags,platforms,current_price,discounted_price,discount_percent
+730,Counter-Strike 2,"21 Aug, 2012",2012,8835273,86,,,"Action, Free To Play",Action;Free To Play,"Linux, Windows",Free To Play,Free To Play,
+578080,PUBG: BATTLEGROUNDS,"21 Dec, 2017",2017,2563089,59,,,"Action, Adventure, Massively Multiplayer, Free To Play",Action;Adventure;Massively Multiplayer;Free To Play,Windows,Free To Play,Free To Play,
+1172710,Dune: Awakening,"10 Jun, 2025",2025,22634,86,,,,,,Free To Play,Free To Play,
+1551360,Forza Horizon 5,"8 Nov, 2021",2021,209019,88,,,"Action, Adventure, Racing, Simulation, Sports",Action;Adventure;Racing;Simulation;Sports,Windows,$32.78,$16.39 USD,-50%
+2138720,REMATCH,"19 Jun, 2025",2025,0,0,,,"Action, Indie, Sports",Action;Indie;Sports,Windows,$14.99 USD,$14.99 USD,
