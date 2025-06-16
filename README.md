@@ -73,4 +73,6 @@ I had to adjust my scripts to run my DAG file successfully with Apache Airflow o
 
 A good way to improve this approach is to use the number of reviewers. For example, I might assume that for every 1 review, there are about 70 game owners. However, as far as I understand, this review ratio depends on the type of game. After I get my pipeline fully working, I will focus on developing a better method.
 
+Actually, I think Ulas could really help at this point. Both his Steam experience and way of thinking would be very useful! I’m a bit worried that bringing him in now might slow things down because I need to make a lot of adjustments and additions to the project, but at some point, I believe we can find a better way by discussing with him.
+
 
