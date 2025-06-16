@@ -50,11 +50,24 @@ def load_csv_to_postgres_and_export():
     steamdata.to_sql('steamdata', engine, if_exists='replace', index=False)
     print("Uploaded CSVs to PostgreSQL")
 
-    # Use engine.begin() so all statements are committed at the end
     with engine.begin() as conn:
+        # Drop existing tables if any
         conn.execute(text("DROP TABLE IF EXISTS combined;"))
         conn.execute(text("DROP TABLE IF EXISTS combined_step1;"))
+        conn.execute(text("DROP TABLE IF EXISTS aggregated_reviews;"))
 
+        # Aggregate reviews per game_id (concatenate all reviews into one string)
+        conn.execute(text("""
+            CREATE TABLE aggregated_reviews AS
+            SELECT
+                game_id,
+                STRING_AGG(review, ' ') AS all_reviews -- concatenate with space
+            FROM reviews
+            GROUP BY game_id;
+        """))
+        print("Aggregated reviews per game_id")
+
+        # Join steamdata, steam_api, and aggregated reviews
         conn.execute(text("""
             CREATE TABLE combined_step1 AS
             SELECT
@@ -68,19 +81,18 @@ def load_csv_to_postgres_and_export():
                 sd.current_price,
                 sd.discounted_price,
                 sa.owners,
-                r.review
+                ar.all_reviews AS review
             FROM steamdata sd
             LEFT JOIN steam_api sa ON sd.game_id = sa.game_id
-            LEFT JOIN reviews r ON sd.game_id = r.game_id;
+            LEFT JOIN aggregated_reviews ar ON sd.game_id = ar.game_id;
         """))
-        print("Step 1: Joined steamdata, steam_api, reviews")
+        print("Step 1: Joined steamdata, steam_api, and aggregated reviews")
 
         conn.execute(text("""
             ALTER TABLE combined_step1
             ADD COLUMN days_after_publish INT;
         """))
 
-        # Use 'YYYY-MM-DD' format in TO_DATE()
         conn.execute(text("""
             UPDATE combined_step1
             SET days_after_publish = DATE_PART('day', NOW() - TO_DATE(release_date, 'YYYY-MM-DD'))
@@ -107,7 +119,6 @@ def load_csv_to_postgres_and_export():
         """))
         print("Step 3: Final combined table created")
 
-    # Now read after commit, with a fresh connection
     combined_df = pd.read_sql("SELECT * FROM combined", engine)
     print("Loaded combined table into DataFrame")
     print("combined_df shape:", combined_df.shape)
