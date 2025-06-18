@@ -6,6 +6,7 @@ from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.metrics import mean_squared_error
+import joblib  # <-- added for saving
 
 # Load data
 df = pd.read_csv("data/combined3.csv")
@@ -85,5 +86,10 @@ best_model = grid_search.best_estimator_
 y_pred = best_model.predict(X_test)
 rmse = np.sqrt(mean_squared_error(y_test, y_pred))
 
-print(f" Best Params: {grid_search.best_params_}")
-print(f" RMSE on Test Set: {rmse:.4f}")
+print(f"Best Params: {grid_search.best_params_}")
+print(f"RMSE on Test Set: {rmse:.4f}")
+
+# Save final model and preprocessor
+joblib.dump(best_model, 'models/discount_model_pipeline.pkl')
+joblib.dump(mlb_genres, 'models/mlb_genres.pkl')
+joblib.dump(mlb_tags, 'models/mlb_tags.pkl')
