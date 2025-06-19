@@ -7,6 +7,10 @@ A machine learning pipeline for optimizing game discount strategies using Steam 
 mlflow ui --backend-store-uri sqlite:///mlflow.db
 ```
 
+```
+python scripts\train_base_mlflow.py
+```
+
 
 
 
