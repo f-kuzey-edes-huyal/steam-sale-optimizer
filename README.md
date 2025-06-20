@@ -3,12 +3,17 @@ A machine learning pipeline for optimizing game discount strategies using Steam 
 
 
 ## 🧪 Experiment Tracking with MLflow
+
+First, activate your virtual environment in your terminal and run the command below to start the MLflow UI:
 ```
 mlflow ui --backend-store-uri sqlite:///mlflow.db
 ```
+Next, open a new terminal window, activate your virtual environment again, and run your experiment tracking code.
+
+
 
 ```
-python scripts\train_base_mlflow.py
+python scripts/train_base_mlflow_experiment_tracking.py
 ```
 
 Access your MLflow experiments by navigating to http://127.0.0.1:5000 in your browser to visualize and manage your experiment tracking
