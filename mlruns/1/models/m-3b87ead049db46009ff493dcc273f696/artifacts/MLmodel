@@ -1,0 +1,28 @@
+artifact_path: file:///C:/Users/Kuzey/steam-sale-optimizer/mlruns/1/models/m-3b87ead049db46009ff493dcc273f696/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.10.16
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.0
+is_signature_from_type_hint: false
+mlflow_version: 3.1.0
+model_id: m-3b87ead049db46009ff493dcc273f696
+model_size_bytes: 49722
+model_uuid: m-3b87ead049db46009ff493dcc273f696
+prompts: null
+run_id: 8deb53afa6254bc895d4324ddda43497
+signature:
+  inputs: '[{"type": "any", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-06-19 23:15:00.345228'
