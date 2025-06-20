@@ -13,7 +13,7 @@ python scripts\train_base_mlflow.py
 
 Access your MLflow experiments by navigating to http://127.0.0.1:5000 in your browser to visualize and manage your experiment tracking
 
-<img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/exp_tracking_optuna.png" alt="Alt text" width="300"/>
+<img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/exp_tracking_optuna.png" alt="Alt text" width="800"/>
 
 
 
