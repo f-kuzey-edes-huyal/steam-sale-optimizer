@@ -56,7 +56,7 @@ def load_and_preprocess_data(filepath):
     y = df_enc['discount_pct']
     return X, y, mlb_genres, mlb_tags
 
-# --- MLFlow Setup ---
+# --- MLflow setup ---
 mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
 mlflow.set_experiment(EXPERIMENT_NAME)
 mlflow.sklearn.autolog()
@@ -66,35 +66,38 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 preprocessor = get_preprocessor()
 used_models = set()
 
-# --- Optuna Objective ---
+# --- Optuna objective ---
 def objective(trial):
     params = get_search_space(trial)
     model_type = params.pop("model_type")
     used_models.add(model_type)
 
     if model_type == "RandomForest":
-        model = RandomForestRegressor(**{
-            "n_estimators": params["rf_n_estimators"],
-            "max_depth": params["rf_max_depth"],
-            "min_samples_split": params["rf_min_samples_split"],
-            "random_state": SEED,
-            "n_jobs": -1
-        })
-
+        model = RandomForestRegressor(
+            n_estimators=params["rf_n_estimators"],
+            max_depth=params["rf_max_depth"],
+            min_samples_split=params["rf_min_samples_split"],
+            random_state=SEED,
+            n_jobs=-1
+        )
     elif model_type == "LightGBM":
         model = LGBMRegressor(**params, random_state=SEED, n_jobs=-1)
 
     elif model_type == "ExtraTrees":
-        model = ExtraTreesRegressor(**{
-            "n_estimators": params["et_n_estimators"],
-            "max_depth": params["et_max_depth"],
-            "min_samples_split": params["et_min_samples_split"],
-            "random_state": SEED,
-            "n_jobs": -1
-        })
-
+        model = ExtraTreesRegressor(
+            n_estimators=params["et_n_estimators"],
+            max_depth=params["et_max_depth"],
+            min_samples_split=params["et_min_samples_split"],
+            random_state=SEED,
+            n_jobs=-1
+        )
     elif model_type == "LinearSVR":
-        model = LinearSVR(**params, max_iter=10000, random_state=SEED)
+        model = LinearSVR(
+            epsilon=params["svr_epsilon"],
+            C=params["svr_C"],
+            max_iter=10000,
+            random_state=SEED
+        )
 
     pipeline = Pipeline([
         ('preprocess', preprocessor),
@@ -114,51 +117,53 @@ def objective(trial):
 
     return rmse
 
-# --- Run Study ---
+# --- Run study ---
 study = optuna.create_study(direction="minimize", sampler=optuna.samplers.TPESampler(seed=SEED))
 for model_name in ["RandomForest", "LightGBM", "ExtraTrees", "LinearSVR"]:
     study.enqueue_trial({"model_type": model_name})
 study.optimize(objective, n_trials=40)
 
-# --- Log Best Model ---
+# --- Final best model logging ---
 trial = study.best_trial
 best_params = trial.params.copy()
 best_model_type = best_params.pop("model_type")
 
 if best_model_type == "RandomForest":
-    final_model = RandomForestRegressor(**{
-        "n_estimators": best_params["rf_n_estimators"],
-        "max_depth": best_params["rf_max_depth"],
-        "min_samples_split": best_params["rf_min_samples_split"],
-        "random_state": SEED,
-        "n_jobs": -1
-    })
-
+    final_model = RandomForestRegressor(
+        n_estimators=best_params["rf_n_estimators"],
+        max_depth=best_params["rf_max_depth"],
+        min_samples_split=best_params["rf_min_samples_split"],
+        random_state=SEED,
+        n_jobs=-1
+    )
 elif best_model_type == "LightGBM":
     final_model = LGBMRegressor(**best_params, random_state=SEED, n_jobs=-1)
 
 elif best_model_type == "ExtraTrees":
-    final_model = ExtraTreesRegressor(**{
-        "n_estimators": best_params["et_n_estimators"],
-        "max_depth": best_params["et_max_depth"],
-        "min_samples_split": best_params["et_min_samples_split"],
-        "random_state": SEED,
-        "n_jobs": -1
-    })
-
+    final_model = ExtraTreesRegressor(
+        n_estimators=best_params["et_n_estimators"],
+        max_depth=best_params["et_max_depth"],
+        min_samples_split=best_params["et_min_samples_split"],
+        random_state=SEED,
+        n_jobs=-1
+    )
 elif best_model_type == "LinearSVR":
-    final_model = LinearSVR(**best_params, max_iter=10000, random_state=SEED)
+    final_model = LinearSVR(
+        epsilon=best_params["svr_epsilon"],
+        C=best_params["svr_C"],
+        max_iter=10000,
+        random_state=SEED
+    )
 
 pipeline_final = Pipeline([
     ('preprocess', preprocessor),
     ('model', final_model)
 ])
-
 pipeline_final.fit(X_train, y_train)
 final_preds = pipeline_final.predict(X_test)
 final_rmse = np.sqrt(mean_squared_error(y_test, final_preds))
 
-print(f"Final model ({best_model_type}) RMSE: {final_rmse:.4f}")
+print(f" Final model ({best_model_type}) RMSE: {final_rmse:.4f}")
 
 with mlflow.start_run(run_name="final_model_run"):
     mlflow.log_params(best_params)
