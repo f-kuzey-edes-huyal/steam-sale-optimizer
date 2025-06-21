@@ -38,6 +38,8 @@ Note: Model registration is not the same as deployment, but it allows you to pre
 
 ## 📈 Monitoring Data Drift 
 
+## 📦 Model Deployment
+
 ## 🚀 Full Orchestration with Apache Airflow
 
 
