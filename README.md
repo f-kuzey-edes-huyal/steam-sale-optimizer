@@ -79,6 +79,8 @@ I had to adjust my scripts to run my DAG file successfully with Apache Airflow o
 
 [https://learn.microsoft.com/en-us/azure/machine-learning/how-to-deploy-mlflow-models-online-endpoints?view=azureml-api-2&tabs=cli]
 
+[https://medium.com/@ab.vancouver.canada/monitoring-data-drift-with-evidently-ai-and-grafana-a-comprehensive-guide-169bff90f48c]
+
 ??? ```ERROR: Could not install packages due to an OSError: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\Users\\Kuzey\\AppData\\Local\\Temp\\pip-unpack-lwymme3e\\future-1.0.0-py3-none-any.whl'```
 
 # Notes for Myself
