@@ -37,6 +37,17 @@ Note: Model registration is not the same as deployment, but it allows you to pre
 
 
 ## 📈 Monitoring Data Drift 
+
+## 🚀 Full Orchestration with Apache Airflow
+
+
+
+
+
+
+
+
+
 ```pip install -e . ```
 
 ```docker-compose up --build```
