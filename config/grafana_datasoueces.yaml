@@ -1,0 +1,17 @@
+apiVersion: 1
+
+datasources:
+  - name: PostgreSQL
+    type: postgres
+    access: proxy
+    url: db:5432
+    database: test
+    user: postgres
+    secureJsonData:
+      #Instead of hardcoding the password, set it as an environment variable:
+      #export GF_DATABASE_PASSWORD='your-secure-password'
+      #Alternatively, if you're deploying Grafana via Docker or Kubernetes:
+      #docker run -e GF_DATABASE_PASSWORD='your-secure-password' ...
+      password: "${GF_DATABASE_PASSWORD}"  # Use environment variable for security
+    jsonData:
+      sslmode: "disable"
