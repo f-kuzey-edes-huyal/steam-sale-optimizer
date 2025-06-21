@@ -27,6 +27,10 @@ Instead of selecting the model for registration within the training script, you 
 
 While your MLflow tracking server is running, open a new terminal and execute the code below to register your model.
 
+```
+python scripts\select_and_register_best_model.py
+```
+
 Note: Model registration is not the same as deployment, but it allows you to prepare the model for future deployment or serving.
 
 
