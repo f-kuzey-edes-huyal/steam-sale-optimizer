@@ -23,6 +23,14 @@ Access your MLflow experiments by navigating to http://127.0.0.1:5000 in your br
 
 ## 🗃️ Model Registry
 
+Instead of selecting the model for registration within the training script, you can register the model separately using ```mlflow.register_model```.
+
+While your MLflow tracking server is running, open a new terminal and execute the code below to register your model.
+
+Note: Model registration is not the same as deployment, but it allows you to prepare the model for future deployment or serving.
+
+
+
 
 ## 📈 Monitoring Data Drift 
 ```pip install -e . ```
