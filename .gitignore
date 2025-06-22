@@ -174,3 +174,4 @@ cython_debug/
 .pypirc
 logs/
 airflow/logs/
+mlruns/
