@@ -180,6 +180,9 @@ def objective(trial):
         mlflow.log_metric("mae", mae)
         mlflow.log_metric("mape", mape)
 
+        # Log the trained pipeline model
+        mlflow.sklearn.log_model(pipeline, artifact_path="model")
+
     # Use MAE as the optimization metric
     return mae
 
@@ -187,7 +190,7 @@ def objective(trial):
 study = optuna.create_study(direction="minimize", sampler=optuna.samplers.TPESampler(seed=SEED))
 for model_name in ["RandomForest", "LightGBM", "ExtraTrees", "LinearSVR"]:
     study.enqueue_trial({"model_type": model_name})
-study.optimize(objective, n_trials=40)
+study.optimize(objective, n_trials=200)
 
 
 trial = study.best_trial
