@@ -1,0 +1,236 @@
+import pandas as pd
+import numpy as np
+import joblib
+import mlflow
+import mlflow.sklearn
+import optuna
+
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import mean_squared_error
+from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor
+from sklearn.svm import LinearSVR
+from lightgbm import LGBMRegressor
+from sklearn.preprocessing import MultiLabelBinarizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.decomposition import TruncatedSVD
+
+import os
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from config.constants import MLFLOW_TRACKING_URI, EXPERIMENT_NAME, DATA_PATH, SEED
+from config.preprocessing import get_preprocessor, NUMERIC_FEATURES
+from config.hyperparams import get_search_space
+
+
+def parse_price(val):
+    try:
+        return float(str(val).replace('$', '').replace('USD', '').strip())
+    except:
+        return np.nan
+
+
+def transform_review_column(df, seed=42):
+    df['review'] = df['review'].fillna('')
+
+    tfidf = TfidfVectorizer(max_features=1000)
+    tfidf_matrix = tfidf.fit_transform(df['review'])
+
+    svd = TruncatedSVD(n_components=1, random_state=seed)
+    df['review_score'] = svd.fit_transform(tfidf_matrix).flatten()
+
+    os.makedirs('models', exist_ok=True)
+    joblib.dump(tfidf, 'models/tfidf_vectorizer.pkl')
+    joblib.dump(svd, 'models/svd_transform.pkl')
+
+    return df
+
+
+# New transformer class for competitor pricing
+class CompetitorPricingTransformer:
+    def __init__(self):
+        self.tag_price_map = {}
+
+    def fit(self, df):
+        # Flatten tags and collect prices
+        tag_prices = {}
+        for tags, price in zip(df['tags'], df['current_price']):
+            for tag in tags:
+                tag_prices.setdefault(tag, []).append(price)
+        # Store median price per tag
+        self.tag_price_map = {tag: np.median(prices) for tag, prices in tag_prices.items()}
+        return self
+
+    def transform(self, df):
+        def competitor_price_for_tags(tags):
+            prices = [self.tag_price_map.get(tag, np.nan) for tag in tags]
+            prices = [p for p in prices if not np.isnan(p)]
+            if prices:
+                return np.mean(prices)  # mean competitor price for those tags
+            else:
+                return np.nan
+
+        df['competitor_pricing'] = df['tags'].apply(competitor_price_for_tags)
+        # Fill missing competitor pricing with current_price or median fallback
+        median_price = df['current_price'].median()
+        df['competitor_pricing'] = df['competitor_pricing'].fillna(median_price)
+        return df
+
+
+def load_and_preprocess_data(filepath):
+    df = pd.read_csv(filepath)
+    df = df.dropna(subset=[
+        'total_reviews', 'positive_percent', 'genres', 'tags',
+        'current_price', 'discounted_price', 'owners_log_mean', 'days_after_publish']
+    )
+    df['current_price'] = df['current_price'].apply(parse_price)
+    df['discounted_price'] = df['discounted_price'].apply(parse_price)
+    df = df.dropna(subset=['current_price', 'discounted_price'])
+
+    df['discount_pct'] = 1 - (df['discounted_price'] / df['current_price'])
+    df['genres'] = df['genres'].fillna('').apply(lambda x: [g.strip() for g in str(x).split(',')])
+    df['tags'] = df['tags'].fillna('').apply(lambda x: [t.strip() for t in str(x).split(';')])
+
+    df = transform_review_column(df, seed=SEED)
+
+    # Instantiate and fit CompetitorPricingTransformer
+    competitor_transformer = CompetitorPricingTransformer()
+    competitor_transformer.fit(df)
+    df = competitor_transformer.transform(df)
+
+    mlb_genres = MultiLabelBinarizer()
+    mlb_tags = MultiLabelBinarizer()
+
+    genres_encoded = pd.DataFrame(mlb_genres.fit_transform(df['genres']), columns=mlb_genres.classes_)
+    tags_encoded = pd.DataFrame(mlb_tags.fit_transform(df['tags']), columns=mlb_tags.classes_)
+
+    df_enc = pd.concat([df.reset_index(drop=True), genres_encoded, tags_encoded], axis=1)
+
+    features = NUMERIC_FEATURES + ['review_score', 'competitor_pricing'] + list(genres_encoded.columns) + list(tags_encoded.columns)
+
+    X = df_enc[features]
+    y = df_enc['discount_pct']
+    return X, y, mlb_genres, mlb_tags, competitor_transformer
+
+
+# MLflow setup (fixed variable name)
+mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
+mlflow.set_experiment(EXPERIMENT_NAME)
+mlflow.sklearn.autolog()
+
+X, y, mlb_genres, mlb_tags, competitor_transformer = load_and_preprocess_data(DATA_PATH)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=SEED)
+preprocessor = get_preprocessor()
+used_models = set()
+
+
+def objective(trial):
+    params = get_search_space(trial)
+    model_type = params.pop("model_type")
+    used_models.add(model_type)
+
+    if model_type == "RandomForest":
+        model = RandomForestRegressor(
+            n_estimators=params["rf_n_estimators"],
+            max_depth=params["rf_max_depth"],
+            min_samples_split=params["rf_min_samples_split"],
+            random_state=SEED,
+            n_jobs=-1
+        )
+    elif model_type == "LightGBM":
+        model = LGBMRegressor(**params, random_state=SEED, n_jobs=-1)
+    elif model_type == "ExtraTrees":
+        model = ExtraTreesRegressor(
+            n_estimators=params["et_n_estimators"],
+            max_depth=params["et_max_depth"],
+            min_samples_split=params["et_min_samples_split"],
+            random_state=SEED,
+            n_jobs=-1
+        )
+    elif model_type == "LinearSVR":
+        model = LinearSVR(
+            epsilon=params["svr_epsilon"],
+            C=params["svr_C"],
+            max_iter=10000,
+            random_state=SEED
+        )
+
+    pipeline = Pipeline([
+        ('preprocess', preprocessor),
+        ('model', model)
+    ])
+
+    with mlflow.start_run(nested=True):
+        mlflow.set_tag("developer", "F. Kuzey Edes-Huyal")
+        mlflow.log_param("model_type", model_type)
+        mlflow.log_params(params)
+        mlflow.log_param("data_path", DATA_PATH)
+
+        pipeline.fit(X_train, y_train)
+        preds = pipeline.predict(X_test)
+        rmse = np.sqrt(mean_squared_error(y_test, preds))
+        mlflow.log_metric("rmse", rmse)
+
+    return rmse
+
+
+study = optuna.create_study(direction="minimize", sampler=optuna.samplers.TPESampler(seed=SEED))
+for model_name in ["RandomForest", "LightGBM", "ExtraTrees", "LinearSVR"]:
+    study.enqueue_trial({"model_type": model_name})
+study.optimize(objective, n_trials=40)
+
+
+trial = study.best_trial
+best_params = trial.params.copy()
+best_model_type = best_params.pop("model_type")
+
+if best_model_type == "RandomForest":
+    final_model = RandomForestRegressor(
+        n_estimators=best_params["rf_n_estimators"],
+        max_depth=best_params["rf_max_depth"],
+        min_samples_split=best_params["rf_min_samples_split"],
+        random_state=SEED,
+        n_jobs=-1
+    )
+elif best_model_type == "LightGBM":
+    final_model = LGBMRegressor(**best_params, random_state=SEED, n_jobs=-1)
+elif best_model_type == "ExtraTrees":
+    final_model = ExtraTreesRegressor(
+        n_estimators=best_params["et_n_estimators"],
+        max_depth=best_params["et_max_depth"],
+        min_samples_split=best_params["et_min_samples_split"],
+        random_state=SEED,
+        n_jobs=-1
+    )
+elif best_model_type == "LinearSVR":
+    final_model = LinearSVR(
+        epsilon=best_params["svr_epsilon"],
+        C=best_params["svr_C"],
+        max_iter=10000,
+        random_state=SEED
+    )
+
+pipeline_final = Pipeline([
+    ('preprocess', preprocessor),
+    ('model', final_model)
+])
+pipeline_final.fit(X_train, y_train)
+final_preds = pipeline_final.predict(X_test)
+final_rmse = np.sqrt(mean_squared_error(y_test, final_preds))
+
+print(f" Final model ({best_model_type}) RMSE: {final_rmse:.4f}")
+
+with mlflow.start_run(run_name="final_model_run"):
+    mlflow.log_params(best_params)
+    mlflow.log_param("model_type", best_model_type)
+    mlflow.log_metric("rmse", final_rmse)
+    mlflow.sklearn.log_model(pipeline_final, "model", input_example=X_test.iloc[:5])
+
+# Save models and transformers for deployment
+os.makedirs('models', exist_ok=True)
+joblib.dump(pipeline_final, 'models/discount_model_pipeline.pkl')
+joblib.dump(mlb_genres, 'models/mlb_genres.pkl')
+joblib.dump(mlb_tags, 'models/mlb_tags.pkl')
+joblib.dump(competitor_transformer, 'models/competitor_pricing_transformer.pkl')
