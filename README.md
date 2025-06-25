@@ -35,6 +35,8 @@ While your MLflow tracking server is running, open a new terminal and execute th
 python scripts\select_and_register_best_model.py
 ```
 
+I observed a __14% improvement__ in mean absolute error for the small training sample size when including competitor pricing and review scores, compared to the experiment where these features were not included.  
+
 Note: Model registration is not the same as deployment, but it allows you to prepare the model for future deployment or serving.
 
 
