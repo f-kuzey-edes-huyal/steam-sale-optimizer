@@ -41,7 +41,7 @@ python scripts\model_registry_final.py
 
 Note: Model registration is not the same as deployment, but it allows you to prepare the model for future deployment or serving.
 
-To perform experiment tracking and model registration through orchestration, run docker-compose up --build, then navigate to http://localhost:8080 and trigger the relevant DAG.
+To perform experiment tracking and model registration through orchestration, run ```docker-compose up --build```, then navigate to http://localhost:8080 and trigger the relevant DAG.
 
 
 ## 📈 Monitoring Data Drift 
