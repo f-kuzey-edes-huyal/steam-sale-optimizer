@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   postgres:
     image: postgres:13
@@ -30,6 +32,7 @@ services:
       - ./data:/opt/airflow/data
       - ./logs:/opt/airflow/logs
       - ./scripts:/opt/airflow/scripts
+      - ./config:/opt/airflow/config
     command: bash -c "airflow db upgrade"
 
   airflow-webserver:
@@ -58,10 +61,6 @@ services:
     ports:
       - "8080:8080"
     command: bash /entrypoint.sh
-    # deploy:
-    #   resources:
-    #     limits:
-    #       memory: 1g
 
   airflow-scheduler:
     build:
@@ -84,10 +83,27 @@ services:
       - ./logs:/opt/airflow/logs
       - ./scripts:/opt/airflow/scripts
     command: bash -c "airflow scheduler"
-    # deploy:
-    #   resources:
-    #     limits:
-    #       memory: 1g
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:latest
+    container_name: mlflow
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      MLFLOW_TRACKING_URI: http://localhost:5000
+      HTTP_PROXY: "http://proxy.example.com:8080"
+      HTTPS_PROXY: "http://proxy.example.com:8080"
+      NO_PROXY: "localhost,127.0.0.1,host.docker.internal"
+    volumes:
+      - ./mlruns:/mlruns
+    command: >
+      mlflow server
+      --backend-store-uri sqlite:///mlflow.db
+      --default-artifact-root /mlruns
+      --host 0.0.0.0
+      --port 5000
 
 volumes:
   postgres_data:
+  mlruns:
