@@ -52,7 +52,10 @@ To perform experiment tracking and model registration through orchestration, run
 
 
 
-
+docker system prune -a
+docker compose down
+docker compose build --no-cache
+docker compose up
 
 
 
