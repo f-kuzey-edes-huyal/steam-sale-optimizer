@@ -3,6 +3,8 @@ FROM apache/airflow:2.9.0-python3.10
 # Switch to root to install system dependencies
 USER root
 
+RUN apt-get update && apt-get install -y libgomp1
+
 # Install dependencies needed for Chrome and Selenium
 RUN apt-get update && apt-get install -y \
     wget \
@@ -38,18 +40,19 @@ RUN wget -O /tmp/chromedriver_linux64.zip https://edgedl.me.gvt1.com/edgedl/chro
     chmod +x /usr/local/bin/chromedriver && \
     rm -rf /tmp/chromedriver_linux64.zip /tmp/chromedriver-linux64
 
-# Add this: set the PATH correctly (some setups require this)
+# Ensure PATH includes ChromeDriver
 ENV PATH="/usr/local/bin:$PATH"
-
-# Also add this: tell Selenium to use headless mode by default (optional but helps debugging)
 ENV CHROME_BIN="/usr/bin/google-chrome"
 ENV CHROMEDRIVER_BIN="/usr/local/bin/chromedriver"
-
-# Switch back to airflow user
-USER airflow
 
 # Copy requirements.txt
 COPY requirements.txt /requirements.txt
 
-# Install Python packages
-RUN pip install --no-cache-dir --timeout=100 --retries=10 -r /requirements.txt
+# Switch to airflow user before installing Python packages
+USER airflow
+
+# Install Python packages with version pins for Flask/Connexion compatibility
+RUN pip install --no-cache-dir --timeout=100 --retries=10 \
+    flask==2.2.5 \
+    connexion[swagger-ui]==2.14.2 && \
+    pip install --no-cache-dir --timeout=100 --retries=10 -r /requirements.txt
