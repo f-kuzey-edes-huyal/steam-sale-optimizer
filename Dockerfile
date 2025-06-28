@@ -52,7 +52,7 @@ COPY requirements.txt /requirements.txt
 USER airflow
 
 # Install Python packages with version pins for Flask/Connexion compatibility
-RUN pip install --no-cache-dir --timeout=100 --retries=10 \
+RUN pip install --no-cache-dir --timeout=1000 --retries=10 \
     flask==2.2.5 \
     connexion[swagger-ui]==2.14.2 && \
-    pip install --no-cache-dir --timeout=100 --retries=10 -r /requirements.txt
+    pip install --no-cache-dir --timeout=1000 --retries=10 -r /requirements.txt
