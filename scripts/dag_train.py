@@ -6,6 +6,7 @@ import sys
 import mlflow
 import mlflow.sklearn
 import optuna
+import logging
 
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
@@ -16,9 +17,11 @@ from lightgbm import LGBMRegressor
 from sklearn.preprocessing import MultiLabelBinarizer
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from config.constants import MLFLOW_TRACKING_URI, EXPERIMENT_NAME2, DATA_PATH, SEED
+from config.constants import MLFLOW_TRACKING_URI, EXPERIMENT_NAME3, DATA_PATH, SEED
 from config.preprocessing import get_preprocessor, NUMERIC_FEATURES
 from config.hyperparams import get_search_space
+
+logging.basicConfig(level=logging.INFO)
 
 
 def parse_price(val):
@@ -26,6 +29,7 @@ def parse_price(val):
         return float(str(val).replace('$', '').replace('USD', '').strip())
     except:
         return np.nan
+
 
 def mean_absolute_percentage_error(y_true, y_pred):
     y_true, y_pred = np.array(y_true), np.array(y_pred)
@@ -35,7 +39,11 @@ def mean_absolute_percentage_error(y_true, y_pred):
 
 def load_data():
     df = pd.read_csv(DATA_PATH)
-    df = df.dropna(subset=['total_reviews', 'positive_percent', 'genres', 'tags', 'current_price', 'discounted_price', 'owners_log_mean', 'days_after_publish'])
+    df = df.dropna(
+        subset=[
+            'total_reviews', 'positive_percent', 'genres', 'tags',
+            'current_price', 'discounted_price', 'owners_log_mean', 'days_after_publish'
+        ])
     df['current_price'] = df['current_price'].apply(parse_price)
     df['discounted_price'] = df['discounted_price'].apply(parse_price)
     df = df.dropna(subset=['current_price', 'discounted_price'])
@@ -61,8 +69,18 @@ def load_data():
 
 
 def train_and_log_model():
-    mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
-    mlflow.set_experiment(EXPERIMENT_NAME2)
+    # Set MLflow tracking URI explicitly here (must match Airflow volume mount)
+    mlflow.set_tracking_uri("file:///opt/airflow/mlruns")
+
+    # Create experiment if it does not exist
+    experiment = mlflow.get_experiment_by_name(EXPERIMENT_NAME3)
+    if experiment is None:
+        experiment_id = mlflow.create_experiment(EXPERIMENT_NAME3)
+        logging.info(f"Created MLflow experiment '{EXPERIMENT_NAME3}' with id {experiment_id}")
+    else:
+        logging.info(f"Using existing MLflow experiment '{EXPERIMENT_NAME3}' with id {experiment.experiment_id}")
+
+    mlflow.set_experiment(EXPERIMENT_NAME3)
     mlflow.sklearn.autolog()
 
     X, y, mlb_genres, mlb_tags = joblib.load('models/preprocessed_data.pkl')
@@ -74,11 +92,13 @@ def train_and_log_model():
         model_type = params.pop("model_type")
 
         if model_type == "RandomForest":
-            model = RandomForestRegressor(n_estimators=params["rf_n_estimators"], max_depth=params["rf_max_depth"], min_samples_split=params["rf_min_samples_split"], random_state=SEED, n_jobs=-1)
+            model = RandomForestRegressor(n_estimators=params["rf_n_estimators"], max_depth=params["rf_max_depth"],
+                                          min_samples_split=params["rf_min_samples_split"], random_state=SEED, n_jobs=-1)
         elif model_type == "LightGBM":
             model = LGBMRegressor(**params, random_state=SEED, n_jobs=-1)
         elif model_type == "ExtraTrees":
-            model = ExtraTreesRegressor(n_estimators=params["et_n_estimators"], max_depth=params["et_max_depth"], min_samples_split=params["et_min_samples_split"], random_state=SEED, n_jobs=-1)
+            model = ExtraTreesRegressor(n_estimators=params["et_n_estimators"], max_depth=params["et_max_depth"],
+                                       min_samples_split=params["et_min_samples_split"], random_state=SEED, n_jobs=-1)
         elif model_type == "LinearSVR":
             model = LinearSVR(epsilon=params["svr_epsilon"], C=params["svr_C"], max_iter=10000, random_state=SEED)
 
@@ -102,6 +122,9 @@ def train_and_log_model():
             mlflow.log_metric("mape", mape)
             mlflow.sklearn.log_model(pipeline, artifact_path="model")
 
+        # Optional but clean:
+        mlflow.end_run()
+
         return mae
 
     study = optuna.create_study(direction="minimize", sampler=optuna.samplers.TPESampler(seed=SEED))
@@ -114,15 +137,20 @@ def train_and_log_model():
 
 
 def finalize_and_log():
+    mlflow.set_tracking_uri("file:/opt/airflow/mlruns")
+    mlflow.set_experiment(EXPERIMENT_NAME3)
+
     best_params, X_train, y_train, X_val, y_val, preprocessor, mlb_genres, mlb_tags = joblib.load('models/best_model_info.pkl')
     best_model_type = best_params.pop("model_type")
 
     if best_model_type == "RandomForest":
-        final_model = RandomForestRegressor(n_estimators=best_params["rf_n_estimators"], max_depth=best_params["rf_max_depth"], min_samples_split=best_params["rf_min_samples_split"], random_state=SEED, n_jobs=-1)
+        final_model = RandomForestRegressor(n_estimators=best_params["rf_n_estimators"], max_depth=best_params["rf_max_depth"],
+                                            min_samples_split=best_params["rf_min_samples_split"], random_state=SEED, n_jobs=-1)
     elif best_model_type == "LightGBM":
         final_model = LGBMRegressor(**best_params, random_state=SEED, n_jobs=-1)
     elif best_model_type == "ExtraTrees":
-        final_model = ExtraTreesRegressor(n_estimators=best_params["et_n_estimators"], max_depth=best_params["et_max_depth"], min_samples_split=best_params["et_min_samples_split"], random_state=SEED, n_jobs=-1)
+        final_model = ExtraTreesRegressor(n_estimators=best_params["et_n_estimators"], max_depth=best_params["et_max_depth"],
+                                          min_samples_split=best_params["et_min_samples_split"], random_state=SEED, n_jobs=-1)
     elif best_model_type == "LinearSVR":
         final_model = LinearSVR(epsilon=best_params["svr_epsilon"], C=best_params["svr_C"], max_iter=10000, random_state=SEED)
 
@@ -153,3 +181,4 @@ def finalize_and_log():
         mlflow.log_artifact(genres_path, artifact_path="transformers")
         mlflow.log_artifact(tags_path, artifact_path="transformers")
 
+    mlflow.end_run()

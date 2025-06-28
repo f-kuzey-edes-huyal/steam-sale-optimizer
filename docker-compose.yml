@@ -28,6 +28,8 @@ services:
       - ./logs:/opt/airflow/logs
       - ./scripts:/opt/airflow/scripts
       - ./config:/opt/airflow/config
+      - ./mlruns:/opt/airflow/mlruns
+      - ./mlflow_db/mlflow.db:/opt/airflow/mlflow.db   # SQLite DB file
     command: bash -c "airflow db upgrade"
 
   airflow-webserver:
@@ -50,6 +52,9 @@ services:
       - ./logs:/opt/airflow/logs
       - ./scripts:/opt/airflow/scripts
       - ./entrypoint.sh:/entrypoint.sh
+      - ./config:/opt/airflow/config
+      - ./mlruns:/opt/airflow/mlruns
+      - ./mlflow_db/mlflow.db:/opt/airflow/mlflow.db   # SQLite DB file
     ports:
       - "8080:8080"
     command: bash /entrypoint.sh
@@ -71,6 +76,9 @@ services:
       - ./data:/opt/airflow/data
       - ./logs:/opt/airflow/logs
       - ./scripts:/opt/airflow/scripts
+      - ./config:/opt/airflow/config
+      - ./mlruns:/opt/airflow/mlruns
+      - ./mlflow_db/mlflow.db:/opt/airflow/mlflow.db   # SQLite DB file
     command: bash -c "airflow scheduler"
 
   mlflow:
