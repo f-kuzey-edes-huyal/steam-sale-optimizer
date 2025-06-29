@@ -130,7 +130,7 @@ def train_and_log_model():
     study = optuna.create_study(direction="minimize", sampler=optuna.samplers.TPESampler(seed=SEED))
     for model_name in ["RandomForest", "LightGBM", "ExtraTrees", "LinearSVR"]:
         study.enqueue_trial({"model_type": model_name})
-    study.optimize(objective, n_trials=200)
+    study.optimize(objective, n_trials=10)
 
     best_trial = study.best_trial
     joblib.dump((best_trial.params, X_train, y_train, X_val, y_val, preprocessor, mlb_genres, mlb_tags), 'models/best_model_info.pkl')

@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   postgres:
     image: postgres:13
@@ -29,7 +31,7 @@ services:
       - ./scripts:/opt/airflow/scripts
       - ./config:/opt/airflow/config
       - ./mlruns:/opt/airflow/mlruns
-      - ./mlflow_db/mlflow.db:/opt/airflow/mlflow.db   # SQLite DB file
+      - ./mlflow_db:/mlflow_db  #  Mount folder, not file!
     command: bash -c "airflow db upgrade"
 
   airflow-webserver:
@@ -54,7 +56,7 @@ services:
       - ./entrypoint.sh:/entrypoint.sh
       - ./config:/opt/airflow/config
       - ./mlruns:/opt/airflow/mlruns
-      - ./mlflow_db/mlflow.db:/opt/airflow/mlflow.db   # SQLite DB file
+      - ./mlflow_db:/mlflow_db  #  Mount folder, not file!
     ports:
       - "8080:8080"
     command: bash /entrypoint.sh
@@ -78,7 +80,7 @@ services:
       - ./scripts:/opt/airflow/scripts
       - ./config:/opt/airflow/config
       - ./mlruns:/opt/airflow/mlruns
-      - ./mlflow_db/mlflow.db:/opt/airflow/mlflow.db   # SQLite DB file
+      - ./mlflow_db:/mlflow_db  #  Mount folder, not file!
     command: bash -c "airflow scheduler"
 
   mlflow:
@@ -94,9 +96,10 @@ services:
     volumes:
       - ./mlruns:/mlruns
       - ./mlflow:/mlflow
+      - ./mlflow_db:/mlflow_db  #  Mount folder so mlflow.db is accessible
     command: >
       mlflow server
-      --backend-store-uri sqlite:////mlflow/mlflow.db
+      --backend-store-uri sqlite:////mlflow_db/mlflow.db
       --default-artifact-root /mlruns
       --host 0.0.0.0
       --port 5000
