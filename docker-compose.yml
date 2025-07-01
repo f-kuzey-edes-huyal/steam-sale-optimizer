@@ -60,6 +60,12 @@ services:
     ports:
       - "8080:8080"
     command: bash /entrypoint.sh
+    deploy:
+      resources:
+        limits:
+          memory: 1.5g
+        reservations:
+          memory: 1g
 
   airflow-scheduler:
     build:
@@ -82,6 +88,12 @@ services:
       - ./mlruns:/opt/airflow/mlruns
       - ./mlflow_db:/mlflow_db
     command: bash -c "airflow scheduler"
+    deploy:
+      resources:
+        limits:
+          memory: 1.5g
+        reservations:
+          memory: 1g
 
   mlflow:
     build:
@@ -101,6 +113,12 @@ services:
       --default-artifact-root /mlruns
       --host 0.0.0.0
       --port 5000
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+        reservations:
+          memory: 512m
 
 volumes:
   postgres_data:
