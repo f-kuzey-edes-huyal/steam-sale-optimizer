@@ -39,10 +39,10 @@ with DAG(
         python_callable=finalize_and_log
     )
 
-    register_model_task = PythonOperator(
-        task_id='evaluate_and_register_model',
-        python_callable=evaluate_and_register_model
-    )
+    #register_model_task = PythonOperator(
+       # task_id='evaluate_and_register_model',
+       # python_callable=evaluate_and_register_model
+    #)
 
     #load_data_task >> train_model_task >> finalize_model_task >> register_model_task
 
