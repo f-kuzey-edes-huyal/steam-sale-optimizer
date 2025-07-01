@@ -1,5 +1,8 @@
+# config file version
 apiVersion: 1
 
+# list of datasources to insert/update
+# available in the database
 datasources:
   - name: PostgreSQL
     type: postgres
@@ -11,3 +14,4 @@ datasources:
       password: 'example'
     jsonData:
       sslmode: 'disable'
+      database: test

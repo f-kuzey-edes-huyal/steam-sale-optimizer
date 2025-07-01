@@ -153,8 +153,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./config/grafana_datasources.yaml:/etc/grafana/provisioning/datasources/datasource.yaml:ro
-      - ./config/grafana_dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml:ro
+      - ./config/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./config/dashboards:/etc/grafana/provisioning/dashboards:ro
       - ./dashboards:/opt/grafana/dashboards
     environment:
       GF_SERVER_MAX_CONCURRENT_RENDER_REQUESTS: 2
