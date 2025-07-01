@@ -63,6 +63,10 @@ By the way, this figure might give the impression that I got everything right on
 
 ## 🚀 Full Orchestration with Apache Airflow
 
+docker stop $(docker ps -q)
+
+docker start $(docker ps -a -q)
+
 ```docker compose up -d```
 
 Note: While working on this pipeline, I mistakenly mounted some files incorrectly while trying to orchestrate it using Apache Airflow. Each time I did this, I had to run docker-compose down and rebuild the containers, which forced me to reinstall all the packages — countless times. This was very inefficient, especially during periods of poor internet connectivity.
