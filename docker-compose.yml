@@ -8,6 +8,8 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - back-tier
     environment:
       HTTP_PROXY: "http://proxy.example.com:8080"
       HTTPS_PROXY: "http://proxy.example.com:8080"
@@ -33,6 +35,8 @@ services:
       - ./mlruns:/opt/airflow/mlruns
       - ./mlflow_db:/mlflow_db
     command: bash -c "airflow db upgrade"
+    networks:
+      - back-tier
 
   airflow-webserver:
     build:
@@ -66,6 +70,9 @@ services:
           memory: 1.5g
         reservations:
           memory: 1g
+    networks:
+      - back-tier
+      - front-tier
 
   airflow-scheduler:
     build:
@@ -94,6 +101,8 @@ services:
           memory: 1.5g
         reservations:
           memory: 1g
+    networks:
+      - back-tier
 
   mlflow:
     build:
@@ -119,8 +128,39 @@ services:
           memory: 1g
         reservations:
           memory: 512m
+    networks:
+      - back-tier
+      - front-tier
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8081:8080"
+    networks:
+      - front-tier
+      - back-tier
+
+  grafana:
+    image: grafana/grafana
+    user: "472"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./config/grafana_datasources.yaml:/etc/grafana/provisioning/datasources/datasource.yaml:ro
+      - ./config/grafana_dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml:ro
+      - ./dashboards:/opt/grafana/dashboards
+    networks:
+      - front-tier
+      - back-tier
+    restart: always
 
 volumes:
   postgres_data:
   mlruns:
   mlflow_db:
+  grafana_data: {}
+
+networks:
+  front-tier:
+  back-tier:
