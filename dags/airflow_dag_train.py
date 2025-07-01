@@ -1,13 +1,14 @@
-# airflow_dag_train.py
-
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime
 import sys
 import os
 
+# Add scripts folder to path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'scripts')))
+
 from dag_train import load_data, train_and_log_model, finalize_and_log
+from task_registry_stub import evaluate_and_register_model
 
 default_args = {
     'owner': 'kuzey',
@@ -38,4 +39,11 @@ with DAG(
         python_callable=finalize_and_log
     )
 
-    load_data_task >> train_model_task >> finalize_model_task
+    register_model_task = PythonOperator(
+        task_id='evaluate_and_register_model',
+        python_callable=evaluate_and_register_model
+    )
+
+    #load_data_task >> train_model_task >> finalize_model_task >> register_model_task
+
+    load_data_task >> train_model_task >> finalize_model_task 
