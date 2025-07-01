@@ -140,6 +140,12 @@ services:
     networks:
       - front-tier
       - back-tier
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+        reservations:
+          memory: 128m
 
   grafana:
     image: grafana/grafana
@@ -150,10 +156,20 @@ services:
       - ./config/grafana_datasources.yaml:/etc/grafana/provisioning/datasources/datasource.yaml:ro
       - ./config/grafana_dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml:ro
       - ./dashboards:/opt/grafana/dashboards
+    environment:
+      GF_SERVER_MAX_CONCURRENT_RENDER_REQUESTS: 2
+      GF_SERVER_HTTP_MAX_IDLE_CONNS_PER_HOST: 10
+      GF_PLUGINS_ENABLE_ALPHA: "false"
     networks:
       - front-tier
       - back-tier
     restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+        reservations:
+          memory: 256m
 
 volumes:
   postgres_data:
