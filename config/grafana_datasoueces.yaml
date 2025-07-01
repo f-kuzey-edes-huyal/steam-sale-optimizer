@@ -1,5 +1,8 @@
+# config file version
 apiVersion: 1
 
+# list of datasources to insert/update
+# available in the database
 datasources:
   - name: PostgreSQL
     type: postgres
@@ -8,10 +11,7 @@ datasources:
     database: test
     user: postgres
     secureJsonData:
-      #Instead of hardcoding the password, set it as an environment variable:
-      #export GF_DATABASE_PASSWORD='your-secure-password'
-      #Alternatively, if you're deploying Grafana via Docker or Kubernetes:
-      #docker run -e GF_DATABASE_PASSWORD='your-secure-password' ...
-      password: "${GF_DATABASE_PASSWORD}"  # Use environment variable for security
+      password: 'example'
     jsonData:
-      sslmode: "disable"
+      sslmode: 'disable'
+      database: test
