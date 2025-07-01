@@ -41,7 +41,18 @@ python scripts\model_registry_final.py
 
 Note: Model registration is not the same as deployment, but it allows you to prepare the model for future deployment or serving.
 
-To perform experiment tracking and model registration through orchestration, run ```docker-compose up --build```, then navigate to http://localhost:8080 and trigger the relevant DAG.
+To perform experiment tracking orchestration, run ```docker-compose up --build```, then navigate to http://localhost:8080 and trigger the relevant DAG. If you want to orchestrate your experiment tracking with Apache Airflow, the related DAG file is provided. You need to trigger the tasks, as shown in the image below. 
+
+<img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/click_trigger_training.png" width="500">
+
+If your code runs successfully at each step, you will see bold green indicators, like those shown in the image below.
+
+
+<img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/success_dag.png" width="500">
+
+By the way, this figure might give the impression that I got everything right on the first try, but in reality, I had many unsuccessful attempts before finally running this DAG script successfully.
+
+
 
 
 ## 📈 Monitoring Data Drift 
