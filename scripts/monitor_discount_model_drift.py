@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 from evidently.report import Report
 from evidently.metrics import ColumnDriftMetric, DatasetDriftMetric, DatasetMissingValuesMetric
 from evidently import ColumnMapping
+from train_optuna_hyperparameter_mlflow_reviews_competitor_pricing_change_criterion_mean_absolute import CompetitorPricingTransformer
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
@@ -33,8 +34,7 @@ def get_connection(dbname=None, autocommit=False):
     return psycopg.connect(conn_str, autocommit=autocommit)
 
 
-# Eğitim sırasında kaydedilen objeler
-model = joblib.load('models/discount_model_pipeline.pkl')
+model = joblib.load('models/discount_model_pipeline_small.pkl')
 tfidf = joblib.load('models/tfidf_vectorizer.pkl')
 svd = joblib.load('models/svd_transform.pkl')
 mlb_genres = joblib.load('models/mlb_genres.pkl')
@@ -90,6 +90,26 @@ def parse_price(x):
         return np.nan
 
 
+def process_genres(x):
+    if pd.isna(x):
+        return []
+    if isinstance(x, list):
+        return x
+    if isinstance(x, str):
+        return list(set(g.strip() for g in x.split(',') if g.strip()))
+    return []
+
+
+def process_tags(x):
+    if pd.isna(x):
+        return []
+    if isinstance(x, list):
+        return x
+    if isinstance(x, str):
+        return list(set(t.strip() for t in x.split(';') if t.strip()))
+    return []
+
+
 def preprocess(df: pd.DataFrame) -> pd.DataFrame:
     df = df.dropna(subset=[
         'total_reviews', 'positive_percent', 'genres', 'tags',
@@ -102,26 +122,57 @@ def preprocess(df: pd.DataFrame) -> pd.DataFrame:
 
     df['discount_pct'] = 1 - (df['discounted_price'] / df['current_price'])
 
-    df['genres'] = df['genres'].fillna('').apply(lambda s: list(set(g.strip() for g in str(s).split(',')) if s else []))
-    df['tags'] = df['tags'].fillna('').apply(lambda s: list(set(t.strip() for t in str(s).split(';')) if s else []))
+    # Apply fixed robust processing functions to genres and tags
+    df['genres'] = df['genres'].apply(process_genres)
+    df['tags'] = df['tags'].apply(process_tags)
+
+    valid_genres = set(mlb_genres.classes_)
+    valid_tags = set(mlb_tags.classes_)
+
+    df['genres'] = df['genres'].apply(lambda genres: [g for g in genres if g in valid_genres])
+    df['tags'] = df['tags'].apply(lambda tags: [t for t in tags if t in valid_tags])
 
     df['review'] = df.get('review', '').fillna('')
 
+    # Transform reviews to review_score
     tfm = tfidf.transform(df['review'])
     df['review_score'] = svd.transform(tfm).flatten()
 
-    df = comp_tr.transform(df)
+    # Transform competitor pricing feature
+    comp_tr_out = comp_tr.transform(df)
+    if not isinstance(comp_tr_out, pd.DataFrame):
+        comp_tr_out = pd.DataFrame(comp_tr_out, index=df.index, columns=['competitor_pricing'])
+    else:
+        if comp_tr_out.shape[1] == 1:
+            comp_tr_out.columns = ['competitor_pricing']
 
-    genres_encoded = pd.DataFrame(mlb_genres.transform(df['genres']),
-                                  columns=mlb_genres.classes_, index=df.index)
-    tags_encoded = pd.DataFrame(mlb_tags.transform(df['tags']),
-                                columns=mlb_tags.classes_, index=df.index)
+    df = pd.concat([df, comp_tr_out], axis=1)
+
+    logging.info(f"Preprocessing {len(df)} rows for multilabel binarization.")
+
+    genres_transformed = mlb_genres.transform(df['genres'])
+    tags_transformed = mlb_tags.transform(df['tags'])
+
+    if genres_transformed.shape[0] != len(df):
+        raise ValueError(f"Genres transform rows ({genres_transformed.shape[0]}) != dataframe rows ({len(df)})")
+
+    if tags_transformed.shape[0] != len(df):
+        raise ValueError(f"Tags transform rows ({tags_transformed.shape[0]}) != dataframe rows ({len(df)})")
+
+    genres_encoded = pd.DataFrame(genres_transformed, columns=mlb_genres.classes_, index=df.index)
+    tags_encoded = pd.DataFrame(tags_transformed, columns=mlb_tags.classes_, index=df.index)
 
     df = pd.concat([df, genres_encoded, tags_encoded], axis=1)
 
     df = df.drop(columns=['genres', 'tags', 'review'], errors='ignore')
 
     df = df.loc[:, ~df.columns.duplicated()]
+
+    for col in MODEL_FEATURES:
+        if col not in df.columns:
+            df[col] = 0
+
+    df = df.reindex(columns=MODEL_FEATURES)
 
     return df
 
@@ -199,11 +250,15 @@ def insert_sql(metrics, timestamp, cursor):
 
 
 if __name__ == "__main__":
-    reference_raw = pd.read_csv("data/combined4.csv")
-    reference_raw = reference_raw.dropna(subset=RAW_FEATURES)
-    reference = preprocess(reference_raw)
-    reference = reference.dropna(subset=MODEL_FEATURES)
-    reference['prediction'] = model.predict(reference)
+    try:
+        reference_raw = pd.read_csv("data/combined4.csv")
+        reference_raw = reference_raw.dropna(subset=RAW_FEATURES)
+        reference = preprocess(reference_raw)
+        reference = reference.dropna(subset=MODEL_FEATURES)
+        reference['prediction'] = model.predict(reference)
+    except Exception as e:
+        logging.error(f"Error loading or preprocessing reference data: {e}")
+        raise
 
     prep_db()
 
