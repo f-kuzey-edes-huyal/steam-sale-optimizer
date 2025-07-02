@@ -192,3 +192,4 @@ webencodings==0.5.1
 
 evidently==0.4.23              # Drift detection
 grafana-api==1.0.0             # Grafana integration (if using dashboards programmatically)
+psycopg[binary]
