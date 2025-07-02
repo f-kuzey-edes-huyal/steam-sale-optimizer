@@ -4,54 +4,74 @@ import numpy as np
 import datetime
 import time
 import logging
-import psycopg  # Make sure this is installed and imported!
+import psycopg
 import joblib
 import pytz
-from dotenv import load_dotenv  # To load env variables from .env
+from dotenv import load_dotenv
 
 from evidently.report import Report
 from evidently.metrics import ColumnDriftMetric, DatasetDriftMetric, DatasetMissingValuesMetric
 from evidently import ColumnMapping
 
-# Load environment variables from .env
 load_dotenv()
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
+SEND_TIMEOUT = 10
 
-# Read DB credentials from environment variables
 POSTGRES_HOST = os.getenv('POSTGRES_HOST', 'localhost')
 POSTGRES_PORT = os.getenv('POSTGRES_PORT', '5432')
 POSTGRES_USER = os.getenv('POSTGRES_USER')
 POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
 POSTGRES_DB = os.getenv('POSTGRES_DB', 'postgres')
 
-# Logging setup
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
-SEND_TIMEOUT = 10  # seconds
 
-# Load model and transformers
+def get_connection(dbname=None, autocommit=False):
+    db = dbname or POSTGRES_DB
+    conn_str = (
+        f"host={POSTGRES_HOST} port={POSTGRES_PORT} user={POSTGRES_USER} "
+        f"password={POSTGRES_PASSWORD} dbname={db}"
+    )
+    return psycopg.connect(conn_str, autocommit=autocommit)
+
+
+# Eğitim sırasında kaydedilen objeler
 model = joblib.load('models/discount_model_pipeline.pkl')
 tfidf = joblib.load('models/tfidf_vectorizer.pkl')
 svd = joblib.load('models/svd_transform.pkl')
 mlb_genres = joblib.load('models/mlb_genres.pkl')
 mlb_tags = joblib.load('models/mlb_tags.pkl')
-competitor_transformer = joblib.load('models/competitor_pricing_transformer.pkl')
+comp_tr = joblib.load('models/competitor_pricing_transformer.pkl')
 
-# Features expected after preprocessing (numeric + engineered)
-num_features = ['total_reviews', 'positive_percent', 'current_price', 'discounted_price',
-                'owners_log_mean', 'days_after_publish', 'review_score', 'competitor_pricing']
+RAW_FEATURES = [
+    'total_reviews',
+    'positive_percent',
+    'current_price',
+    'discounted_price',
+    'owners_log_mean',
+    'days_after_publish',
+    'review',
+    'genres',
+    'tags'
+]
 
-genre_cols = list(mlb_genres.classes_)
-tag_cols = list(mlb_tags.classes_)
+MODEL_FEATURES = [
+    'total_reviews',
+    'positive_percent',
+    'current_price',
+    'discounted_price',
+    'owners_log_mean',
+    'days_after_publish',
+    'review_score',
+    'competitor_pricing'
+] + list(mlb_genres.classes_) + list(mlb_tags.classes_)
 
-all_features = num_features + genre_cols + tag_cols
+DRIFT_FEATURES = list(dict.fromkeys(MODEL_FEATURES))
 
-# Column mapping for Evidently
 column_mapping = ColumnMapping(
     prediction='prediction',
-    numerical_features=all_features,
+    numerical_features=DRIFT_FEATURES,
     target=None
 )
 
-# SQL for metrics table
 CREATE_TABLE_SQL = """
 DROP TABLE IF EXISTS discount_model_metrics;
 CREATE TABLE discount_model_metrics (
@@ -62,21 +82,15 @@ CREATE TABLE discount_model_metrics (
 )
 """
 
-def get_connection(dbname=None, autocommit=False):
-    db = dbname if dbname else POSTGRES_DB
-    conn_string = (
-        f"host={POSTGRES_HOST} port={POSTGRES_PORT} user={POSTGRES_USER} "
-        f"password={POSTGRES_PASSWORD} dbname={db}"
-    )
-    return psycopg.connect(conn_string, autocommit=autocommit)
 
-def parse_price(val):
+def parse_price(x):
     try:
-        return float(str(val).replace('$', '').replace('USD', '').strip())
+        return float(str(x).replace('$', '').replace('USD', '').strip())
     except:
         return np.nan
 
-def preprocess_data(df):
+
+def preprocess(df: pd.DataFrame) -> pd.DataFrame:
     df = df.dropna(subset=[
         'total_reviews', 'positive_percent', 'genres', 'tags',
         'current_price', 'discounted_price', 'owners_log_mean', 'days_after_publish'
@@ -88,82 +102,127 @@ def preprocess_data(df):
 
     df['discount_pct'] = 1 - (df['discounted_price'] / df['current_price'])
 
-    df['genres'] = df['genres'].fillna('').apply(lambda x: [g.strip() for g in str(x).split(',')])
-    df['tags'] = df['tags'].fillna('').apply(lambda x: [t.strip() for t in str(x).split(';')])
+    df['genres'] = df['genres'].fillna('').apply(lambda s: list(set(g.strip() for g in str(s).split(',')) if s else []))
+    df['tags'] = df['tags'].fillna('').apply(lambda s: list(set(t.strip() for t in str(s).split(';')) if s else []))
 
     df['review'] = df.get('review', '').fillna('')
-    tfidf_matrix = tfidf.transform(df['review'])
-    df['review_score'] = svd.transform(tfidf_matrix).flatten()
 
-    df = competitor_transformer.transform(df)
+    tfm = tfidf.transform(df['review'])
+    df['review_score'] = svd.transform(tfm).flatten()
 
-    genres_encoded = pd.DataFrame(mlb_genres.transform(df['genres']), columns=genre_cols, index=df.index)
-    tags_encoded = pd.DataFrame(mlb_tags.transform(df['tags']), columns=tag_cols, index=df.index)
+    df = comp_tr.transform(df)
+
+    genres_encoded = pd.DataFrame(mlb_genres.transform(df['genres']),
+                                  columns=mlb_genres.classes_, index=df.index)
+    tags_encoded = pd.DataFrame(mlb_tags.transform(df['tags']),
+                                columns=mlb_tags.classes_, index=df.index)
 
     df = pd.concat([df, genres_encoded, tags_encoded], axis=1)
 
+    df = df.drop(columns=['genres', 'tags', 'review'], errors='ignore')
+
+    df = df.loc[:, ~df.columns.duplicated()]
+
     return df
+
 
 def prep_db():
     with get_connection(dbname='postgres', autocommit=True) as conn:
-        res = conn.execute("SELECT 1 FROM pg_database WHERE datname='test'")
-        if not res.fetchall():
-            conn.execute("CREATE DATABASE test;")
+        with conn.cursor() as cur:
+            cur.execute("SELECT 1 FROM pg_database WHERE datname='test'")
+            exists = cur.fetchone()
+            if not exists:
+                cur.execute("CREATE DATABASE test;")
     with get_connection(dbname='test', autocommit=True) as conn:
-        conn.execute(CREATE_TABLE_SQL)
+        with conn.cursor() as cur:
+            cur.execute(CREATE_TABLE_SQL)
 
-def get_current_batch(i):
-    full_data = pd.read_csv("data/combined4.csv")
-    full_data = full_data.sort_values(by='days_after_publish')
-    day_i = full_data[full_data['days_after_publish'] == i].copy()
-    if day_i.empty:
+
+def get_batch(i: int):
+    df_raw = pd.read_csv("data/combined4.csv").sort_values('days_after_publish')
+    batch_raw = df_raw[df_raw['days_after_publish'] == i]
+    if batch_raw.empty:
         return None
 
-    processed_batch = preprocess_data(day_i)
-    X = processed_batch[all_features]
-    processed_batch['prediction'] = model.predict(X)
+    batch_raw = batch_raw.dropna(subset=RAW_FEATURES)
 
-    return processed_batch
+    batch_processed = preprocess(batch_raw)
 
-def run_drift_report(ref_data, curr_data):
-    report = Report(metrics=[
+    batch_processed = batch_processed.dropna(subset=MODEL_FEATURES)
+
+    batch_processed['prediction'] = model.predict(batch_processed)
+
+    return batch_processed
+
+
+def run_drift(ref: pd.DataFrame, cur: pd.DataFrame):
+    for df in (ref, cur):
+        for col in ['genres', 'tags', 'review']:
+            df.pop(col, None)
+        df.drop_duplicates(axis=1, inplace=True)
+
+    for df in (ref, cur):
+        for col in DRIFT_FEATURES + ['prediction']:
+            if col not in df.columns:
+                df[col] = 0
+
+    expected_cols = DRIFT_FEATURES + ['prediction']
+
+    for df in (ref, cur):
+        df_reindexed = df.reindex(columns=expected_cols, fill_value=0)
+        df.drop(df.columns, axis=1, inplace=True)
+        for col in df_reindexed.columns:
+            df[col] = df_reindexed[col]
+
+    rpt = Report(metrics=[
         ColumnDriftMetric(column_name='prediction'),
         DatasetDriftMetric(),
         DatasetMissingValuesMetric()
     ])
-    report.run(reference_data=ref_data, current_data=curr_data, column_mapping=column_mapping)
-    return report.as_dict()
 
-def insert_metrics_to_db(metrics_dict, timestamp, cursor):
-    prediction_drift = metrics_dict['metrics'][0]['result']['drift_score']
-    num_drifted_columns = metrics_dict['metrics'][1]['result']['number_of_drifted_columns']
-    share_missing = metrics_dict['metrics'][2]['result']['current']['share_of_missing_values']
+    rpt.run(reference_data=ref, current_data=cur, column_mapping=column_mapping)
 
+    return rpt.as_dict()
+
+
+def insert_sql(metrics, timestamp, cursor):
     cursor.execute(
-        """
-        INSERT INTO discount_model_metrics(timestamp, prediction_drift, num_drifted_columns, share_missing_values)
-        VALUES (%s, %s, %s, %s)
-        """,
-        (timestamp, prediction_drift, num_drifted_columns, share_missing)
+        "INSERT INTO discount_model_metrics(timestamp, prediction_drift, num_drifted_columns, share_missing_values) "
+        "VALUES (%s, %s, %s, %s)",
+        (
+            timestamp,
+            metrics['metrics'][0]['result']['drift_score'],
+            metrics['metrics'][1]['result']['number_of_drifted_columns'],
+            metrics['metrics'][2]['result']['current']['share_of_missing_values']
+        )
     )
+
 
 if __name__ == "__main__":
     reference_raw = pd.read_csv("data/combined4.csv")
-    reference_data = preprocess_data(reference_raw)
+    reference_raw = reference_raw.dropna(subset=RAW_FEATURES)
+    reference = preprocess(reference_raw)
+    reference = reference.dropna(subset=MODEL_FEATURES)
+    reference['prediction'] = model.predict(reference)
 
     prep_db()
-    last_send = datetime.datetime.now(pytz.UTC) - datetime.timedelta(seconds=SEND_TIMEOUT)
-    with get_connection(dbname='test', autocommit=True) as conn:
-        for i in range(0, 30):
-            with conn.cursor() as cursor:
-                batch = get_current_batch(i)
-                if batch is None:
-                    logging.warning(f"No data found for batch {i}. Skipping.")
-                    continue
 
-                drift_report = run_drift_report(reference_data, batch)
-                insert_metrics_to_db(drift_report, last_send, cursor)
-                logging.info(f"Drift logged for batch {i}")
+    last_send = datetime.datetime.now(pytz.UTC) - datetime.timedelta(seconds=SEND_TIMEOUT)
+
+    with get_connection(dbname='test', autocommit=True) as conn:
+        for day in range(30):
+            batch = get_batch(day)
+            if batch is None:
+                logging.warning(f"Day {day} no data")
+                continue
+
+            drift_report = run_drift(reference.copy(), batch.copy())
+
+            with conn.cursor() as cur:
+                insert_sql(drift_report, last_send, cur)
+                conn.commit()
+
+            logging.info(f"Logged drift for day {day}")
 
             now = datetime.datetime.now(pytz.UTC)
             elapsed = (now - last_send).total_seconds()
