@@ -63,6 +63,8 @@ By the way, this figure might give the impression that I got everything right on
 
 When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
 
+```az login```
+
 ## 🚀 Full Orchestration with Apache Airflow
 
 docker stop $(docker ps -q)
