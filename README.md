@@ -65,6 +65,13 @@ When deploying multiple containers to the cloud, __Terraform__ is extremely help
 
 ```az login```
 
+```terraform init```
+
+```terraform plan```
+
+```terraform apply --auto-approve```
+
+```terraform destroy --auto-approve```
 ## 🚀 Full Orchestration with Apache Airflow
 
 docker stop $(docker ps -q)
