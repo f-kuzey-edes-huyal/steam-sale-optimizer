@@ -61,6 +61,17 @@ By the way, this figure might give the impression that I got everything right on
 
 ## 📦 Model Deployment
 
+When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
+
+```az login```
+
+```terraform init```
+
+```terraform plan```
+
+```terraform apply --auto-approve```
+
+```terraform destroy --auto-approve```
 ## 🚀 Full Orchestration with Apache Airflow
 
 docker stop $(docker ps -q)
