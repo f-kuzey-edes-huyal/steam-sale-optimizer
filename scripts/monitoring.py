@@ -7,26 +7,44 @@ import psycopg
 import datetime
 import pytz
 import logging
+import csv
 from dotenv import load_dotenv
 
 from evidently.report import Report
 from evidently.metrics import ColumnDriftMetric, DatasetDriftMetric, DatasetMissingValuesMetric
 from evidently import ColumnMapping
 
-# load environment variables from .env file
+# Load environment variables
 load_dotenv()
 
-# config constants
-DATA_PATH = "data/combined4.csv"          # path to clean reference dataset
-DRIFTED_DATA_PATH = "data/drifted_data.csv"  # path to drifted dataset
+# Paths
+DATA_PATH = "data/combined4.csv"
+DRIFTED_DATA_PATH = "data/drifted_data.csv"
 
-# custom transformer for competitor pricing feature
+# Model paths
+MODEL_PATH = 'models/discount_model_pipeline.pkl'
+TFIDF_PATH = 'models/tfidf_vectorizer.pkl'
+SVD_PATH = 'models/svd_transform.pkl'
+MLB_GENRES_PATH = 'models/mlb_genres.pkl'
+MLB_TAGS_PATH = 'models/mlb_tags.pkl'
+COMPETITOR_TRANS_PATH = 'models/competitor_pricing_transformer.pkl'
+
+# Logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
+
+# PostgreSQL settings
+POSTGRES_HOST = os.getenv('POSTGRES_HOST', 'localhost')
+POSTGRES_PORT = os.getenv('POSTGRES_PORT', '5432')
+POSTGRES_USER = os.getenv('POSTGRES_USER')
+POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+POSTGRES_DB = os.getenv('POSTGRES_DB', 'monitoring_db')
+
+
 class CompetitorPricingTransformer:
     def __init__(self):
         self.tag_price_map = {}
 
     def fit(self, df):
-        # calculate median price per tag based on input dataframe
         tag_prices = {}
         for tags, price in zip(df['tags'], df['current_price']):
             for tag in tags:
@@ -35,7 +53,6 @@ class CompetitorPricingTransformer:
         return self
 
     def transform(self, df):
-        # compute average competitor price for each row's tags
         def competitor_price_for_tags(tags):
             prices = [self.tag_price_map.get(tag, np.nan) for tag in tags]
             prices = [p for p in prices if not np.isnan(p)]
@@ -43,19 +60,11 @@ class CompetitorPricingTransformer:
 
         df['competitor_pricing'] = df['tags'].apply(competitor_price_for_tags)
         median_price = df['current_price'].median()
-        # fill missing competitor prices with median current price
         df['competitor_pricing'] = df['competitor_pricing'].fillna(median_price)
         return df
 
-# file paths for models and transformers
-MODEL_PATH = 'models/discount_model_pipeline.pkl'
-TFIDF_PATH = 'models/tfidf_vectorizer.pkl'
-SVD_PATH = 'models/svd_transform.pkl'
-MLB_GENRES_PATH = 'models/mlb_genres.pkl'
-MLB_TAGS_PATH = 'models/mlb_tags.pkl'
-COMPETITOR_TRANS_PATH = 'models/competitor_pricing_transformer.pkl'
 
-# load saved models and transformers from disk
+# Load models and transformers
 model = joblib.load(MODEL_PATH)
 tfidf = joblib.load(TFIDF_PATH)
 svd = joblib.load(SVD_PATH)
@@ -63,18 +72,8 @@ mlb_genres = joblib.load(MLB_GENRES_PATH)
 mlb_tags = joblib.load(MLB_TAGS_PATH)
 competitor_transformer = joblib.load(COMPETITOR_TRANS_PATH)
 
-# setup logging config
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
-
-# get postgres connection parameters from environment variables
-POSTGRES_HOST = os.getenv('POSTGRES_HOST', 'localhost')
-POSTGRES_PORT = os.getenv('POSTGRES_PORT', '5432')
-POSTGRES_USER = os.getenv('POSTGRES_USER')
-POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
-POSTGRES_DB = os.getenv('POSTGRES_DB', 'monitoring_db')
 
 def get_connection():
-    # create and return postgres connection
     return psycopg.connect(
         host=POSTGRES_HOST,
         port=POSTGRES_PORT,
@@ -84,12 +83,11 @@ def get_connection():
         autocommit=True
     )
 
+
 def preprocess_monitoring_data(df):
-    # remove rows missing important columns
     df = df.dropna(subset=['total_reviews', 'positive_percent', 'genres', 'tags',
                            'current_price', 'discounted_price', 'owners_log_mean', 'days_after_publish'])
 
-    # function to clean price fields by removing $ and USD
     def parse_price(x):
         try:
             return float(str(x).replace('$', '').replace('USD', '').strip())
@@ -98,62 +96,50 @@ def preprocess_monitoring_data(df):
 
     df['current_price'] = df['current_price'].apply(parse_price)
     df['discounted_price'] = df['discounted_price'].apply(parse_price)
-    # drop rows where price parsing failed
     df = df.dropna(subset=['current_price', 'discounted_price'])
 
-    # calculate discount percentage
     df['discount_pct'] = 1 - (df['discounted_price'] / df['current_price'])
 
-    # split genres and tags from strings into lists
     df['genres'] = df['genres'].fillna('').apply(lambda x: [g.strip() for g in str(x).split(',') if g.strip()])
     df['tags'] = df['tags'].fillna('').apply(lambda x: [t.strip() for t in str(x).split(';') if t.strip()])
 
-    # handle missing review column safely
     df['review'] = df.get('review', '')
     df['review'] = df['review'].fillna('')
 
     if len(df) == 0:
         return df
 
-    # convert review texts to numeric scores using TF-IDF and SVD
     tfidf_matrix = tfidf.transform(df['review'])
     df['review_score'] = svd.transform(tfidf_matrix).flatten()
 
-    # add competitor pricing feature
     df = competitor_transformer.transform(df)
 
-    # filter genres and tags to known classes only
     df['genres'] = df['genres'].apply(lambda lst: [g for g in lst if g in mlb_genres.classes_])
     df['tags'] = df['tags'].apply(lambda lst: [t for t in lst if t in mlb_tags.classes_])
 
-    # one-hot encode genres and tags
     genres_encoded = pd.DataFrame(mlb_genres.transform(df['genres']), columns=mlb_genres.classes_, index=df.index)
     tags_encoded = pd.DataFrame(mlb_tags.transform(df['tags']), columns=mlb_tags.classes_, index=df.index)
 
-    # add one-hot columns, remove original text columns
     df = pd.concat([df, genres_encoded, tags_encoded], axis=1)
     df = df.drop(columns=['genres', 'tags', 'review'], errors='ignore')
 
-    # list all features expected by the model
     features = ['total_reviews', 'positive_percent', 'current_price', 'discounted_price',
                 'owners_log_mean', 'days_after_publish', 'review_score', 'competitor_pricing'] + \
                list(mlb_genres.classes_) + list(mlb_tags.classes_)
 
-    # ensure all features exist in dataframe
     for col in features:
         if col not in df.columns:
             df[col] = 0
 
-    # keep only expected features, replace inf and nan with zeros
     df = df[features]
     df.replace([np.inf, -np.inf], np.nan, inplace=True)
     df.fillna(0, inplace=True)
 
     return df
 
+
 def load_reference_data():
-    # load reference (clean) data for drift detection (days_after_publish <= 5)
-    df = pd.read_csv(DATA_PATH)
+    df = pd.read_csv(DATA_PATH, quotechar='"', escapechar='\\', encoding='utf-8', quoting=csv.QUOTE_MINIMAL)
     ref_df = df[df['days_after_publish'] <= 5].copy()
 
     if ref_df.empty:
@@ -165,9 +151,9 @@ def load_reference_data():
         ref_df['prediction'] = model.predict(ref_df)
     return ref_df
 
+
 def load_batch(day: int):
-    # load batch of drifted data for given 5-day window
-    df = pd.read_csv(DRIFTED_DATA_PATH)
+    df = pd.read_csv(DRIFTED_DATA_PATH, quotechar='"', escapechar='\\', encoding='utf-8', quoting=csv.QUOTE_MINIMAL)
     lower = day * 5
     upper = (day + 1) * 5
     batch = df[(df['days_after_publish'] > lower) & (df['days_after_publish'] <= upper)].copy()
@@ -178,21 +164,29 @@ def load_batch(day: int):
         batch['prediction'] = model.predict(batch)
     return batch
 
+
 def run_evidently_report(ref_df, current_df):
-    # run drift detection report comparing reference and current data
     if ref_df.empty or current_df.empty:
         return None
 
-    drift_features = [col for col in ref_df.columns if col != 'prediction']
+    # Remove duplicate columns to avoid reindex error
+    ref_df = ref_df.loc[:, ~ref_df.columns.duplicated()]
+    current_df = current_df.loc[:, ~current_df.columns.duplicated()]
 
-    # make sure all columns exist in both datasets
-    for df in (ref_df, current_df):
-        for col in drift_features + ['prediction']:
-            if col not in df.columns:
-                df[col] = 0
+    # Find intersection of columns except 'prediction'
+    common_cols = sorted(set(ref_df.columns) & set(current_df.columns))
+    if 'prediction' in common_cols:
+        common_cols.remove('prediction')
 
-    ref_df = ref_df.reindex(columns=drift_features + ['prediction'])
-    current_df = current_df.reindex(columns=drift_features + ['prediction'])
+    # Add 'prediction' column if missing
+    if 'prediction' not in ref_df.columns:
+        ref_df['prediction'] = 0
+    if 'prediction' not in current_df.columns:
+        current_df['prediction'] = 0
+
+    # Reindex both dfs to have the same columns
+    ref_df = ref_df.reindex(columns=common_cols + ['prediction'], fill_value=0)
+    current_df = current_df.reindex(columns=common_cols + ['prediction'], fill_value=0)
 
     report = Report(metrics=[
         ColumnDriftMetric(column_name='prediction'),
@@ -200,15 +194,19 @@ def run_evidently_report(ref_df, current_df):
         DatasetMissingValuesMetric()
     ])
 
-    report.run(reference_data=ref_df, current_data=current_df, column_mapping=ColumnMapping(
-        prediction='prediction',
-        numerical_features=drift_features
-    ))
+    report.run(
+        reference_data=ref_df,
+        current_data=current_df,
+        column_mapping=ColumnMapping(
+            prediction='prediction',
+            numerical_features=common_cols
+        )
+    )
 
     return report.as_dict()
 
+
 def store_metrics(metrics: dict, timestamp: datetime.datetime, cursor):
-    # insert drift metrics into postgres table
     cursor.execute(
         """
         INSERT INTO model_monitoring_metrics (
@@ -226,8 +224,8 @@ def store_metrics(metrics: dict, timestamp: datetime.datetime, cursor):
         )
     )
 
+
 def prepare_db():
-    # create metrics table if it doesn't exist yet
     with get_connection() as conn:
         with conn.cursor() as cur:
             cur.execute("""
@@ -239,12 +237,13 @@ def prepare_db():
                 )
             """)
 
+
 if __name__ == "__main__":
     logging.info("Starting model monitoring...")
     prepare_db()
     reference_data = load_reference_data()
 
-    SEND_INTERVAL = 0  # change to 60 for production monitoring loop
+    SEND_INTERVAL = 0  # Change to 60 for production
 
     try:
         with get_connection() as conn:
