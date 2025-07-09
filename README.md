@@ -132,6 +132,8 @@ I had to adjust my scripts to run my DAG file successfully with Apache Airflow o
 
 #important links
 
+[https://cookiecutter-data-science.drivendata.org/]
+
 [steam scraping](https://medium.com/@thekareemyusuf/building-a-dataset-of-steam-games-with-web-scraping-2abb02409f08)
 [airflow](https://medium.com/@mrunmayee.dhapre/ml-pipeline-in-airflow-71ca7e1f03ba)
 [airflow2](https://medium.com/@mohamadhasan.sarvandani/learning-apache-airflow-with-simple-examples-c1b05b4761b0)
