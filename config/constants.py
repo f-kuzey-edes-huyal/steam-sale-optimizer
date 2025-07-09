@@ -3,5 +3,6 @@ MLFLOW_TRACKING_URI_air =  "file:/opt/airflow/mlruns"
 EXPERIMENT_NAME = "Experiment: Included Competitor Pricing and Review Score"
 EXPERIMENT_NAME2 = "Experiment: No Competitor Pricing or Review Score"
 EXPERIMENT_NAME3 = "Experiment: Apache Airflow"
-DATA_PATH = "data/combined4.csv"
+DATA_PATH = "data/combined4.csv"      
+DRIFTED_DATA_PATH = "data/drifted_data.csv"  
 SEED = 42

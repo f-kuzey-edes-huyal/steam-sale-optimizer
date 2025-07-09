@@ -9,10 +9,63 @@ import joblib
 import pytz
 from dotenv import load_dotenv
 
+from sklearn.preprocessing import MultiLabelBinarizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.decomposition import TruncatedSVD
+
 from evidently.report import Report
 from evidently.metrics import ColumnDriftMetric, DatasetDriftMetric, DatasetMissingValuesMetric
 from evidently import ColumnMapping
-from train_optuna_hyperparameter_mlflow_reviews_competitor_pricing_change_criterion_mean_absolute import CompetitorPricingTransformer
+
+
+def parse_price(x):
+    try:
+        return float(str(x).replace('$', '').replace('USD', '').strip())
+    except Exception:
+        return np.nan
+
+
+def transform_review_column(df, tfidf=None, svd=None):
+    df['review'] = df['review'].fillna('')
+    if tfidf is None:
+        tfidf = TfidfVectorizer(max_features=1000)
+        tfidf_matrix = tfidf.fit_transform(df['review'])
+    else:
+        tfidf_matrix = tfidf.transform(df['review'])
+
+    if svd is None:
+        svd = TruncatedSVD(n_components=1, random_state=42)
+        review_score = svd.fit_transform(tfidf_matrix).flatten()
+    else:
+        review_score = svd.transform(tfidf_matrix).flatten()
+
+    df['review_score'] = review_score
+    return df, tfidf, svd
+
+
+class CompetitorPricingTransformer:
+    def __init__(self):
+        self.tag_price_map = {}
+
+    def fit(self, df):
+        tag_prices = {}
+        for tags, price in zip(df['tags'], df['current_price']):
+            for tag in tags:
+                tag_prices.setdefault(tag, []).append(price)
+        self.tag_price_map = {tag: np.median(prices) for tag, prices in tag_prices.items()}
+        return self
+
+    def transform(self, df):
+        def competitor_price_for_tags(tags):
+            prices = [self.tag_price_map.get(tag, np.nan) for tag in tags]
+            prices = [p for p in prices if not np.isnan(p)]
+            return np.mean(prices) if prices else np.nan
+
+        df['competitor_pricing'] = df['tags'].apply(competitor_price_for_tags)
+        median_price = df['current_price'].median()
+        df['competitor_pricing'] = df['competitor_pricing'].fillna(median_price)
+        return df
+
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
@@ -34,83 +87,36 @@ def get_connection(dbname=None, autocommit=False):
     return psycopg.connect(conn_str, autocommit=autocommit)
 
 
-model = joblib.load('models/discount_model_pipeline_small.pkl')
-tfidf = joblib.load('models/tfidf_vectorizer.pkl')
-svd = joblib.load('models/svd_transform.pkl')
-mlb_genres = joblib.load('models/mlb_genres.pkl')
-mlb_tags = joblib.load('models/mlb_tags.pkl')
-comp_tr = joblib.load('models/competitor_pricing_transformer.pkl')
+# Load your trained model pipeline, with error handling
+try:
+    model = joblib.load('models/discount_model_pipeline_small.pkl')
+except Exception as e:
+    logging.error(f"Failed to load model: {e}")
+    raise
+
+# Paths to save/load transformers
+TFIDF_PATH = 'models/tfidf.pkl'
+SVD_PATH = 'models/svd.pkl'
+COMPETITOR_TRANSFORMER_PATH = 'models/competitor_transformer.pkl'
+MLB_GENRES_PATH = 'models/mlb_genres.pkl'
+MLB_TAGS_PATH = 'models/mlb_tags.pkl'
 
 RAW_FEATURES = [
-    'total_reviews',
-    'positive_percent',
-    'current_price',
-    'discounted_price',
-    'owners_log_mean',
-    'days_after_publish',
-    'review',
-    'genres',
-    'tags'
+    'total_reviews', 'positive_percent', 'current_price', 'discounted_price',
+    'owners_log_mean', 'days_after_publish', 'review', 'genres', 'tags'
 ]
 
-MODEL_FEATURES = [
-    'total_reviews',
-    'positive_percent',
-    'current_price',
-    'discounted_price',
-    'owners_log_mean',
-    'days_after_publish',
-    'review_score',
-    'competitor_pricing'
-] + list(mlb_genres.classes_) + list(mlb_tags.classes_)
-
-DRIFT_FEATURES = list(dict.fromkeys(MODEL_FEATURES))
-
-column_mapping = ColumnMapping(
-    prediction='prediction',
-    numerical_features=DRIFT_FEATURES,
-    target=None
-)
-
-CREATE_TABLE_SQL = """
-DROP TABLE IF EXISTS discount_model_metrics;
-CREATE TABLE discount_model_metrics (
-    timestamp TIMESTAMP,
-    prediction_drift FLOAT,
-    num_drifted_columns INTEGER,
-    share_missing_values FLOAT
-)
-"""
+# Global variables for transformers
+tfidf = None
+svd = None
+competitor_transformer = None
+mlb_genres = MultiLabelBinarizer()
+mlb_tags = MultiLabelBinarizer()
 
 
-def parse_price(x):
-    try:
-        return float(str(x).replace('$', '').replace('USD', '').strip())
-    except:
-        return np.nan
+def preprocess(df: pd.DataFrame, fit_transformers=False) -> pd.DataFrame:
+    global tfidf, svd, competitor_transformer, mlb_genres, mlb_tags
 
-
-def process_genres(x):
-    if pd.isna(x):
-        return []
-    if isinstance(x, list):
-        return x
-    if isinstance(x, str):
-        return list(set(g.strip() for g in x.split(',') if g.strip()))
-    return []
-
-
-def process_tags(x):
-    if pd.isna(x):
-        return []
-    if isinstance(x, list):
-        return x
-    if isinstance(x, str):
-        return list(set(t.strip() for t in x.split(';') if t.strip()))
-    return []
-
-
-def preprocess(df: pd.DataFrame) -> pd.DataFrame:
     df = df.dropna(subset=[
         'total_reviews', 'positive_percent', 'genres', 'tags',
         'current_price', 'discounted_price', 'owners_log_mean', 'days_after_publish'
@@ -122,51 +128,59 @@ def preprocess(df: pd.DataFrame) -> pd.DataFrame:
 
     df['discount_pct'] = 1 - (df['discounted_price'] / df['current_price'])
 
-    # Apply fixed robust processing functions to genres and tags
-    df['genres'] = df['genres'].apply(process_genres)
-    df['tags'] = df['tags'].apply(process_tags)
+    df['genres'] = df['genres'].fillna('').apply(lambda x: [g.strip() for g in str(x).split(',') if g.strip()])
+    df['tags'] = df['tags'].fillna('').apply(lambda x: [t.strip() for t in str(x).split(';') if t.strip()])
 
-    valid_genres = set(mlb_genres.classes_)
-    valid_tags = set(mlb_tags.classes_)
-
-    df['genres'] = df['genres'].apply(lambda genres: [g for g in genres if g in valid_genres])
-    df['tags'] = df['tags'].apply(lambda tags: [t for t in tags if t in valid_tags])
-
+    df = df[df['genres'].map(len) > 0]
+    df = df[df['tags'].map(len) > 0]
     df['review'] = df.get('review', '').fillna('')
 
-    # Transform reviews to review_score
-    tfm = tfidf.transform(df['review'])
-    df['review_score'] = svd.transform(tfm).flatten()
-
-    # Transform competitor pricing feature
-    comp_tr_out = comp_tr.transform(df)
-    if not isinstance(comp_tr_out, pd.DataFrame):
-        comp_tr_out = pd.DataFrame(comp_tr_out, index=df.index, columns=['competitor_pricing'])
+    if fit_transformers:
+        df, tfidf, svd = transform_review_column(df)
+        joblib.dump(tfidf, TFIDF_PATH)
+        joblib.dump(svd, SVD_PATH)
     else:
-        if comp_tr_out.shape[1] == 1:
-            comp_tr_out.columns = ['competitor_pricing']
+        if tfidf is None or svd is None:
+            tfidf = joblib.load(TFIDF_PATH)
+            svd = joblib.load(SVD_PATH)
+        df, _, _ = transform_review_column(df, tfidf=tfidf, svd=svd)
 
-    df = pd.concat([df, comp_tr_out], axis=1)
+    global competitor_transformer
+    if fit_transformers:
+        competitor_transformer = CompetitorPricingTransformer()
+        competitor_transformer.fit(df)
+        joblib.dump(competitor_transformer, COMPETITOR_TRANSFORMER_PATH)
+    else:
+        if competitor_transformer is None:
+            competitor_transformer = joblib.load(COMPETITOR_TRANSFORMER_PATH)
+    df = competitor_transformer.transform(df)
 
-    logging.info(f"Preprocessing {len(df)} rows for multilabel binarization.")
+    if fit_transformers:
+        mlb_genres.fit(df['genres'])
+        mlb_tags.fit(df['tags'])
+        joblib.dump(mlb_genres, MLB_GENRES_PATH)
+        joblib.dump(mlb_tags, MLB_TAGS_PATH)
+    else:
+        # Safer check if classes are loaded, fallback to load
+        if not (hasattr(mlb_genres, 'classes_') and len(mlb_genres.classes_) > 0):
+            mlb_genres = joblib.load(MLB_GENRES_PATH)
+        if not (hasattr(mlb_tags, 'classes_') and len(mlb_tags.classes_) > 0):
+            mlb_tags = joblib.load(MLB_TAGS_PATH)
 
-    genres_transformed = mlb_genres.transform(df['genres'])
-    tags_transformed = mlb_tags.transform(df['tags'])
+    df['genres'] = df['genres'].apply(lambda lst: [g for g in lst if g in mlb_genres.classes_])
+    df['tags'] = df['tags'].apply(lambda lst: [t for t in lst if t in mlb_tags.classes_])
 
-    if genres_transformed.shape[0] != len(df):
-        raise ValueError(f"Genres transform rows ({genres_transformed.shape[0]}) != dataframe rows ({len(df)})")
-
-    if tags_transformed.shape[0] != len(df):
-        raise ValueError(f"Tags transform rows ({tags_transformed.shape[0]}) != dataframe rows ({len(df)})")
-
-    genres_encoded = pd.DataFrame(genres_transformed, columns=mlb_genres.classes_, index=df.index)
-    tags_encoded = pd.DataFrame(tags_transformed, columns=mlb_tags.classes_, index=df.index)
+    genres_encoded = pd.DataFrame(mlb_genres.transform(df['genres']), columns=mlb_genres.classes_, index=df.index)
+    tags_encoded = pd.DataFrame(mlb_tags.transform(df['tags']), columns=mlb_tags.classes_, index=df.index)
 
     df = pd.concat([df, genres_encoded, tags_encoded], axis=1)
-
     df = df.drop(columns=['genres', 'tags', 'review'], errors='ignore')
-
     df = df.loc[:, ~df.columns.duplicated()]
+
+    MODEL_FEATURES = [
+        'total_reviews', 'positive_percent', 'current_price', 'discounted_price',
+        'owners_log_mean', 'days_after_publish', 'review_score', 'competitor_pricing'
+    ] + list(mlb_genres.classes_) + list(mlb_tags.classes_)
 
     for col in MODEL_FEATURES:
         if col not in df.columns:
@@ -186,7 +200,15 @@ def prep_db():
                 cur.execute("CREATE DATABASE test;")
     with get_connection(dbname='test', autocommit=True) as conn:
         with conn.cursor() as cur:
-            cur.execute(CREATE_TABLE_SQL)
+            cur.execute("""
+                DROP TABLE IF EXISTS discount_model_metrics;
+                CREATE TABLE discount_model_metrics (
+                    timestamp TIMESTAMP,
+                    prediction_drift FLOAT,
+                    num_drifted_columns INTEGER,
+                    share_missing_values FLOAT
+                )
+            """)
 
 
 def get_batch(i: int):
@@ -196,13 +218,9 @@ def get_batch(i: int):
         return None
 
     batch_raw = batch_raw.dropna(subset=RAW_FEATURES)
-
-    batch_processed = preprocess(batch_raw)
-
-    batch_processed = batch_processed.dropna(subset=MODEL_FEATURES)
-
+    batch_processed = preprocess(batch_raw, fit_transformers=False)
+    batch_processed = batch_processed.dropna(subset=batch_processed.columns)
     batch_processed['prediction'] = model.predict(batch_processed)
-
     return batch_processed
 
 
@@ -212,6 +230,10 @@ def run_drift(ref: pd.DataFrame, cur: pd.DataFrame):
             df.pop(col, None)
         df.drop_duplicates(axis=1, inplace=True)
 
+    DRIFT_FEATURES = list(dict.fromkeys(ref.columns))
+    if 'prediction' in DRIFT_FEATURES:
+        DRIFT_FEATURES.remove('prediction')
+
     for df in (ref, cur):
         for col in DRIFT_FEATURES + ['prediction']:
             if col not in df.columns:
@@ -219,11 +241,9 @@ def run_drift(ref: pd.DataFrame, cur: pd.DataFrame):
 
     expected_cols = DRIFT_FEATURES + ['prediction']
 
-    for df in (ref, cur):
-        df_reindexed = df.reindex(columns=expected_cols, fill_value=0)
-        df.drop(df.columns, axis=1, inplace=True)
-        for col in df_reindexed.columns:
-            df[col] = df_reindexed[col]
+    # Safe reindexing fix to avoid column mismatch errors
+    ref = ref.reindex(columns=expected_cols, fill_value=0)
+    cur = cur.reindex(columns=expected_cols, fill_value=0)
 
     rpt = Report(metrics=[
         ColumnDriftMetric(column_name='prediction'),
@@ -231,7 +251,11 @@ def run_drift(ref: pd.DataFrame, cur: pd.DataFrame):
         DatasetMissingValuesMetric()
     ])
 
-    rpt.run(reference_data=ref, current_data=cur, column_mapping=column_mapping)
+    rpt.run(reference_data=ref, current_data=cur, column_mapping=ColumnMapping(
+        prediction='prediction',
+        numerical_features=DRIFT_FEATURES,
+        target=None
+    ))
 
     return rpt.as_dict()
 
@@ -253,8 +277,8 @@ if __name__ == "__main__":
     try:
         reference_raw = pd.read_csv("data/combined4.csv")
         reference_raw = reference_raw.dropna(subset=RAW_FEATURES)
-        reference = preprocess(reference_raw)
-        reference = reference.dropna(subset=MODEL_FEATURES)
+        reference = preprocess(reference_raw, fit_transformers=True)
+        reference = reference.dropna(subset=reference.columns)
         reference['prediction'] = model.predict(reference)
     except Exception as e:
         logging.error(f"Error loading or preprocessing reference data: {e}")
