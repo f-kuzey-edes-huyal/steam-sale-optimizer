@@ -72,6 +72,20 @@ Use the credentials from your `.env` file:
 - Password: `${POSTGRES_PASSWORD}`
 - Database: `${POSTGRES_DB}`
 
+### 🔧 Accessing Grafana
+
+Open your Grafana service: [http://localhost:3000](http://localhost:3000)  
+Log in using the credentials you set in your `.env` file **before building the Docker images**:
+
+- **Username**: `${GRAFANA_USER}`
+- **Password**: `${GRAFANA_PASSWORD}`
+
+⚠️ Ensure your `.env` file is present in the same directory as your `docker-compose.yml` when you run:
+```
+ docker compose up --build
+ ```
+
+
 ## 📦 Model Deployment
 
 When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
