@@ -40,11 +40,12 @@ COMPETITOR_TRANS_PATH = 'models/competitor_pricing_transformer.pkl'
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
 
 # PostgreSQL settings
-POSTGRES_HOST = os.getenv('POSTGRES_HOST', 'localhost')
-POSTGRES_PORT = os.getenv('POSTGRES_PORT', '5432')
-POSTGRES_USER = os.getenv('POSTGRES_USER')
-POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
-POSTGRES_DB = os.getenv('POSTGRES_DB', 'monitoring_db')
+# Monitoring PostgreSQL settings
+MONITOR_HOST = os.getenv('MONITOR_HOST', 'postgres')
+MONITOR_PORT = os.getenv('MONITOR_PORT', '5432')
+MONITOR_USER = os.getenv('MONITOR_USER')
+MONITOR_PASSWORD = os.getenv('MONITOR_PASSWORD')
+MONITOR_DB = os.getenv('MONITOR_DB', 'monitoring_db')
 
 
 class CompetitorPricingTransformer:
@@ -82,11 +83,11 @@ competitor_transformer = joblib.load(COMPETITOR_TRANS_PATH)
 
 def get_connection():
     return psycopg.connect(
-        host=POSTGRES_HOST,
-        port=POSTGRES_PORT,
-        user=POSTGRES_USER,
-        password=POSTGRES_PASSWORD,
-        dbname=POSTGRES_DB,
+        host=MONITOR_HOST,
+        port=MONITOR_PORT,
+        user=MONITOR_USER,
+        password=MONITOR_PASSWORD,
+        dbname=MONITOR_DB,
         autocommit=True
     )
 
