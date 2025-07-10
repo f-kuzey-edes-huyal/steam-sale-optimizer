@@ -64,6 +64,8 @@ By the way, this figure might give the impression that I got everything right on
 
 ```CREATE DATABASE monitoring_db;```
 
+```docker exec -it steam-sale-optimizer-airflow-scheduler-1 python scripts/monitoring_extensive.py```
+
 
 
 ### Adminer Login Instructions
