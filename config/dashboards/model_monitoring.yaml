@@ -1,0 +1,9 @@
+apiVersion: 1
+providers:
+  - name: 'model-monitoring-dashboard'
+    folder: ''
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    options:
+      path: /opt/grafana/dashboards
