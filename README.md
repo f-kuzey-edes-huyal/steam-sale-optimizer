@@ -62,7 +62,7 @@ By the way, this figure might give the impression that I got everything right on
 
 ```docker exec -it steam-sale-optimizer-postgres-1 psql -U postgres```
 
-```CREATE DATABASE monitoring_db;
+```CREATE DATABASE monitoring_db;```
 
 
 
