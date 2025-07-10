@@ -60,6 +60,18 @@ By the way, this figure might give the impression that I got everything right on
 ## 📈 Monitoring Data Drift 
 ```python scripts\monitoring_extensive.py```
 
+### Adminer Login Instructions
+
+Go to: [http://localhost:8081](http://localhost:8081)
+
+Use the credentials from your `.env` file:
+
+- System: PostgreSQL
+- Server: `postgres`
+- Username: `${POSTGRES_USER}`
+- Password: `${POSTGRES_PASSWORD}`
+- Database: `${POSTGRES_DB}`
+
 ## 📦 Model Deployment
 
 When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
