@@ -58,6 +58,33 @@ By the way, this figure might give the impression that I got everything right on
 
 
 ## 📈 Monitoring Data Drift 
+```python scripts\monitoring_extensive.py```
+
+### Adminer Login Instructions
+
+Go to: [http://localhost:8081](http://localhost:8081)
+
+Use the credentials from your `.env` file:
+
+- System: PostgreSQL
+- Server: `postgres`
+- Username: `${POSTGRES_USER}`
+- Password: `${POSTGRES_PASSWORD}`
+- Database: `${POSTGRES_DB}`
+
+### 🔧 Accessing Grafana
+
+Open your Grafana service: [http://localhost:3000](http://localhost:3000)  
+Log in using the credentials you set in your `.env` file **before building the Docker images**:
+
+- **Username**: `${GRAFANA_USER}`
+- **Password**: `${GRAFANA_PASSWORD}`
+
+⚠️ Ensure your `.env` file is present in the same directory as your `docker-compose.yml` when you run:
+```
+ docker compose up --build
+ ```
+
 
 ## 📦 Model Deployment
 
