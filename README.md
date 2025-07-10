@@ -58,6 +58,7 @@ By the way, this figure might give the impression that I got everything right on
 
 
 ## 📈 Monitoring Data Drift 
+```python scripts\monitoring_extensive.py```
 
 ## 📦 Model Deployment
 
