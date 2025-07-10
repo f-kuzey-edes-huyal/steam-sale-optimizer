@@ -60,6 +60,14 @@ By the way, this figure might give the impression that I got everything right on
 ## 📈 Monitoring Data Drift 
 ```python scripts\monitoring_extensive.py```
 
+```docker exec -it steam-sale-optimizer-postgres-1 psql -U postgres```
+
+```CREATE DATABASE monitoring_db;```
+
+```docker exec -it steam-sale-optimizer-airflow-scheduler-1 python scripts/monitoring_extensive.py```
+
+
+
 ### Adminer Login Instructions
 
 Go to: [http://localhost:8081](http://localhost:8081)
