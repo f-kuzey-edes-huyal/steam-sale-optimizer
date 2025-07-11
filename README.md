@@ -80,6 +80,8 @@ Use the credentials from your `.env` file:
 - Password: `${POSTGRES_PASSWORD}`
 - Database: `${POSTGRES_DB}`
 
+![Adminer Screenshot](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/adminer_scrrenshot.png?raw=true)
+
 ### 🔧 Accessing Grafana
 
 Open your Grafana service: [http://localhost:3000](http://localhost:3000)  
