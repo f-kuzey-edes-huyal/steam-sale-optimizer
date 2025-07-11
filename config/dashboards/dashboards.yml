@@ -1,0 +1,10 @@
+apiVersion: 1
+
+providers:
+  - name: 'evidently-dashboards'
+    folder: 'Model Monitoring'
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /opt/grafana/dashboards
