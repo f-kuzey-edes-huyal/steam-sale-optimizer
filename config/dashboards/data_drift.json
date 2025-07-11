@@ -1,0 +1,10 @@
+{
+  "id": null,
+  "title": "Model Monitoring Dashboard",
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "refresh": "5s",
+  "panels": [],
+  "templating": { "list": [] }
+}

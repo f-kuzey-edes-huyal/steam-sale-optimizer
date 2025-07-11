@@ -160,11 +160,12 @@ services:
       - ./config/dashboards:/etc/grafana/provisioning/dashboards:ro
       - ./dashboards:/opt/grafana/dashboards
     environment:
-      GF_SERVER_MAX_CONCURRENT_RENDER_REQUESTS: 2
-      GF_SERVER_HTTP_MAX_IDLE_CONNS_PER_HOST: 10
-      GF_PLUGINS_ENABLE_ALPHA: "false"
-      GF_SECURITY_ADMIN_USER: GRAFANA_USER
-      GF_SECURITY_ADMIN_PASSWORD: GRAFANA_PASSWORD
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      #GF_SERVER_DOMAIN: localhost
+      #GF_SERVER_ROOT_URL: http://localhost:3000
+    depends_on:
+      - postgres
     networks:
       - front-tier
       - back-tier
@@ -175,6 +176,8 @@ services:
           memory: 512m
         reservations:
           memory: 256m
+
+
 
 volumes:
   postgres_data:
