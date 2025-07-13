@@ -98,6 +98,9 @@ Log in using the credentials you set in your `.env` file **before building the D
 
 ## 📦 Model Deployment
 
+```uvicorn main:app --reload
+```
+
 When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
 
 ```az login```
