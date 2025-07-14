@@ -126,6 +126,8 @@ I have created a lighter Docker image to deploy my model using a separate Docker
 
 ```az login```
 
+```az group create --name myResourceGroup --location westeurope```
+
 ```az appservice plan create --name myAppServicePlan --resource-group myResourceGroup --sku B1 --is-linux```
 
 ```az webapp create --resource-group myResourceGroup --plan myAppServicePlan --name kuzey-ml-app --deployment-container-image-name fkuzeyedeshuyal/deployment-d:latest```
