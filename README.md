@@ -114,6 +114,8 @@ To deploy the model, you should run the code below.
 
 ```docker build -t fkuzeyedeshuyal/deployment-d -f Dockerfile.deployment .```
 
+```docker run -p 8000:80 fkuzeyedeshuyal/deployment-d```
+
 
 When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
 
