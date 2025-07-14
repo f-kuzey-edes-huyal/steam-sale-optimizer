@@ -128,6 +128,8 @@ I have created a lighter Docker image to deploy my model using a separate Docker
 
 ```az appservice plan create --name myAppServicePlan --resource-group myResourceGroup --sku B1 --is-linux```
 
+```az webapp create --resource-group myResourceGroup --plan myAppServicePlan --name kuzey-ml-app --deployment-container-image-name fkuzeyedeshuyal/deployment-d:latest```
+
 When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
 
 ```az login```
