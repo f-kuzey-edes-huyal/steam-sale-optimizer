@@ -1,0 +1,21 @@
+# Use official Python base image
+FROM python:3.9-slim
+
+# Set working directory in the container
+WORKDIR /code
+
+# Copy and install dependencies
+COPY requirements_deploy.txt .
+RUN pip install --no-cache-dir -r requirements_deploy.txt
+
+# Copy only main.py, config folder and models folder
+COPY main.py .
+COPY config/ ./config/
+COPY models/ ./models/
+COPY utils/ ./utils/
+
+# Expose the port FastAPI will run on
+EXPOSE 80
+
+# Run your app
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
