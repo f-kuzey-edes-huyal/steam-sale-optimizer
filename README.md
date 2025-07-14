@@ -137,17 +137,7 @@ I have created a lighter Docker image to deploy my model using a separate Docker
 This will give you the URL: https://kuzey-ml-app.azurewebsites.net. By adding /docs to the end of the URL — like this:
 👉 [https://kuzey-ml-app.azurewebsites.net/docs] — you can view the interactive FastAPI Swagger UI for your deployed app.
 
-When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
 
-```az login```
-
-```terraform init```
-
-```terraform plan```
-
-```terraform apply --auto-approve```
-
-```terraform destroy --auto-approve```
 ## 🚀 Full Orchestration with Apache Airflow
 
 docker stop $(docker ps -q)
@@ -163,6 +153,20 @@ Thanks to discussions with Ulaş Huyal, I found a better approach. With the code
 
 
 ```docker-compose down --volumes --remove-orphans && docker-compose up --build -d```
+
+## Terraform 
+
+When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
+
+```az login```
+
+```terraform init```
+
+```terraform plan```
+
+```terraform apply --auto-approve```
+
+```terraform destroy --auto-approve```
 
 
 
