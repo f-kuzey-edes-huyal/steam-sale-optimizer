@@ -137,6 +137,10 @@ I have created a lighter Docker image to deploy my model using a separate Docker
 This will give you the URL: https://kuzey-ml-app.azurewebsites.net. By adding /docs to the end of the URL — like this:
 👉 [https://kuzey-ml-app.azurewebsites.net/docs] — you can view the interactive FastAPI Swagger UI for your deployed app.
 
+The model was successfully deployed to Azure App Service using a custom Docker image.
+
+![Azure Deployment](https://raw.githubusercontent.com/f-kuzey-edes-huyal/steam-sale-optimizer/main/figures/azure_deployment1.png)
+
 
 ## 🚀 Full Orchestration with Apache Airflow
 
