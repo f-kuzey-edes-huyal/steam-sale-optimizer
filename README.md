@@ -124,6 +124,8 @@ I have created a lighter Docker image to deploy my model using a separate Docker
 
 ```docker push fkuzeyedeshuyal/deployment-d```
 
+### 🚀 Deployment to the Cloud (Azure)
+
 ```az login```
 
 ```az group create --name myResourceGroup --location westeurope```
