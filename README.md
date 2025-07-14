@@ -112,6 +112,8 @@ To deploy the model, you should run the code below.
 
 <p align="center"><i>Figure: Testing the FastAPI model locally</i></p>
 
+I have created a lighter Docker image to deploy my model using a separate Dockerfile. To build and run this Dockerfile, and then push the image to Docker Hub, follow the steps below:
+
 ```docker build -t fkuzeyedeshuyal/deployment-d -f Dockerfile.deployment .```
 
 ```docker run -p 8000:80 fkuzeyedeshuyal/deployment-d```
