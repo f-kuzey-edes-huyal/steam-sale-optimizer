@@ -118,6 +118,11 @@ To deploy the model, you should run the code below.
 
 ```python test.py```
 
+```docker login```
+
+```docker push fkuzeyedeshuyal/deployment-d```
+
+
 
 When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
 
