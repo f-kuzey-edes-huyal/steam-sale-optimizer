@@ -126,6 +126,8 @@ I have created a lighter Docker image to deploy my model using a separate Docker
 
 ### 🚀 Deployment to the Cloud (Azure)
 
+The following steps show how to deploy the FastAPI application using Azure CLI:
+
 ```az login```
 
 ```az group create --name myResourceGroup --location westeurope```
