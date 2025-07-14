@@ -1,10 +1,15 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-import joblib
 import pandas as pd
-import numpy as np
+import joblib
+import os
 
-# Load saved components
+from config.preprocessing import get_preprocessor, NUMERIC_FEATURES
+
+# === Setup ===
+app = FastAPI()
+
+# Load pipeline and supporting transformers
 model = joblib.load("models/discount_model_pipeline.pkl")
 tfidf = joblib.load("models/tfidf_vectorizer.pkl")
 svd = joblib.load("models/svd_transform.pkl")
@@ -12,57 +17,68 @@ mlb_genres = joblib.load("models/mlb_genres.pkl")
 mlb_tags = joblib.load("models/mlb_tags.pkl")
 competitor_transformer = joblib.load("models/competitor_pricing_transformer.pkl")
 
-app = FastAPI(title="Steam Discount Predictor API")
 
-class PredictionRequest(BaseModel):
+# === Input Schema ===
+class GameData(BaseModel):
+    game_id: int
+    name: str
+    release_date: str
     total_reviews: int
-    positive_percent: float
-    current_price: float
-    discounted_price: float
-    owners_log_mean: float
+    positive_percent: int
+    genres: str
+    tags: str
+    current_price: str
+    discounted_price: str
+    owners: str
     days_after_publish: int
-    genres: list[str]
-    tags: list[str]
     review: str
+    owner_min: float
+    owner_max: float
+    owners_log_mean: float
 
-@app.get("/")
-def root():
-    return {"message": "Steam Discount Prediction API is live!"}
+
+def parse_price(val):
+    try:
+        return float(str(val).replace('$', '').replace('USD', '').strip())
+    except:
+        return None
+
+
+def preprocess_input(data: GameData) -> pd.DataFrame:
+    df = pd.DataFrame([data.dict()])
+
+    # Price parsing
+    df["current_price"] = df["current_price"].apply(parse_price)
+    df["discounted_price"] = df["discounted_price"].apply(parse_price)
+    df["discount_pct"] = 1 - (df["discounted_price"] / df["current_price"])
+
+    # Text -> vector -> score
+    tfidf_matrix = tfidf.transform(df["review"].fillna(""))
+    df["review_score"] = svd.transform(tfidf_matrix).flatten()
+
+    # Genres & Tags binarization
+    df["genres"] = df["genres"].fillna("").apply(lambda x: [g.strip() for g in x.split(",")])
+    df["tags"] = df["tags"].fillna("").apply(lambda x: [t.strip() for t in x.split(";")])
+
+    genres_encoded = pd.DataFrame(mlb_genres.transform(df["genres"]), columns=mlb_genres.classes_)
+    tags_encoded = pd.DataFrame(mlb_tags.transform(df["tags"]), columns=mlb_tags.classes_)
+
+    # Competitor feature
+    competitor_df = competitor_transformer.transform(df)
+
+    # Combine all features
+    df = pd.concat([competitor_df.reset_index(drop=True), genres_encoded, tags_encoded], axis=1)
+
+    all_features = NUMERIC_FEATURES + ["review_score", "competitor_pricing"] + list(mlb_genres.classes_) + list(mlb_tags.classes_)
+
+    return df[all_features]
+
 
 @app.post("/predict")
-def predict_discount(data: PredictionRequest):
+def predict(data: GameData):
     try:
-        df = pd.DataFrame([data.dict()])
-
-        # Manual feature engineering to match training pipeline
-        df['discount_pct'] = 1 - (df['discounted_price'] / df['current_price'])
-        df['genres'] = [data.genres]
-        df['tags'] = [data.tags]
-
-        tfidf_matrix = tfidf.transform(df['review'])
-        df['review_score'] = svd.transform(tfidf_matrix).flatten()
-
-        df = competitor_transformer.transform(df)
-
-        # One-hot encode genres and tags using previously fit encoders
-        genres_encoded = pd.DataFrame(mlb_genres.transform(df['genres']), columns=mlb_genres.classes_)
-        tags_encoded = pd.DataFrame(mlb_tags.transform(df['tags']), columns=mlb_tags.classes_)
-
-        df = df.reset_index(drop=True)
-        df_final = pd.concat([df, genres_encoded, tags_encoded], axis=1)
-
-        # Define required feature columns from training
-        feature_cols = model.named_steps['preprocess'].get_feature_names_out()
-
-        # Ensure all required columns are in df_final (missing ones get 0)
-        for col in feature_cols:
-            if col not in df_final.columns:
-                df_final[col] = 0
-        df_final = df_final[feature_cols]
-
-        # Predict
-        pred = model.predict(df_final)[0]
-        return {"predicted_discount": round(pred, 4)}
-
+        df_prepared = preprocess_input(data)
+        prediction = model.predict(df_prepared)
+        return {"predicted_discount_pct": float(prediction[0])}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
