@@ -98,8 +98,26 @@ Log in using the credentials you set in your `.env` file **before building the D
 
 ## 📦 Model Deployment
 
-```uvicorn main:app --reload
-```
+To deploy the model, you should run the code below.
+
+```uvicorn main:app --reload```
+
+ Then, test your model locally by:
+ 
+ ```python test.py```
+
+<p align="center">
+  <img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/raw/main/figures/test_locally.png" alt="Local Test Result" width="600"/>
+</p>
+
+<p align="center"><i>Figure: Testing the FastAPI model locally</i></p>
+
+```docker build -t fkuzeyedeshuyal/deployment-d -f Dockerfile.deployment .```
+
+```docker run -p 8000:80 fkuzeyedeshuyal/deployment-d```
+
+```python test.py```
+
 
 When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
 
