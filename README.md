@@ -105,6 +105,11 @@ To deploy the model, you should run the code below.
  
  ```python test.py```
 
+<p align="center">
+  <img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/raw/main/figures/test_locally.png" alt="Local Test Result" width="600"/>
+</p>
+
+<p align="center"><i>Figure: Testing the FastAPI model locally</i></p>
 
 When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
 
