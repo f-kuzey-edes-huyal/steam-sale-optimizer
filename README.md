@@ -152,6 +152,13 @@ The model was successfully deployed to Azure App Service using a custom Docker i
   <img src="https://raw.githubusercontent.com/f-kuzey-edes-huyal/steam-sale-optimizer/main/figures/azure_test.png" alt="Azure Test Screenshot" width="600"/>
 </p>
 
+> ⚠️ **Important:**  
+> Don't forget to delete the Azure resources you created after your work is complete to avoid additional charges.
+
+You can do this by running:
+
+ ```az group delete --name myResourceGroup --yes --no-wait```
+
 
 ## 🚀 Full Orchestration with Apache Airflow
 
