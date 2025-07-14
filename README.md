@@ -158,6 +158,10 @@ Thanks to discussions with Ulaş Huyal, I found a better approach. With the code
 
 ```docker-compose down --volumes --remove-orphans && docker-compose up --build -d```
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/f-kuzey-edes-huyal/steam-sale-optimizer/main/figures/azure_test.png" alt="Azure Test Screenshot" width="600"/>
+</p>
+
 ## Terraform 
 
 When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
