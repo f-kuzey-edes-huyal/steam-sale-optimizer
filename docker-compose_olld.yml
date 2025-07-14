@@ -162,6 +162,8 @@ services:
     environment:
       GF_SECURITY_ADMIN_USER: admin
       GF_SECURITY_ADMIN_PASSWORD: admin
+      #GF_SERVER_DOMAIN: localhost
+      #GF_SERVER_ROOT_URL: http://localhost:3000
     depends_on:
       - postgres
     networks:
@@ -175,16 +177,7 @@ services:
         reservations:
           memory: 256m
 
-  fastapi-app:
-    build:
-      context: .
-      dockerfile: Dockerfile.deployment
-    ports:
-      - "8082:80"
-    restart: unless-stopped
-    networks:
-      - back-tier
-      - front-tier
+
 
 volumes:
   postgres_data:
