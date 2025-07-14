@@ -98,8 +98,13 @@ Log in using the credentials you set in your `.env` file **before building the D
 
 ## 📦 Model Deployment
 
-```uvicorn main:app --reload
-```
+To deploy the model, you should run the code below.
+
+```uvicorn main:app --reload```
+ Then, test your model locally by:
+ 
+ ```python test.py```
+
 
 When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
 
