@@ -134,6 +134,9 @@ I have created a lighter Docker image to deploy my model using a separate Docker
 
 ```az webapp show --resource-group myResourceGroup --name kuzey-ml-app --query defaultHostName -o tsv```
 
+This will give you the URL: https://kuzey-ml-app.azurewebsites.net. By adding /docs to the end of the URL — like this:
+👉 [https://kuzey-ml-app.azurewebsites.net/docs] — you can view the interactive FastAPI Swagger UI for your deployed app.
+
 When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
 
 ```az login```
