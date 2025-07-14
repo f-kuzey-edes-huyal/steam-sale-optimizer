@@ -139,7 +139,13 @@ This will give you the URL: https://kuzey-ml-app.azurewebsites.net. By adding /d
 
 The model was successfully deployed to Azure App Service using a custom Docker image.
 
-![Azure Deployment](https://raw.githubusercontent.com/f-kuzey-edes-huyal/steam-sale-optimizer/main/figures/azure_deployment1.png)
+
+
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/f-kuzey-edes-huyal/steam-sale-optimizer/main/figures/azure_deployment1.png" alt="Azure Test Screenshot" width="600"/>
+</p>
+
 
 
 <p align="center">
