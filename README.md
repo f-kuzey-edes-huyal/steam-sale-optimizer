@@ -101,6 +101,7 @@ Log in using the credentials you set in your `.env` file **before building the D
 To deploy the model, you should run the code below.
 
 ```uvicorn main:app --reload```
+
  Then, test your model locally by:
  
  ```python test.py```
