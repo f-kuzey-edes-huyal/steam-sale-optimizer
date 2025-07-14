@@ -112,6 +112,9 @@ To deploy the model, you should run the code below.
 
 <p align="center"><i>Figure: Testing the FastAPI model locally</i></p>
 
+```docker build -t fkuzeyedeshuyal/deployment-d -f Dockerfile.deployment .```
+
+
 When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
 
 ```az login```
