@@ -163,6 +163,11 @@ You can do this by running:
 
  ```az group delete --name myResourceGroup --yes --no-wait```
 
+### 🚀 Orchestrate Deployment with Apache Airflow
+
+```docker exec -it steam-sale-optimizer-airflow-scheduler-1 bash```
+
+```python scripts/test_docker.py```
 
 ## 🚀 Full Orchestration with Apache Airflow
 
