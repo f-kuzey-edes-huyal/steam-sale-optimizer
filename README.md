@@ -165,6 +165,8 @@ You can do this by running:
 
 ### 🚀 Orchestrate Deployment with Apache Airflow
 
+I prepared a DAG file named [fastapi_deployment_dag.py](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/dags/fastapi_deployment_dag.py) with the URL set to "http://fastapi-app:80/predict". After triggering the DAG from the Apache Airflow UI, I ran the test script inside the Docker container to verify the FastAPI deployment.
+
 ```docker exec -it steam-sale-optimizer-airflow-scheduler-1 bash```
 
 ```python scripts/test_docker.py```
