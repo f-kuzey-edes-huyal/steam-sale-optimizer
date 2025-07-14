@@ -1,20 +1,26 @@
-# test_predict.py
-
 import requests
 
-data = {
+url = "http://127.0.0.1:8000/predict"
+
+test_data = {
+    "game_id": 123,
+    "name": "Test Game",
+    "release_date": "2023-01-01",
     "total_reviews": 1000,
-    "positive_percent": 95.0,
-    "current_price": 20.0,
-    "discounted_price": 10.0,
-    "owners_log_mean": 13.5,
-    "days_after_publish": 100,
-    "genres": ["Action", "Indie"],
-    "tags": ["Multiplayer", "Co-op"],
-    "review": "Great game with fantastic gameplay and graphics!"
+    "positive_percent": 75,
+    "genres": "Action, Adventure",
+    "tags": "Multiplayer;Co-op",
+    "current_price": "$20.00",
+    "discounted_price": "$10.00",
+    "owners": "50000..100000",
+    "days_after_publish": 365,
+    "review": "Great game, loved it!",
+    "owner_min": 50000,
+    "owner_max": 100000,
+    "owners_log_mean": 11.5
 }
 
-response = requests.post("http://localhost:8000/predict", json=data)
+response = requests.post(url, json=test_data)
 
 print("Status Code:", response.status_code)
-print("Response:", response.json())
+print("Response JSON:", response.json())
