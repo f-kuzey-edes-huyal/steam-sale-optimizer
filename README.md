@@ -124,6 +124,8 @@ I have created a lighter Docker image to deploy my model using a separate Docker
 
 ```docker push fkuzeyedeshuyal/deployment-d```
 
+```az login```
+
 
 
 When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
