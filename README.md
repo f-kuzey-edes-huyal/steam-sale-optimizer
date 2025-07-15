@@ -5,6 +5,10 @@ A machine learning pipeline for optimizing game discount strategies using Steam 
 
 ## 📊 Data Overview
 
+By running the code below, you will combine the reviews ([reviews.csv](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/data/reviews.csv), the number of owners scraped from SteamSpy ([steamspy_data.csv](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/data/steamspy_data.csv), and other game features using an SQL query ([steamdata.csv](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/data/steamdata.csv). Additionally, the query will exclude free-to-play games, as they are not suitable for our analysis.
+
+Before running the script, make sure to execute your SQL schema (e.g., via pgAdmin or a similar tool) to create the necessary database and grant access permissions.
+
 ```python scripts\load_combine_exclude_freegames.py```
 
 ## 🧪 Experiment Tracking with MLflow
