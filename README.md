@@ -7,7 +7,7 @@ A machine learning pipeline for optimizing game discount strategies using Steam 
 
 This Python script [steam_scraper_new_trial.py](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/scripts/steam_scraper_new_trial.py) includes functions to scrape the most important game-level features such as:
 
-"game_id", "name", "release_date", "release_year" "total_reviews", "positive_percent" "developer", "publisher", "genres", "tags", "platforms" "current_price", "discounted_price", "discount_percent"
+```"game_id", "name", "release_date", "release_year" "total_reviews", "positive_percent" "developer", "publisher", "genres", "tags", "platforms" "current_price", "discounted_price", "discount_percent"```
 
 The script [steamspy_scrape.py] contains functions to extract additional metadata from SteamSpy, using the endpoint: https://steamspy.com/api.php?request=appdetails&appid={appid}
 The most critical feature retrieved here is "owners", which indicates the estimated number of game owners. 
