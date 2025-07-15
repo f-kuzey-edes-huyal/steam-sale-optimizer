@@ -16,7 +16,7 @@ Additionally, the [review_scraper.py](https://github.com/f-kuzey-edes-huyal/stea
 
 Together, this pipeline integrates three sources of data using the functions defined in:
 
-```python scripts\[main_scraper1_new_features.py](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/scripts/main_scraper1_new_features.py)```
+```python scripts\main_scraper1_new_features.py```
 
 By running the code below, you will combine the reviews ([reviews.csv](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/data/reviews.csv), the number of owners scraped from SteamSpy ([steamspy_data.csv](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/data/steamspy_data.csv), and other game features using an SQL query ([steamdata.csv](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/data/steamdata.csv). Additionally, the query will exclude free-to-play games, as they are not suitable for our analysis.
 
