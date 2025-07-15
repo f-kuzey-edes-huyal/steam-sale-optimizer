@@ -5,6 +5,7 @@ A machine learning pipeline for optimizing game discount strategies using Steam 
 
 ## 📊 Data Overview
 
+```python scripts\load_combine_exclude_freegames.py```
 
 ## 🧪 Experiment Tracking with MLflow
 
