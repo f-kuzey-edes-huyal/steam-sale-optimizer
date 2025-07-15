@@ -12,7 +12,7 @@ This Python script [steam_scraper_new_trial.py](https://github.com/f-kuzey-edes-
 The script [steamspy_scrape.py] contains functions to extract additional metadata from SteamSpy, using the endpoint: https://steamspy.com/api.php?request=appdetails&appid={appid}
 The most critical feature retrieved here is "owners", which indicates the estimated number of game owners. 
 
-Additionally, the review_scraper.py script scrapes user reviews from the Steam platform. These reviews will later be used in a multimodal analysis, combining both tabular features and textual data.
+Additionally, the [review_scraper.py](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/scripts/review_scraper.py) script scrapes user reviews from the Steam platform. These reviews will later be used in a multimodal analysis, combining both tabular features and textual data.
 
 Together, this pipeline integrates three sources of data using the functions defined in python_scripts/main_scraper1_new_features.py.
 
