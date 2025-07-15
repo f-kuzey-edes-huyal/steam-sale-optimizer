@@ -5,7 +5,7 @@ A machine learning pipeline for optimizing game discount strategies using Steam 
 
 ## 📊 Data Overview
 
-This Python script [steam_scraper_new_trial.py](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/scripts/steam_scraper_new_trial.py) includes functions to scrape the most important game-level features such as:
+This Python script [steam_scraper_new_trial.py](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/scripts/steam_scraper_new_trial.py) includes functions to scrape the most important game-level features  from the Steam store: https://store.steampowered.com/. 
 
 ```"game_id", "name", "release_date", "release_year" "total_reviews", "positive_percent" "developer", "publisher", "genres", "tags", "platforms" "current_price", "discounted_price", "discount_percent"```
 
