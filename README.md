@@ -24,6 +24,8 @@ Before running the script, make sure to execute your [SQL schema](https://github
 
 ```python scripts\load_combine_exclude_freegames.py```
 
+### 🛠️ Automated Data Collection and Merging Using Apache Airflow
+
 ## 🧪 Experiment Tracking with MLflow
 
 First, activate your virtual environment in your terminal and run the command below to start the MLflow UI:
