@@ -4,8 +4,8 @@ from datetime import datetime
 import sys
 sys.path.append('/opt/airflow/scripts')
 
-from airflow_main_scraper1 import scrape_steam_data
-from load_and_combine import load_csv_to_postgres_and_export
+from airflow_main_scraper1_new import scrape_steam_data
+from load_and_combine_new import load_csv_to_postgres_and_export
 import os
 
 #os.environ.pop('http_proxy', None)
