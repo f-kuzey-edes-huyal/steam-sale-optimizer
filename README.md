@@ -5,6 +5,17 @@ A machine learning pipeline for optimizing game discount strategies using Steam 
 
 ## 📊 Data Overview
 
+This Python script [steam_scraper_new_trial.py](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/scripts/steam_scraper_new_trial.py) includes functions to scrape the most important game-level features such as:
+
+"game_id", "name", "release_date", "release_year" "total_reviews", "positive_percent" "developer", "publisher", "genres", "tags", "platforms" "current_price", "discounted_price", "discount_percent"
+
+The script [steamspy_scrape.py] contains functions to extract additional metadata from SteamSpy, using the endpoint: https://steamspy.com/api.php?request=appdetails&appid={appid}
+The most critical feature retrieved here is "owners", which indicates the estimated number of game owners. 
+
+Additionally, the review_scraper.py script scrapes user reviews from the Steam platform. These reviews will later be used in a multimodal analysis, combining both tabular features and textual data.
+
+Together, this pipeline integrates three sources of data using the functions defined in python_scripts/main_scraper1_new_features.py.
+
 ```python scripts\main_scraper1_new_features.py```
 
 By running the code below, you will combine the reviews ([reviews.csv](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/data/reviews.csv), the number of owners scraped from SteamSpy ([steamspy_data.csv](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/data/steamspy_data.csv), and other game features using an SQL query ([steamdata.csv](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/data/steamdata.csv). Additionally, the query will exclude free-to-play games, as they are not suitable for our analysis.
