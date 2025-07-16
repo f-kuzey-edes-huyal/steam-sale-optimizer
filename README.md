@@ -29,11 +29,11 @@ Before running the script, make sure to execute your [SQL schema](https://github
 [The DAG](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/dags/scrape_and_combine_steam_csvs_dag.py) file orchestrates the data scraping and combination process by calling two scripts: [airflow_main_scraper1_new.py](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/scripts/airflow_main_scraper1_new.py) and [load_and_combine_new.py](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/scripts/load_and_combine_new.py). These scripts scrape the required game data, combine three datasets using SQL, and exclude free-to-play games from the final output.
 
 <p align="center">
-  <img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/trigger_gag_scrape.png?raw=true" alt="Trigger the DAG" width="600"/>
+  <img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/trigger_gag_scrape.png?raw=true" alt="Trigger the DAG" width="800"/>
 </p>
 
 <p align="center">
-  <img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/scrape_bysteam.png?raw=true" alt="Successfully runned image" width="600"/>
+  <img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/scrape_bysteam.png?raw=true" alt="Successfully runned image" width="800"/>
 </p>
 
 ## 🧪 Experiment Tracking with MLflow
