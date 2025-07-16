@@ -38,10 +38,12 @@ def load_csv_to_postgres_and_export():
         user = os.getenv("POSTGRES_USER")
         password = os.getenv("POSTGRES_PASSWORD")
         db = os.getenv("POSTGRES_DB")
-        db_url = f"postgresql://{user}:{password}@postgres:5432/{db}"
+
+        # Create SQLAlchemy engine with psycopg2 driver
+        db_url = f"postgresql+psycopg2://{user}:{password}@postgres:5432/{db}"
         engine = create_engine(db_url)
 
-        # Load CSV files
+        # Read CSV files
         reviews = pd.read_csv('/opt/airflow/data/reviews_apache.csv')
         steam_api = pd.read_csv('/opt/airflow/data/steam_api_apache.csv')
         steamdata = pd.read_csv('/opt/airflow/data/steamdata_apache.csv')
@@ -50,15 +52,14 @@ def load_csv_to_postgres_and_export():
             steamdata['release_date'], errors='coerce'
         ).dt.strftime('%Y-%m-%d')
 
-        # Use engine.connect() to get Connection for pandas.to_sql
-        with engine.connect() as conn:
-            reviews.to_sql('reviews', con=conn, if_exists='replace', index=False)
-            steam_api.to_sql('steam_api', con=conn, if_exists='replace', index=False)
-            steamdata.to_sql('steamdata', con=conn, if_exists='replace', index=False)
+        # Upload CSV dataframes directly using engine (not raw connection)
+        reviews.to_sql('reviews', con=engine, if_exists='replace', index=False)
+        steam_api.to_sql('steam_api', con=engine, if_exists='replace', index=False)
+        steamdata.to_sql('steamdata', con=engine, if_exists='replace', index=False)
 
-        print("Uploaded CSVs to PostgreSQL")
+        print("✅ Uploaded CSVs to PostgreSQL")
 
-        # Use a transaction for your SQL commands
+        # Execute SQL statements in a transaction
         with engine.begin() as conn:
             conn.execute(text("DROP TABLE IF EXISTS combined, combined_step1, aggregated_reviews;"))
 
@@ -114,26 +115,30 @@ def load_csv_to_postgres_and_export():
                 FROM combined_step1;
             """))
 
-            print("Created final 'combined' table")
+            print("✅ Created final 'combined' table")
 
-        # Read final combined table and process
+        # Read the final combined table into pandas dataframe
         combined_df = pd.read_sql("SELECT * FROM combined", con=engine)
 
+        # Clean the reviews text column
         combined_df['review'] = combined_df['review'].apply(clean_review)
+
+        # Parse owners into min, max, and log mean columns
         combined_df[['owner_min', 'owner_max', 'owners_log_mean']] = combined_df['owners'].apply(
             lambda x: pd.Series(parse_owners(x))
         )
 
-        # Exclude free games
+        # Remove free games
         combined_df = combined_df[
             ~combined_df['current_price'].astype(str).str.lower().str.contains('free')
         ]
 
+        # Export final dataframe to CSV
         combined_df.to_csv('/opt/airflow/data/combined_outputnew.csv', index=False)
-        print("Exported final DataFrame to /opt/airflow/data/combined_outputnew.csv")
+        print("✅ Exported final DataFrame to /opt/airflow/data/combined_outputnew.csv")
 
     except Exception as e:
-        logging.exception("Error in load_csv_to_postgres_and_export")
+        logging.exception("❌ Error in load_csv_to_postgres_and_export")
         raise
 
 if __name__ == "__main__":

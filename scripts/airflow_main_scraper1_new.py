@@ -10,7 +10,7 @@ import logging
 def scrape_steam_data():
     try:
         # Step 1: Scrape top Steam games
-        df = scrape_steam_top_games(max_games=2)
+        df = scrape_steam_top_games(max_games=200)
         if df.empty:
             logging.warning("No games scraped. Exiting task.")
             return

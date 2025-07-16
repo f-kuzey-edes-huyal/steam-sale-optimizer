@@ -1,6 +1,6 @@
 # Core ML and data science
-numpy<2.0
-pandas==1.5.3
+numpy<2.0                # Needed for Shapely compatibility
+pandas==2.2.3
 scikit-learn==1.7.0
 scipy==1.15.3
 lightgbm==4.6.0
@@ -9,7 +9,7 @@ shapely>=2.0.1
 
 # Visualization
 matplotlib==3.10.3
-seaborn==0.13.2
+seaborn==0.13.2          # (optional, add if needed)
 tqdm==4.67.1
 
 # MLflow and Optuna
@@ -33,8 +33,8 @@ MarkupSafe==3.0.2
 connexion[swagger-ui]==2.14.2
 
 # Airflow-compatible packages
-protobuf<4.24
-sqlalchemy==1.4.51
+protobuf<4.24            # Required by Airflow providers
+sqlalchemy>=1.4,<2.1     # Avoid breaking ORM in Airflow
 psycopg2-binary==2.9.10
 python-dotenv==1.1.0
 
@@ -69,7 +69,7 @@ webdriver-manager==4.0.2
 # Logging and monitoring
 prometheus_client==0.22.0
 python-json-logger==3.3.0
-loguru==0.7.2
+loguru==0.7.2             # (optional, add if needed)
 
 # Async stack
 anyio==4.9.0
@@ -190,6 +190,6 @@ waitress==3.0.2
 wcwidth==0.2.13
 webencodings==0.5.1
 
-# Data monitoring and Grafana integration
-evidently==0.4.23
-grafana-api==1.0.0
+evidently==0.4.23              # Drift detection
+grafana-api==1.0.0             # Grafana integration (if using dashboards programmatically)
+psycopg[binary]
