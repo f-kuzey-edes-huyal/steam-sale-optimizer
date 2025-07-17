@@ -221,7 +221,7 @@ Thanks to discussions with Ulaş Huyal, I found a better approach. With the code
 
 ```docker-compose down --volumes --remove-orphans && docker-compose up --build -d```
 
-🧪🔗 Unit & Integration Testing
+## 🧪🔗 Unit & Integration Testing
 
 
 ## Terraform 
