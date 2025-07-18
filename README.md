@@ -89,7 +89,7 @@ If your code runs successfully at each step, you will see bold green indicators,
 By the way, this figure might give the impression that I got everything right on the first try, but in reality, I had many unsuccessful attempts before finally running this DAG script successfully.
 
 
-
+```airflow dags trigger discount_model_training_pipeline```
 
 ## 📈 Monitoring Data Drift 
 ```python scripts\monitoring_extensive.py```
