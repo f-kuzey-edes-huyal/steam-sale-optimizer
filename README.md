@@ -71,7 +71,7 @@ While your MLflow tracking server is running, open a new terminal and execute th
 python scripts\model_registry_final.py
 ```
 
-
+By clicking the link http://127.0.0.1:5000/#/models, you can view your registered models.
 
 Note: Model registration is not the same as deployment, but it allows you to prepare the model for future deployment or serving.
 
