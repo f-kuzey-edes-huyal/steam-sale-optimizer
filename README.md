@@ -203,6 +203,8 @@ I prepared a DAG file named [fastapi_deployment_dag.py](https://github.com/f-kuz
 
 ## 🚀 Full Orchestration with Apache Airflow
 
+I used the script named [you_have_to_live_before_you_die_young_dag.py](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/dags/you_have_to_live_before_you_die_young_dag.py). This DAG now needs to be triggered.
+
 ```docker exec -it steam-sale-optimizer-airflow-scheduler-1 airflow dags trigger you_have_to_live_before_you_die_young_dag```
 
 docker stop $(docker ps -q)
