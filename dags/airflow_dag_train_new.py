@@ -8,7 +8,8 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'scripts')))
 
 from dag_train_new import load_data, train_and_log_model, finalize_and_log
-from task_registry_stub import evaluate_and_register_model
+#from train_last import load_data, train_and_log_model, finalize_and_log
+#from task_registry_stub import evaluate_and_register_model
 
 default_args = {
     'owner': 'kuzey',
@@ -39,10 +40,10 @@ with DAG(
         python_callable=finalize_and_log
     )
 
-    #register_model_task = PythonOperator(
-       # task_id='evaluate_and_register_model',
-       # python_callable=evaluate_and_register_model
-    #)
+    register_model_task = PythonOperator(
+        task_id='evaluate_and_register_model',
+        python_callable=evaluate_and_register_model
+    )
 
     #load_data_task >> train_model_task >> finalize_model_task >> register_model_task
 

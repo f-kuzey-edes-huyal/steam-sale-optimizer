@@ -35,6 +35,7 @@ services:
       - ./mlruns:/mlruns
       - ./mlflow_db:/mlflow_db
       - ./models:/opt/airflow/models
+      - ./utils:/opt/airflow/utils
     command: bash -c "airflow db upgrade"
     networks:
       - back-tier
@@ -64,6 +65,7 @@ services:
       - ./mlruns:/mlruns
       - ./mlflow_db:/mlflow_db
       - ./models:/opt/airflow/models
+      - ./utils:/opt/airflow/utils
     ports:
       - "8080:8080"
     command: bash /entrypoint.sh
@@ -99,6 +101,7 @@ services:
       - ./mlruns:/mlruns
       - ./mlflow_db:/mlflow_db
       - ./models:/opt/airflow/models
+      - ./utils:/opt/airflow/utils
     command: bash -c "airflow scheduler"
     deploy:
       resources:
