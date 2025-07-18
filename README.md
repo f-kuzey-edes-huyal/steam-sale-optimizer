@@ -51,7 +51,7 @@ Next, open a new terminal window, activate your virtual environment again, and r
 
 
 ```
-python scripts\train_optuna_hyperparameter_mlflow_reviews_competitor_pricing_change_criterion_mean_absolute.py
+python scripts\train_last.py
 ```
 
 Access your MLflow experiments by navigating to http://127.0.0.1:5000 in your browser to visualize and manage your experiment tracking
