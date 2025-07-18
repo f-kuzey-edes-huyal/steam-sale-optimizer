@@ -73,8 +73,7 @@ python scripts\model_registry_final.py
 
 By clicking the link http://127.0.0.1:5000/#/models, you can view your registered models.
 
-<img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/model_registry_im.png
-" alt="Alt text" width="800"/>
+<img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/model_registry_im.png" alt="Alt text" width="800"/>
 
 
 Note: Model registration is not the same as deployment, but it allows you to prepare the model for future deployment or serving.
