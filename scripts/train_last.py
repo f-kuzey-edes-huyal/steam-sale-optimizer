@@ -20,7 +20,7 @@ import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from config.constants import MLFLOW_TRACKING_URI, EXPERIMENT_NAME, DATA_PATH, SEED
+from config.constants import MLFLOW_TRACKING_URI_local, EXPERIMENT_NAME, DATA_PATH, SEED
 from config.preprocessing import get_preprocessor, NUMERIC_FEATURES
 from config.hyperparams import get_search_space
 
@@ -96,7 +96,7 @@ def load_and_preprocess_data(filepath):
 
 if __name__ == "__main__":
 
-    mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
+    mlflow.set_tracking_uri(MLFLOW_TRACKING_URI_local)
     mlflow.set_experiment(EXPERIMENT_NAME)
     mlflow.sklearn.autolog()
 

@@ -13,11 +13,11 @@ from mlflow.tracking import MlflowClient
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Import your data loading and preprocessing functions/constants
-from config.constants import MLFLOW_TRACKING_URI, EXPERIMENT_NAME, DATA_PATH, SEED
+from config.constants import MLFLOW_TRACKING_URI_local, EXPERIMENT_NAME, DATA_PATH, SEED
 from train_optuna_hyperparameter_mlflow_reviews_competitor_pricing_change_criterion_mean_absolute import load_and_preprocess_data
 
 # Set MLflow tracking URI and experiment
-mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
+mlflow.set_tracking_uri(MLFLOW_TRACKING_URI_local)
 mlflow.set_experiment(EXPERIMENT_NAME)
 
 # Load saved pipeline (already trained)
