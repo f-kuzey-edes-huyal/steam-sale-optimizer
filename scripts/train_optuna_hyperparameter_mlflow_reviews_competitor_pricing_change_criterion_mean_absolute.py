@@ -189,7 +189,7 @@ if __name__ == "__main__":
     study = optuna.create_study(direction="minimize", sampler=optuna.samplers.TPESampler(seed=SEED))
     for model_name in ["RandomForest", "LightGBM", "ExtraTrees", "LinearSVR"]:
         study.enqueue_trial({"model_type": model_name})
-    study.optimize(objective, n_trials=200)
+    study.optimize(objective, n_trials=20)
 
     trial = study.best_trial
     best_params = trial.params.copy()
