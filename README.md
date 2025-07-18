@@ -91,6 +91,8 @@ By the way, this figure might give the impression that I got everything right on
 
 ```docker exec -it steam-sale-optimizer-airflow-scheduler-1 bash```
 
+```airflow dags trigger discount_model_training_pipeline```
+
 ## 📈 Monitoring Data Drift 
 ```python scripts\monitoring_extensive.py```
 
