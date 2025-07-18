@@ -75,7 +75,7 @@ python scripts\model_registry_final.py
 
 Note: Model registration is not the same as deployment, but it allows you to prepare the model for future deployment or serving.
 
-## 🛠️ Orchestrating Experiment Tracking with Apache Airflow
+## 🛠️ Orchestrating Experiment Tracking and Model Registry with Apache Airflow
 
 To orchestrate experiment tracking and model registry, trigger the [dag_experiment_tracking_model_registry.py](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/dags/dag_experiment_tracking_model_rgistry..py) script, which defines the DAG with dag_id="discount_model_training_pipeline_new".
 
