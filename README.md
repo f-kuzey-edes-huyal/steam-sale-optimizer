@@ -77,27 +77,12 @@ Note: Model registration is not the same as deployment, but it allows you to pre
 
 ## 🛠️ Orchestrating Experiment Tracking with Apache Airflow
 
-To orchestrate experiment tracking and model registry, trigger the dag_experiment_tracking_model_registry.py script, which defines the DAG with dag_id="discount_model_training_pipeline_new".
+To orchestrate experiment tracking and model registry, trigger the [dag_experiment_tracking_model_registry.py](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/dags/dag_experiment_tracking_model_rgistry..py) script, which defines the DAG with dag_id="discount_model_training_pipeline_new".
 
 Besides triggering it from the Apache Airflow UI, you can also run it directly from the Docker container using the following two lines:
 
 ```docker exec -it steam-sale-optimizer-airflow-scheduler-1 airflow dags trigger discount_model_training_pipeline_new```
 
-To perform experiment tracking orchestration, run ```docker-compose up --build```, then navigate to http://localhost:8080 and trigger the relevant DAG. If you want to orchestrate your experiment tracking with Apache Airflow, the related [DAG file](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/dags/airflow_dag_train.py) is provided. You need to trigger the tasks, as shown in the image below. 
-
-<img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/click_trigger_training.png" width="800">
-
-If your code runs successfully at each step, you will see bold green indicators, like those shown in the image below.
-
-
-<img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/success_dag.png" width="800">
-
-By the way, this figure might give the impression that I got everything right on the first try, but in reality, I had many unsuccessful attempts before finally running this DAG script successfully.
-
-
-```docker exec -it steam-sale-optimizer-airflow-scheduler-1 bash```
-
-```airflow dags trigger discount_model_training_pipeline```
 
 ## 📈 Monitoring Data Drift 
 ```python scripts\monitoring_extensive.py```
