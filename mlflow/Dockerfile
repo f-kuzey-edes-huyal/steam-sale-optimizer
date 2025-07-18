@@ -16,7 +16,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install MLflow
-RUN pip install --no-cache-dir mlflow==2.12.1
+#RUN pip install --no-cache-dir mlflow==2.12.1
+RUN pip install --no-cache-dir mlflow==3.1.0
 
 # Expose the MLflow UI port
 EXPOSE 5000

@@ -72,6 +72,10 @@ def train_and_log_model():
     # Set MLflow tracking URI explicitly here (must match Airflow volume mount)
     mlflow.set_tracking_uri("file:///opt/airflow/mlruns")
 
+    #mlflow.set_tracking_uri("http://mlflow:5000")
+
+
+
     # Create experiment if it does not exist
     experiment = mlflow.get_experiment_by_name(EXPERIMENT_NAME3)
     if experiment is None:
@@ -138,6 +142,7 @@ def train_and_log_model():
 
 def finalize_and_log():
     mlflow.set_tracking_uri("file:/opt/airflow/mlruns")
+    #mlflow.set_tracking_uri("http://mlflow:5000")
     mlflow.set_experiment(EXPERIMENT_NAME3)
 
     best_params, X_train, y_train, X_val, y_val, preprocessor, mlb_genres, mlb_tags = joblib.load('models/best_model_info.pkl')

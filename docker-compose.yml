@@ -32,7 +32,7 @@ services:
       - ./logs:/opt/airflow/logs
       - ./scripts:/opt/airflow/scripts
       - ./config:/opt/airflow/config
-      - ./mlruns:/opt/airflow/mlruns
+      - ./mlruns:/mlruns
       - ./mlflow_db:/mlflow_db
       - ./models:/opt/airflow/models
     command: bash -c "airflow db upgrade"
@@ -60,7 +60,8 @@ services:
       - ./scripts:/opt/airflow/scripts
       - ./entrypoint.sh:/entrypoint.sh
       - ./config:/opt/airflow/config
-      - ./mlruns:/opt/airflow/mlruns
+      #- ./mlruns:/opt/airflow/mlruns
+      - ./mlruns:/mlruns
       - ./mlflow_db:/mlflow_db
       - ./models:/opt/airflow/models
     ports:
@@ -94,7 +95,8 @@ services:
       - ./logs:/opt/airflow/logs
       - ./scripts:/opt/airflow/scripts
       - ./config:/opt/airflow/config
-      - ./mlruns:/opt/airflow/mlruns
+      #- ./mlruns:/opt/airflow/mlruns
+      - ./mlruns:/mlruns
       - ./mlflow_db:/mlflow_db
       - ./models:/opt/airflow/models
     command: bash -c "airflow scheduler"
@@ -117,6 +119,7 @@ services:
       - "5000:5000"
     volumes:
       - ./mlruns:/mlruns
+      #- ./mlruns:/opt/airflow/mlruns
       - ./mlflow:/mlflow
       - ./mlflow_db:/mlflow_db
     command: >
