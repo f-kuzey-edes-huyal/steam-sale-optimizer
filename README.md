@@ -73,13 +73,17 @@ python scripts\model_registry_final.py
 
 By clicking the link http://127.0.0.1:5000/#/models, you can view your registered models.
 
+<img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/model_registry_im.png
+" alt="Alt text" width="800"/>
+
+
 Note: Model registration is not the same as deployment, but it allows you to prepare the model for future deployment or serving.
 
 ## 🛠️ Orchestrating Experiment Tracking and Model Registry with Apache Airflow
 
 To orchestrate experiment tracking and model registry, trigger the [dag_experiment_tracking_model_registry.py](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/dags/dag_experiment_tracking_model_rgistry..py) script, which defines the DAG with ```dag_id="discount_model_training_pipeline_new```".
 
-Besides triggering it from the Apache Airflow UI, you can also run it directly from the Docker container using the following two lines:
+Besides triggering it from the Apache Airflow UI, you can also run it directly from the Docker container using the following line:
 
 ```docker exec -it steam-sale-optimizer-airflow-scheduler-1 airflow dags trigger discount_model_training_pipeline_new```
 
