@@ -230,6 +230,8 @@ Thanks to discussions with Ulaş Huyal, I found a better approach. With the code
 
 ## 🧪🔗 Unit & Integration Testing
 
+```pytest -s tests/test_train_and_log.py
+```
 
 ## Terraform 
 
