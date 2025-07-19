@@ -207,6 +207,13 @@ I used the script named [you_have_to_live_before_you_die_young_dag.py](https://g
 
 ```docker exec -it steam-sale-optimizer-airflow-scheduler-1 airflow dags trigger you_have_to_live_before_you_die_young_dag```
 
+
+
+<p align="center">
+  <img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/full_orchestration.png" alt="Azure Test Screenshot" width="600"/>
+</p>
+
+
 docker stop $(docker ps -q)
 
 docker start $(docker ps -a -q)
