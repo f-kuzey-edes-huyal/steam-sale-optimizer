@@ -183,7 +183,7 @@ The model was successfully deployed to Azure App Service using a custom Docker i
 
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/f-kuzey-edes-huyal/steam-sale-optimizer/main/figures/azure_test.png" alt="Azure Test Screenshot" width="600"/>
+  <img src="https://raw.githubusercontent.com/f-kuzey-edes-huyal/steam-sale-optimizer/main/figures/azure_test.png" alt="Azure Test Screenshot" width="800"/>
 </p>
 
 > ⚠️ **Important:**  
