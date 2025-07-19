@@ -1,202 +1,203 @@
 game_id,name,release_date,release_year,total_reviews,positive_percent,developer,publisher,genres,tags,platforms,current_price,discounted_price,discount_percent
-730,Counter-Strike 2,"21 Aug, 2012",2012,8899708,86,,,"Action, Free To Play",Action;Free To Play,"Linux, Windows",Free To Play,Free To Play,
+730,Counter-Strike 2,"21 Aug, 2012",2012,8899758,86,,,"Action, Free To Play",Action;Free To Play,"Linux, Windows",Free To Play,Free To Play,
 3405690,EA SPORTS FC™ 26,"25 Sep, 2025",2025,0,0,,,"Simulation, Sports",Simulation;Sports,Windows,$69.99 USD,$69.99 USD,
-578080,PUBG: BATTLEGROUNDS,"21 Dec, 2017",2017,2579289,59,,,"Action, Adventure, Massively Multiplayer, Free To Play",Action;Adventure;Massively Multiplayer;Free To Play,Windows,Free To Play,Free To Play,
-2767030,Marvel Rivals,"5 Dec, 2024",2024,300541,78,,,"Action, Free To Play",Action;Free To Play,Windows,Free To Play,Free To Play,
-1174180,Red Dead Redemption 2,"5 Dec, 2019",2019,697065,91,,,"Action, Adventure",Action;Adventure,Windows,$59.99,$14.99 USD,-75%
-227300,Euro Truck Simulator 2,"12 Oct, 2012",2012,668189,97,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$10.09,$2.52 USD,-75%
-3527290,PEAK,"16 Jun, 2025",2025,50394,93,,,"Action, Adventure, Indie",Action;Adventure;Indie,Windows,$3.99 USD,$3.99 USD,
-1665460,eFootball™,"29 Sep, 2021",2021,94659,48,,,"Simulation, Sports, Free To Play",Simulation;Sports;Free To Play,Windows,Free To Play,Free To Play,
-381210,Dead by Daylight,"14 Jun, 2016",2016,592929,79,,,,,,Free To Play,Free To Play,
-252490,Rust,"8 Feb, 2018",2018,1031049,87,,,"Action, Adventure, Indie, Massively Multiplayer, RPG",Action;Adventure;Indie;Massively Multiplayer;RPG,"Mac, Windows",$54.38 USD,$48.32 USD,-11%
-552990,World of Warships,"15 Nov, 2017",2017,147505,76,,,"Action, Massively Multiplayer, Simulation, Strategy, Free To Play",Action;Massively Multiplayer;Simulation;Strategy;Free To Play,Windows,Free To Play,Free To Play,
-1974050,Torchlight: Infinite,"9 May, 2023",2023,15770,70,,,"Action, Adventure, RPG, Free To Play",Action;Adventure;RPG;Free To Play,Windows,Free To Play,Free To Play,
-2138720,REMATCH,"19 Jun, 2025",2025,22446,76,,,"Action, Indie, Sports",Action;Indie;Sports,Windows,$14.99 USD,$14.99 USD,
-2429640,THRONE AND LIBERTY,"1 Oct, 2024",2024,64321,67,,,,,,Free To Play,Free To Play,
+578080,PUBG: BATTLEGROUNDS,"21 Dec, 2017",2017,2579290,59,,,"Action, Adventure, Massively Multiplayer, Free To Play",Action;Adventure;Massively Multiplayer;Free To Play,Windows,Free To Play,Free To Play,
+2767030,Marvel Rivals,"5 Dec, 2024",2024,300551,78,,,"Action, Free To Play",Action;Free To Play,Windows,Free To Play,Free To Play,
+1174180,Red Dead Redemption 2,"5 Dec, 2019",2019,697086,91,,,"Action, Adventure",Action;Adventure,Windows,$59.99,$14.99 USD,-75%
+1665460,eFootball™,"29 Sep, 2021",2021,94661,48,,,"Simulation, Sports, Free To Play",Simulation;Sports;Free To Play,Windows,Free To Play,Free To Play,
+227300,Euro Truck Simulator 2,"12 Oct, 2012",2012,668198,97,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$10.09,$2.52 USD,-75%
+3527290,PEAK,"16 Jun, 2025",2025,50448,93,,,"Action, Adventure, Indie",Action;Adventure;Indie,Windows,$3.99 USD,$3.99 USD,
+381210,Dead by Daylight,"14 Jun, 2016",2016,592936,79,,,,,,Free To Play,Free To Play,
+552990,World of Warships,"15 Nov, 2017",2017,147506,76,,,"Action, Massively Multiplayer, Simulation, Strategy, Free To Play",Action;Massively Multiplayer;Simulation;Strategy;Free To Play,Windows,Free To Play,Free To Play,
+1974050,Torchlight: Infinite,"9 May, 2023",2023,15773,70,,,"Action, Adventure, RPG, Free To Play",Action;Adventure;RPG;Free To Play,Windows,Free To Play,Free To Play,
 582660,Black Desert,"16 May, 2018",2018,59301,75,,,"Action, Adventure, Massively Multiplayer, RPG, Simulation, Strategy",Action;Adventure;Massively Multiplayer;RPG;Simulation;Strategy,Windows,$4.99 USD,$4.99 USD,
-3241660,R.E.P.O.,"26 Feb, 2025",2025,175939,96,,,"Action, Early Access",Action;Early Access,Windows,$5.79 USD,$5.79 USD,
-570,Dota 2,"9 Jul, 2013",2013,2520353,81,,,"Action, Strategy, Free To Play",Action;Strategy;Free To Play,"Linux, Mac, Windows",Free To Play,Free To Play,
-2596440,Call of Duty®: Modern Warfare® III - BlackCell (Season 1),"6 Dec, 2023",2023,0,0,,,,,,Free To Play,Free To Play,
-1085660,Destiny 2,"1 Oct, 2019",2019,629207,79,,,"Action, Adventure, Free To Play",Action;Adventure;Free To Play,Windows,$40.93 USD,$5.03 USD,-88%
-1172470,Apex Legends™,"4 Nov, 2020",2020,1001397,67,,,"Action, Adventure, Free To Play",Action;Adventure;Free To Play,Windows,Free To Play,Free To Play,
-294100,RimWorld,"17 Oct, 2018",2018,182528,97,,,"Indie, Simulation, Strategy",Indie;Simulation;Strategy,"Linux, Mac, Windows",$17.99,$14.39 USD,-20%
-2669320,EA SPORTS FC™ 25,"26 Sep, 2024",2024,80447,51,,,"Simulation, Sports",Simulation;Sports,Windows,$69.99 USD,$69.99 USD,
-553850,HELLDIVERS™ 2,"8 Feb, 2024",2024,752609,78,,,,,,Free To Play,Free To Play,
-3024040,Stronghold Crusader: Definitive Edition,"15 Jul, 2025",2025,1952,90,,,"Simulation, Strategy",Simulation;Strategy,Windows,$10.49,$9.44 USD,-10%
+252490,Rust,"8 Feb, 2018",2018,1031055,87,,,"Action, Adventure, Indie, Massively Multiplayer, RPG",Action;Adventure;Indie;Massively Multiplayer;RPG,"Mac, Windows",$54.38 USD,"Your Price:
+$39.28 USD",-11%
+2138720,REMATCH,"19 Jun, 2025",2025,22455,76,,,"Action, Indie, Sports",Action;Indie;Sports,Windows,$14.99 USD,$14.99 USD,
+2429640,THRONE AND LIBERTY,"1 Oct, 2024",2024,64322,67,,,,,,Free To Play,Free To Play,
+570,Dota 2,"9 Jul, 2013",2013,2520376,81,,,"Action, Strategy, Free To Play",Action;Strategy;Free To Play,"Linux, Mac, Windows",Free To Play,Free To Play,
 389430,Knight Online,"25 Jan, 2016",2016,10908,50,,,"Action, Adventure, Free To Play, Massively Multiplayer, RPG",Action;Adventure;Free To Play;Massively Multiplayer;RPG,Windows,Free To Play,Free To Play,
-1245620,ELDEN RING,"24 Feb, 2022",2022,776346,93,,,,,,Free To Play,Free To Play,
-1172710,Dune: Awakening,"10 Jun, 2025",2025,47999,76,,,,,,Free To Play,Free To Play,
-284160,BeamNG.drive,"29 May, 2015",2015,304945,97,,,"Racing, Simulation, Early Access",Racing;Simulation;Early Access,Windows,$12.49,$9.99 USD,-20%
-2161700,Persona 3 Reload,"2 Feb, 2024",2024,30149,95,,,"Adventure, RPG, Strategy",Adventure;RPG;Strategy,Windows,$69.99,$31.49 USD,-55%
-1304930,The Outlast Trials,"5 Mar, 2024",2024,57934,93,,,"Action, Adventure, Indie",Action;Adventure;Indie,Windows,$18.99,$7.59 USD,-60%
-3224770,Umamusume: Pretty Derby,"25 Jun, 2025",2025,15371,94,,,"Simulation, Sports, Free To Play",Simulation;Sports;Free To Play,Windows,Free To Play,Free To Play,
-1222670,The Sims™ 4,"18 Jun, 2020",2020,174080,87,,,"Adventure, Casual, Simulation, Free To Play",Adventure;Casual;Simulation;Free To Play,Windows,Free To Play,Free To Play,
-1284210,Guild Wars 2,"23 Aug, 2022",2022,22213,88,,,"Adventure, Massively Multiplayer, RPG, Free To Play",Adventure;Massively Multiplayer;RPG;Free To Play,Windows,Free To Play,Free To Play,
-359550,Tom Clancy's Rainbow Six® Siege X,"1 Dec, 2015",2015,1425511,83,,,"Action, Free To Play",Action;Free To Play,Windows,Free To Play,Free To Play,
-1903340,Clair Obscur: Expedition 33,"24 Apr, 2025",2025,96111,95,,,,,,Free To Play,Free To Play,
+1085660,Destiny 2,"1 Oct, 2019",2019,629217,79,,,"Action, Adventure, Free To Play",Action;Adventure;Free To Play,Windows,$40.93 USD,$5.03 USD,-88%
+2596440,Call of Duty®: Modern Warfare® III - BlackCell (Season 1),"6 Dec, 2023",2023,0,0,,,,,,Free To Play,Free To Play,
+1172470,Apex Legends™,"4 Nov, 2020",2020,1001402,67,,,"Action, Adventure, Free To Play",Action;Adventure;Free To Play,Windows,Free To Play,Free To Play,
+294100,RimWorld,"17 Oct, 2018",2018,182533,97,,,"Indie, Simulation, Strategy",Indie;Simulation;Strategy,"Linux, Mac, Windows",$17.99,$14.39 USD,-20%
+3241660,R.E.P.O.,"26 Feb, 2025",2025,175956,96,,,"Action, Early Access",Action;Early Access,Windows,$5.79 USD,$5.79 USD,
+2669320,EA SPORTS FC™ 25,"26 Sep, 2024",2024,80454,51,,,"Simulation, Sports",Simulation;Sports,Windows,$69.99 USD,$69.99 USD,
+553850,HELLDIVERS™ 2,"8 Feb, 2024",2024,752614,78,,,,,,Free To Play,Free To Play,
+3024040,Stronghold Crusader: Definitive Edition,"15 Jul, 2025",2025,1966,90,,,"Simulation, Strategy",Simulation;Strategy,Windows,$10.49,$9.44 USD,-10%
+284160,BeamNG.drive,"29 May, 2015",2015,304948,97,,,"Racing, Simulation, Early Access",Racing;Simulation;Early Access,Windows,$12.49,$9.99 USD,-20%
+3224770,Umamusume: Pretty Derby,"25 Jun, 2025",2025,15389,94,,,"Simulation, Sports, Free To Play",Simulation;Sports;Free To Play,Windows,Free To Play,Free To Play,
+2878980,NBA 2K25,"28 Oct, 2024",2024,26447,59,,,"Simulation, Sports",Simulation;Sports,Windows,$69.99,$9.79 USD,-86%
+1222670,The Sims™ 4,"18 Jun, 2020",2020,174087,87,,,"Adventure, Casual, Simulation, Free To Play",Adventure;Casual;Simulation;Free To Play,Windows,Free To Play,Free To Play,
+359550,Tom Clancy's Rainbow Six® Siege X,"1 Dec, 2015",2015,1425524,83,,,"Action, Free To Play",Action;Free To Play,Windows,Free To Play,Free To Play,
+1304930,The Outlast Trials,"5 Mar, 2024",2024,57940,93,,,"Action, Adventure, Indie",Action;Adventure;Indie,Windows,$18.99,$7.59 USD,-60%
+2161700,Persona 3 Reload,"2 Feb, 2024",2024,30152,95,,,"Adventure, RPG, Strategy",Adventure;RPG;Strategy,Windows,$69.99,$31.49 USD,-55%
+2622380,ELDEN RING NIGHTREIGN,"29 May, 2025",2025,90165,82,,,"Action, RPG",Action;RPG,Windows,$25.99 USD,$25.99 USD,
 1687950,Persona 5 Royal,"21 Oct, 2022",2022,70706,96,,,RPG,RPG,Windows,$59.99,$23.99 USD,-60%
-1627720,Lies of P,"18 Sep, 2023",2023,44617,91,,,,,,Free To Play,Free To Play,
-3183280,Game of Thrones: Kingsroad,"21 May, 2025",2025,5068,61,,,"Action, Adventure, RPG, Free To Play",Action;Adventure;RPG;Free To Play,Windows,Free To Play,Free To Play,
-1551360,Forza Horizon 5,"9 Nov, 2021",2021,214275,88,,,"Action, Adventure, Racing, Simulation, Sports",Action;Adventure;Racing;Simulation;Sports,Windows,$32.78 USD,$32.78 USD,
-2507950,Delta Force,"4 Dec, 2024",2024,124258,62,,,"Action, Adventure, Massively Multiplayer, Free To Play",Action;Adventure;Massively Multiplayer;Free To Play,Windows,Free To Play,Free To Play,
-2622380,ELDEN RING NIGHTREIGN,"29 May, 2025",2025,90161,82,,,"Action, RPG",Action;RPG,Windows,$25.99 USD,$25.99 USD,
-3022790,RimWorld - Odyssey,"11 Jul, 2025",2025,1966,94,,,"Indie, Simulation, Strategy",Indie;Simulation;Strategy,"Linux, Mac, Windows",$40.82,$36.22 USD,-11%
-394360,Hearts of Iron IV,"9 Apr, 2024",2024,241306,91,,,"Simulation, Strategy",Simulation;Strategy,"Linux, Mac, Windows",$29.99 USD,$29.99 USD,
-1086940,Baldur's Gate 3,"3 Aug, 2023",2023,679371,96,,,,,,Free To Play,Free To Play,
-1771300,Kingdom Come: Deliverance II,"4 Feb, 2025",2025,80280,93,,,,,,Free To Play,Free To Play,
-270880,American Truck Simulator,"2 Feb, 2016",2016,146785,97,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$10.09,$2.52 USD,-75%
-526870,Satisfactory,"10 Sep, 2024",2024,200857,97,,,"Adventure, Indie, Simulation, Strategy",Adventure;Indie;Simulation;Strategy,Windows,$18.99,$13.29 USD,-30%
+1172710,Dune: Awakening,"10 Jun, 2025",2025,48011,76,,,,,,Free To Play,Free To Play,
 3008130,Dying Light: The Beast,"22 Aug, 2025",2025,0,0,,,"Action, Adventure, RPG",Action;Adventure;RPG,Windows,$44.99 USD,$44.99 USD,
+1284210,Guild Wars 2,"23 Aug, 2022",2022,22215,88,,,"Adventure, Massively Multiplayer, RPG, Free To Play",Adventure;Massively Multiplayer;RPG;Free To Play,Windows,Free To Play,Free To Play,
+1903340,Clair Obscur: Expedition 33,"24 Apr, 2025",2025,96123,95,,,,,,Free To Play,Free To Play,
+236390,War Thunder,"15 Aug, 2013",2013,638384,73,,,"Action, Massively Multiplayer, Simulation, Free To Play",Action;Massively Multiplayer;Simulation;Free To Play,"Linux, Mac, Windows",Free To Play,Free To Play,
+394360,Hearts of Iron IV,"9 Apr, 2024",2024,241307,91,,,"Simulation, Strategy",Simulation;Strategy,"Linux, Mac, Windows",$29.99 USD,$29.99 USD,
+3022790,RimWorld - Odyssey,"11 Jul, 2025",2025,1972,94,,,"Indie, Simulation, Strategy",Indie;Simulation;Strategy,"Linux, Mac, Windows",$40.82,$36.22 USD,-11%
+1771300,Kingdom Come: Deliverance II,"4 Feb, 2025",2025,80282,93,,,,,,Free To Play,Free To Play,
+3489700,Stellar Blade™,"11 Jun, 2025",2025,34104,93,,,,,,Free To Play,Free To Play,
+1190970,House Flipper 2,"14 Dec, 2023",2023,11776,85,,,"Casual, Indie, Simulation",Casual;Indie;Simulation,Windows,$23.99,$15.59 USD,-35%
+1627720,Lies of P,"18 Sep, 2023",2023,44619,91,,,,,,Free To Play,Free To Play,
+230410,Warframe,"25 Mar, 2013",2013,624556,87,,,,,,Free To Play,Free To Play,
+1245620,ELDEN RING,"24 Feb, 2022",2022,776349,93,,,,,,Free To Play,Free To Play,
+588650,Dead Cells,"6 Aug, 2018",2018,144915,97,,,"Action, Adventure, Indie",Action;Adventure;Indie,"Linux, Mac, Windows",$12.49,$4.99 USD,-60%
+526870,Satisfactory,"10 Sep, 2024",2024,200862,97,,,"Adventure, Indie, Simulation, Strategy",Adventure;Indie;Simulation;Strategy,Windows,$18.99,$13.29 USD,-30%
+270880,American Truck Simulator,"2 Feb, 2016",2016,146791,97,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$10.09,$2.52 USD,-75%
+1086940,Baldur's Gate 3,"3 Aug, 2023",2023,679383,96,,,,,,Free To Play,Free To Play,
+238960,Path of Exile,"23 Oct, 2013",2013,238657,88,,,"Action, Adventure, Indie, Massively Multiplayer, RPG, Free To Play",Action;Adventure;Indie;Massively Multiplayer;RPG;Free To Play,"Mac, Windows",Free To Play,Free To Play,
+1973530,Limbus Company,"26 Feb, 2023",2023,68560,84,,,"Action, RPG, Strategy",Action;RPG;Strategy,Windows,Free To Play,Free To Play,
+761890,Albion Online,"16 May, 2018",2018,84208,78,,,"Massively Multiplayer, RPG, Free To Play",Massively Multiplayer;RPG;Free To Play,"Linux, Mac, Windows",Free To Play,Free To Play,
+1091500,Cyberpunk 2077,"9 Dec, 2020",2020,763499,85,,,,,,Free To Play,Free To Play,
 306130,The Elder Scrolls® Online,"22 May, 2017",2017,128697,82,,,,,,Free To Play,Free To Play,
-588650,Dead Cells,"6 Aug, 2018",2018,144911,97,,,"Action, Adventure, Indie",Action;Adventure;Indie,"Linux, Mac, Windows",$12.49,$4.99 USD,-60%
-230410,Warframe,"25 Mar, 2013",2013,624549,87,,,,,,Free To Play,Free To Play,
-236390,War Thunder,"15 Aug, 2013",2013,638383,73,,,"Action, Massively Multiplayer, Simulation, Free To Play",Action;Massively Multiplayer;Simulation;Free To Play,"Linux, Mac, Windows",Free To Play,Free To Play,
-1190970,House Flipper 2,"14 Dec, 2023",2023,11775,85,,,"Casual, Indie, Simulation",Casual;Indie;Simulation,Windows,$23.99,$15.59 USD,-35%
-251570,7 Days to Die,"25 Jul, 2024",2024,256982,88,,,"Action, Adventure, Indie, RPG, Simulation, Strategy",Action;Adventure;Indie;RPG;Simulation;Strategy,"Linux, Mac, Windows",$20.99 USD,$20.99 USD,
-1671210,DELTARUNE,"4 Jun, 2025",2025,55518,98,,,"Indie, RPG",Indie;RPG,"Mac, Windows",$12.49 USD,$12.49 USD,
-1943950,Escape the Backrooms,"11 Aug, 2022",2022,87914,91,,,"Indie, Early Access",Indie;Early Access,Windows,$5.79 USD,$5.79 USD,
-3059520,F1® 25,"30 May, 2025",2025,4652,87,,,"Racing, Simulation, Sports",Racing;Simulation;Sports,Windows,$59.99 USD,$59.99 USD,
-1973530,Limbus Company,"26 Feb, 2023",2023,68557,84,,,"Action, RPG, Strategy",Action;RPG;Strategy,Windows,Free To Play,Free To Play,
-2322010,God of War Ragnarök,"19 Sep, 2024",2024,21190,87,,,"Action, Adventure, RPG",Action;Adventure;RPG,Windows,$49.99 USD,$49.99 USD,
-431960,Wallpaper Engine,"16 Nov, 2018",2018,840938,98,,,"Casual, Indie, Animation & Modeling, Design & Illustration, Photo Editing, Utilities",Casual;Indie;Animation & Modeling;Design & Illustration;Photo Editing;Utilities,Windows,$2.99 USD,$2.99 USD,
-1158310,Crusader Kings III,"1 Sep, 2020",2020,81588,91,,,"RPG, Simulation, Strategy",RPG;Simulation;Strategy,"Linux, Mac, Windows",$29.99 USD,$29.99 USD,
-3249650,Little Fighter 2 Remastered,"18 Jul, 2025",2025,370,81,,,"Action, Indie",Action;Indie,"Mac, Windows",$14.80,$11.84 USD,-20%
-427520,Factorio,"14 Aug, 2020",2020,173372,97,,,"Casual, Indie, Simulation, Strategy",Casual;Indie;Simulation;Strategy,"Linux, Mac, Windows",Factorio Demo,Factorio Demo,
-1091500,Cyberpunk 2077,"9 Dec, 2020",2020,763484,85,,,,,,Free To Play,Free To Play,
-2604420,Euro Truck Simulator 2 - Greece,"4 Dec, 2024",2024,1109,88,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$6.05,$5.44 USD,-10%
+221100,DayZ,"13 Dec, 2018",2018,359820,77,,,,,,Free To Play,Free To Play,
 2277560,WUCHANG: Fallen Feathers,"24 Jul, 2025",2025,0,0,,,"Action, Adventure, RPG",Action;Adventure;RPG,Windows,$34.99 USD,$34.99 USD,
-413150,Stardew Valley,"26 Feb, 2016",2016,775331,98,,,"Indie, RPG, Simulation",Indie;RPG;Simulation,"Linux, Mac, Windows",$5.99 USD,$5.99 USD,
-3489700,Stellar Blade™,"11 Jun, 2025",2025,34099,93,,,,,,Free To Play,Free To Play,
+431960,Wallpaper Engine,"16 Nov, 2018",2018,840950,98,,,"Casual, Indie, Animation & Modeling, Design & Illustration, Photo Editing, Utilities",Casual;Indie;Animation & Modeling;Design & Illustration;Photo Editing;Utilities,Windows,$2.99 USD,$2.99 USD,
+108600,Project Zomboid,"8 Nov, 2013",2013,293302,94,,,"Indie, RPG, Simulation, Early Access",Indie;RPG;Simulation;Early Access,"Linux, Mac, Windows",$22.78 USD,$18.77 USD,-18%
+251570,7 Days to Die,"25 Jul, 2024",2024,256984,88,,,"Action, Adventure, Indie, RPG, Simulation, Strategy",Action;Adventure;Indie;RPG;Simulation;Strategy,"Linux, Mac, Windows",$20.99 USD,$20.99 USD,
+1273400,Construction Simulator,"20 Sep, 2022",2022,8651,82,,,"Casual, Simulation",Casual;Simulation,Windows,$17.99,$8.99 USD,-50%
+1943950,Escape the Backrooms,"11 Aug, 2022",2022,87913,91,,,"Indie, Early Access",Indie;Early Access,Windows,$5.79 USD,$5.79 USD,
+3183280,Game of Thrones: Kingsroad,"21 May, 2025",2025,5070,61,,,"Action, Adventure, RPG, Free To Play",Action;Adventure;RPG;Free To Play,Windows,Free To Play,Free To Play,
+427520,Factorio,"14 Aug, 2020",2020,173374,97,,,"Casual, Indie, Simulation, Strategy",Casual;Indie;Simulation;Strategy,"Linux, Mac, Windows",Factorio Demo,Factorio Demo,
+3249650,Little Fighter 2 Remastered,"18 Jul, 2025",2025,376,81,,,"Action, Indie",Action;Indie,"Mac, Windows",$14.80,$11.84 USD,-20%
+1671210,DELTARUNE,"4 Jun, 2025",2025,55536,98,,,"Indie, RPG",Indie;RPG,"Mac, Windows",$12.49 USD,$12.49 USD,
+2584990,Shadowverse: Worlds Beyond,"15 Jun, 2025",2025,16391,32,,,"Casual, RPG, Strategy, Free To Play",Casual;RPG;Strategy;Free To Play,Windows,Free To Play,Free To Play,
+1326470,Sons Of The Forest,"22 Feb, 2024",2024,232649,87,,,"Action, Adventure, Indie, Simulation",Action;Adventure;Indie;Simulation,Windows,$14.99 USD,$14.99 USD,
 1272080,PAYDAY 3,"21 Sep, 2023",2023,44854,43,,,,,,Free To Play,Free To Play,
-1273400,Construction Simulator,"20 Sep, 2022",2022,8650,82,,,"Casual, Simulation",Casual;Simulation,Windows,$17.99,$8.99 USD,-50%
-1203220,NARAKA: BLADEPOINT,"12 Aug, 2021",2021,286909,73,,,"Action, Adventure, Massively Multiplayer",Action;Adventure;Massively Multiplayer,Windows,Free To Play,Free To Play,
-108600,Project Zomboid,"8 Nov, 2013",2013,293299,94,,,"Indie, RPG, Simulation, Early Access",Indie;RPG;Simulation;Early Access,"Linux, Mac, Windows",$22.78 USD,$18.77 USD,-18%
-2567870,Chained Together,"19 Jun, 2024",2024,46350,90,,,"Adventure, Casual, Indie, Simulation",Adventure;Casual;Indie;Simulation,Windows,$2.99 USD,$2.99 USD,
+2203070,Dragonheir: Silent Gods,"27 Oct, 2023",2023,2887,59,,,"Adventure, Massively Multiplayer, RPG, Strategy, Free To Play",Adventure;Massively Multiplayer;RPG;Strategy;Free To Play,Windows,Free,Free,
+3199170,Blood Strike,"13 Mar, 2025",2025,9489,79,,,"Action, Adventure, Massively Multiplayer, Strategy, Free To Play",Action;Adventure;Massively Multiplayer;Strategy;Free To Play,Windows,Free To Play,Free To Play,
+1551360,Forza Horizon 5,"9 Nov, 2021",2021,214276,88,,,"Action, Adventure, Racing, Simulation, Sports",Action;Adventure;Racing;Simulation;Sports,Windows,$32.78 USD,$32.78 USD,
+413150,Stardew Valley,"26 Feb, 2016",2016,775340,98,,,"Indie, RPG, Simulation",Indie;RPG;Simulation,"Linux, Mac, Windows",$5.99 USD,$5.99 USD,
+266410,iRacing,"12 Jan, 2015",2015,3713,84,,,"Massively Multiplayer, Racing, Simulation, Sports",Massively Multiplayer;Racing;Simulation;Sports,Windows,Free To Play,Free To Play,
+3059520,F1® 25,"30 May, 2025",2025,4653,87,,,"Racing, Simulation, Sports",Racing;Simulation;Sports,Windows,$59.99 USD,$59.99 USD,
+1203220,NARAKA: BLADEPOINT,"12 Aug, 2021",2021,286911,73,,,"Action, Adventure, Massively Multiplayer",Action;Adventure;Massively Multiplayer,Windows,Free To Play,Free To Play,
+2567870,Chained Together,"19 Jun, 2024",2024,46349,90,,,"Adventure, Casual, Indie, Simulation",Adventure;Casual;Indie;Simulation,Windows,$2.99 USD,$2.99 USD,
+2604420,Euro Truck Simulator 2 - Greece,"4 Dec, 2024",2024,1109,88,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$6.05,$5.44 USD,-10%
 2004210,Euro Truck Simulator 2 - West Balkans,"19 Oct, 2023",2023,1640,84,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$9.08,$6.35 USD,-30%
-761890,Albion Online,"16 May, 2018",2018,84207,78,,,"Massively Multiplayer, RPG, Free To Play",Massively Multiplayer;RPG;Free To Play,"Linux, Mac, Windows",Free To Play,Free To Play,
-761890,Albion Online,"16 May, 2018",2018,84207,78,,,"Massively Multiplayer, RPG, Free To Play",Massively Multiplayer;RPG;Free To Play,"Linux, Mac, Windows",Free To Play,Free To Play,
-242760,The Forest,"30 Apr, 2018",2018,540280,95,,,"Action, Adventure, Indie, Simulation",Action;Adventure;Indie;Simulation,Windows,$10.49 USD,$10.49 USD,
-1295660,Sid Meier's Civilization VII,"10 Feb, 2025",2025,33938,47,,,"Simulation, Strategy",Simulation;Strategy,"Linux, Mac, Windows",$69.99 USD,$69.99 USD,
-835570,Conqueror's Blade,"6 Apr, 2020",2020,34883,68,,,"Action, Massively Multiplayer, RPG, Strategy, Free To Play",Action;Massively Multiplayer;RPG;Strategy;Free To Play,Windows,Free To Play,Free To Play,
-221100,DayZ,"13 Dec, 2018",2018,359817,77,,,,,,Free To Play,Free To Play,
-266410,iRacing,"12 Jan, 2015",2015,3711,84,,,"Massively Multiplayer, Racing, Simulation, Sports",Massively Multiplayer;Racing;Simulation;Sports,Windows,Free To Play,Free To Play,
-1326470,Sons Of The Forest,"22 Feb, 2024",2024,232647,87,,,"Action, Adventure, Indie, Simulation",Action;Adventure;Indie;Simulation,Windows,$14.99 USD,$14.99 USD,
-1363080,Manor Lords,"26 Apr, 2024",2024,61583,86,,,"Simulation, Strategy, Early Access",Simulation;Strategy;Early Access,Windows,$19.99,$12.99 USD,-35%
-3121110,Zort,"7 Dec, 2024",2024,7042,91,,,"Action, Adventure, Indie, Early Access",Action;Adventure;Indie;Early Access,Windows,$2.00,$1.50 USD,-25%
-2141730,Backrooms: Escape Together,"18 Oct, 2022",2022,21022,87,,,"Action, Adventure, Casual, Indie, Early Access",Action;Adventure;Casual;Indie;Early Access,Windows,$5.79 USD,$5.79 USD,
-1962663,Call of Duty®: Warzone™,"16 Nov, 2022",2022,45856,31,,,,,,Free To Play,Free To Play,
-3159330,Assassin’s Creed Shadows,"19 Mar, 2025",2025,20914,78,,,"Action, Adventure, RPG",Action;Adventure;RPG,Windows,$55.99,$41.99 USD,-25%
-513710,SCUM,"17 Jun, 2025",2025,90704,74,,,"Action, Adventure, Indie, Massively Multiplayer",Action;Adventure;Indie;Massively Multiplayer,Windows,$29.99,$19.49 USD,-35%
-1599340,Lost Ark,"11 Feb, 2022",2022,202175,70,,,,,,Free To Play,Free To Play,
-2344520,Diablo® IV,"7 Oct, 2024",2024,38201,70,,,,,,Free To Play,Free To Play,
-244210,Assetto Corsa,"19 Dec, 2014",2014,119604,92,,,"Indie, Racing, Simulation, Sports",Indie;Racing;Simulation;Sports,Windows,$10.49 USD,$10.49 USD,
-2778580,ELDEN RING Shadow of the Erdtree,"20 Jun, 2024",2024,81000,71,,,,,,Free To Play,Free To Play,
-4000,Garry's Mod,"29 Nov, 2006",2006,1006302,96,,,"Casual, Indie, Simulation",Casual;Indie;Simulation,"Linux, Mac, Windows",$5.79,$3.47 USD,-40%
-3199170,Blood Strike,"13 Mar, 2025",2025,9488,79,,,"Action, Adventure, Massively Multiplayer, Strategy, Free To Play",Action;Adventure;Massively Multiplayer;Strategy;Free To Play,Windows,Free To Play,Free To Play,
-2203070,Dragonheir: Silent Gods,"27 Oct, 2023",2023,2886,59,,,"Adventure, Massively Multiplayer, RPG, Strategy, Free To Play",Adventure;Massively Multiplayer;RPG;Strategy;Free To Play,Windows,Free,Free,
-1364780,Street Fighter™ 6,"2 Jun, 2023",2023,36872,84,,,"Action, Adventure",Action;Adventure,Windows,$29.99 USD,$29.99 USD,
-1604030,V Rising,"8 May, 2024",2024,100634,89,,,"Action, Adventure, Massively Multiplayer",Action;Adventure;Massively Multiplayer,Windows,$17.99,$8.99 USD,-50%
-1874880,Arma Reforger,"16 Nov, 2023",2023,30349,77,,,,,,Free To Play,Free To Play,
-1056760,Euro Truck Simulator 2 - Road to the Black Sea,"5 Dec, 2019",2019,3217,86,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$9.08,$3.63 USD,-60%
-1604270,Broken Arrow,"19 Jun, 2025",2025,11518,68,,,Strategy,Strategy,Windows,$22.99 USD,$22.99 USD,
-1364780,Street Fighter™ 6,"2 Jun, 2023",2023,36872,84,,,"Action, Adventure",Action;Adventure,Windows,$29.99 USD,$29.99 USD,
-1604030,V Rising,"8 May, 2024",2024,100634,89,,,"Action, Adventure, Massively Multiplayer",Action;Adventure;Massively Multiplayer,Windows,$17.99,$8.99 USD,-50%
-1274570,DEVOUR,"28 Jan, 2021",2021,64372,91,,,Indie,Indie,"Mac, Windows",$5.79 USD,$5.79 USD,
-1056760,Euro Truck Simulator 2 - Road to the Black Sea,"5 Dec, 2019",2019,3217,86,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$9.08,$3.63 USD,-60%
-1604270,Broken Arrow,"19 Jun, 2025",2025,11518,68,,,Strategy,Strategy,Windows,$22.99 USD,$22.99 USD,
-3164500,Schedule I,"24 Mar, 2025",2025,201915,98,,,"Action, Indie, Simulation, Strategy, Early Access",Action;Indie;Simulation;Strategy;Early Access,Windows,$10.49 USD,$10.49 USD,
-1343370,Old School RuneScape,"24 Feb, 2021",2021,18685,82,,,"Adventure, Massively Multiplayer, RPG, Free To Play",Adventure;Massively Multiplayer;RPG;Free To Play,"Mac, Windows",Free To Play,Free To Play,
-440,Team Fortress 2,"10 Oct, 2007",2007,1169544,90,,,"Action, Free To Play",Action;Free To Play,"Linux, Windows",Free To Play,Free To Play,
-2300320,Farming Simulator 25,"12 Nov, 2024",2024,22938,83,,,Simulation,Simulation,"Mac, Windows",,$44.98 USD,
-997010,Police Simulator: Patrol Officers,"10 Nov, 2022",2022,16180,78,,,Simulation,Simulation,Windows,$14.99,$7.49 USD,-50%
-2336880,Destiny 2: The Final Shape,"4 Jun, 2024",2024,5316,79,,,"Action, Adventure, Free To Play",Action;Adventure;Free To Play,Windows,$29.99,$7.49 USD,-75%
-3035570,Assassin's Creed Mirage,"17 Oct, 2024",2024,7283,74,,,"Action, Adventure",Action;Adventure,Windows,$39.99,$15.99 USD,-60%
-2963870,Metal Slug: Awakening,"19 Jul, 2024",2024,3287,67,,,"Action, Adventure, Casual, Massively Multiplayer, RPG, Free To Play",Action;Adventure;Casual;Massively Multiplayer;RPG;Free To Play,Windows,Free,Free,
-550,Left 4 Dead 2,"17 Nov, 2009",2009,745286,97,,,Action,Action,"Linux, Windows",$5.79 USD,$5.79 USD,
-261550,Mount & Blade II: Bannerlord,"25 Oct, 2022",2022,207444,87,,,"Action, Indie, RPG, Simulation, Strategy",Action;Indie;RPG;Simulation;Strategy,Windows,$19.99 USD,$19.99 USD,
-949230,Cities: Skylines II,"24 Oct, 2023",2023,52502,53,,,Simulation,Simulation,Windows,$29.99 USD,$29.99 USD,
-2694490,Path of Exile 2,"6 Dec, 2024",2024,128571,71,,,"Action, Adventure, Massively Multiplayer, RPG, Early Access",Action;Adventure;Massively Multiplayer;RPG;Early Access,Windows,$29.99 USD,$29.99 USD,
-582160,Assassin's Creed® Origins,"27 Oct, 2017",2017,105838,85,,,"Action, Adventure, RPG",Action;Adventure;RPG,Windows,$47.99,$7.19 USD,-85%
-281990,Stellaris,"9 May, 2016",2016,128908,87,,,"Simulation, Strategy",Simulation;Strategy,"Linux, Mac, Windows",$23.99 USD,$23.99 USD,
-2625420,Drive Beyond Horizons,"24 Mar, 2025",2025,8276,79,,,"Action, Adventure, Casual, Indie, Racing, Simulation, Early Access",Action;Adventure;Casual;Indie;Racing;Simulation;Early Access,Windows,$12.49 USD,$12.49 USD,
-3527760,RoboCop: Rogue City - Unfinished Business,"17 Jul, 2025",2025,227,84,,,,,,Free To Play,Free To Play,
+2001120,Split Fiction,"6 Mar, 2025",2025,54311,97,,,"Action, Adventure",Action;Adventure,Windows,$49.99 USD,$49.99 USD,
+3159330,Assassin’s Creed Shadows,"19 Mar, 2025",2025,20916,78,,,"Action, Adventure, RPG",Action;Adventure;RPG,Windows,$55.99,$41.99 USD,-25%
 1466860,Age of Empires IV: Anniversary Edition,"28 Oct, 2021",2021,61847,86,,,Strategy,Strategy,Windows,$19.99 USD,$19.99 USD,
-2399830,ARK: Survival Ascended,"26 Oct, 2023",2023,74043,59,,,"Action, Adventure, Indie, Massively Multiplayer, RPG, Early Access",Action;Adventure;Indie;Massively Multiplayer;RPG;Early Access,Windows,$20.99 USD,$20.99 USD,
-2537590,Microsoft Flight Simulator 2024,"19 Nov, 2024",2024,13819,47,,,Simulation,Simulation,Windows,$69.99 USD,$69.99 USD,
-2947440,SILENT HILL f,"25 Sep, 2025",2025,0,0,,,,,,Free To Play,Free To Play,
-529340,Victoria 3,"25 Oct, 2022",2022,35332,70,,,"Simulation, Strategy",Simulation;Strategy,"Linux, Mac, Windows",$29.99 USD,$29.99 USD,
-2001120,Split Fiction,"6 Mar, 2025",2025,54308,97,,,"Action, Adventure",Action;Adventure,Windows,$49.99 USD,$49.99 USD,
-2531310,The Last of Us™ Part II Remastered,"3 Apr, 2025",2025,17676,90,,,,,,Free To Play,Free To Play,
-2404880,Car Dealer Simulator,"29 May, 2025",2025,2361,83,,,"Casual, Indie, Simulation",Casual;Indie;Simulation,Windows,$5.73,$5.15 USD,-10%
-2139460,Once Human,"9 Jul, 2024",2024,138308,74,,,"Action, Adventure, RPG, Simulation, Strategy, Free To Play",Action;Adventure;RPG;Simulation;Strategy;Free To Play,Windows,Free To Play,Free To Play,
-739630,Phasmophobia,"18 Sep, 2020",2020,633268,95,,,"Action, Indie, Early Access",Action;Indie;Early Access,Windows,$10.49 USD,$10.49 USD,
-2221490,Tom Clancy’s The Division® 2,"12 Jan, 2023",2023,21695,77,,,,,,Free To Play,Free To Play,
-1144200,Ready or Not,"13 Dec, 2023",2023,212690,78,,,"Action, Adventure, Indie",Action;Adventure;Indie,Windows,$28.99 USD,$28.99 USD,
+1599340,Lost Ark,"11 Feb, 2022",2022,202177,70,,,,,,Free To Play,Free To Play,
+1874880,Arma Reforger,"16 Nov, 2023",2023,30353,77,,,,,,Free To Play,Free To Play,
+1604030,V Rising,"8 May, 2024",2024,100636,89,,,"Action, Adventure, Massively Multiplayer",Action;Adventure;Massively Multiplayer,Windows,$17.99,$8.99 USD,-50%
+835570,Conqueror's Blade,"6 Apr, 2020",2020,34883,68,,,"Action, Massively Multiplayer, RPG, Strategy, Free To Play",Action;Massively Multiplayer;RPG;Strategy;Free To Play,Windows,Free To Play,Free To Play,
+261550,Mount & Blade II: Bannerlord,"25 Oct, 2022",2022,207445,87,,,"Action, Indie, RPG, Simulation, Strategy",Action;Indie;RPG;Simulation;Strategy,Windows,$19.99 USD,$19.99 USD,
+2778580,ELDEN RING Shadow of the Erdtree,"20 Jun, 2024",2024,80999,71,,,,,,Free To Play,Free To Play,
+1274570,DEVOUR,"28 Jan, 2021",2021,64371,91,,,Indie,Indie,"Mac, Windows",$5.79 USD,$5.79 USD,
+242760,The Forest,"30 Apr, 2018",2018,540279,95,,,"Action, Adventure, Indie, Simulation",Action;Adventure;Indie;Simulation,Windows,$10.49 USD,$10.49 USD,
+244210,Assetto Corsa,"19 Dec, 2014",2014,119604,92,,,"Indie, Racing, Simulation, Sports",Indie;Racing;Simulation;Sports,Windows,$10.49 USD,$10.49 USD,
+2692440,LoveCraft,"9 Apr, 2024",2024,1652,69,,,,,,Free To Play,Free To Play,
+1364780,Street Fighter™ 6,"2 Jun, 2023",2023,36876,84,,,"Action, Adventure",Action;Adventure,Windows,$29.99 USD,$29.99 USD,
+1962663,Call of Duty®: Warzone™,"16 Nov, 2022",2022,45857,31,,,,,,Free To Play,Free To Play,
+236850,Europa Universalis IV,"13 Aug, 2013",2013,90703,87,,,"Simulation, Strategy",Simulation;Strategy,"Linux, Mac, Windows",$29.99 USD,$29.99 USD,
+1056760,Euro Truck Simulator 2 - Road to the Black Sea,"5 Dec, 2019",2019,3217,86,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$9.08,$3.63 USD,-60%
+4000,Garry's Mod,"29 Nov, 2006",2006,1006311,96,,,"Casual, Indie, Simulation",Casual;Indie;Simulation,"Linux, Mac, Windows",$5.79,$3.47 USD,-40%
+2322010,God of War Ragnarök,"19 Sep, 2024",2024,21190,87,,,"Action, Adventure, RPG",Action;Adventure;RPG,Windows,$49.99 USD,$49.99 USD,
+2399830,ARK: Survival Ascended,"26 Oct, 2023",2023,74053,59,,,"Action, Adventure, Indie, Massively Multiplayer, RPG, Early Access",Action;Adventure;Indie;Massively Multiplayer;RPG;Early Access,Windows,$20.99 USD,$20.99 USD,
+2399830,ARK: Survival Ascended,"26 Oct, 2023",2023,74053,59,,,"Action, Adventure, Indie, Massively Multiplayer, RPG, Early Access",Action;Adventure;Indie;Massively Multiplayer;RPG;Early Access,Windows,$20.99 USD,$20.99 USD,
+3164500,Schedule I,"24 Mar, 2025",2025,201927,98,,,"Action, Indie, Simulation, Strategy, Early Access",Action;Indie;Simulation;Strategy;Early Access,Windows,$10.49 USD,$10.49 USD,
+3186490,Destiny 2: The Edge of Fate,"15 Jul, 2025",2025,942,52,,,"Action, Adventure, Free To Play",Action;Adventure;Free To Play,Windows,$27.99 USD,$27.99 USD,
+3121110,Zort,"7 Dec, 2024",2024,7045,91,,,"Action, Adventure, Indie, Early Access",Action;Adventure;Indie;Early Access,Windows,$2.00,$1.50 USD,-25%
+1363080,Manor Lords,"26 Apr, 2024",2024,61583,86,,,"Simulation, Strategy, Early Access",Simulation;Strategy;Early Access,Windows,$19.99,$12.99 USD,-35%
+714210,Zula Türkiye,"11 Jan, 2018",2018,17574,48,,,"Action, Adventure, Casual, Massively Multiplayer, Free To Play",Action;Adventure;Casual;Massively Multiplayer;Free To Play,Windows,Free To Play,Free To Play,
+997010,Police Simulator: Patrol Officers,"10 Nov, 2022",2022,16180,78,,,Simulation,Simulation,Windows,$14.99,$7.49 USD,-50%
+1158310,Crusader Kings III,"1 Sep, 2020",2020,81588,91,,,"RPG, Simulation, Strategy",RPG;Simulation;Strategy,"Linux, Mac, Windows",$29.99 USD,$29.99 USD,
+281990,Stellaris,"9 May, 2016",2016,128909,87,,,"Simulation, Strategy",Simulation;Strategy,"Linux, Mac, Windows",$23.99 USD,$23.99 USD,
+2141730,Backrooms: Escape Together,"18 Oct, 2022",2022,21022,87,,,"Action, Adventure, Casual, Indie, Early Access",Action;Adventure;Casual;Indie;Early Access,Windows,$5.79 USD,$5.79 USD,
 3063520,LISC - Season 1,"16 May, 2025",2025,440,85,,,,,,Free To Play,Free To Play,
-1527950,Wartales,"12 Apr, 2023",2023,27196,89,,,"Adventure, Indie, RPG, Strategy",Adventure;Indie;RPG;Strategy,Windows,$17.99,$7.19 USD,-60%
-1361210,"Warhammer 40,000: Darktide","30 Nov, 2022",2022,93292,71,,,"Action, Adventure, RPG",Action;Adventure;RPG,Windows,$24.99,$9.99 USD,-60%
-2162800,shapez 2,"15 Aug, 2024",2024,10603,98,,,"Casual, Indie, Simulation, Strategy, Early Access",Casual;Indie;Simulation;Strategy;Early Access,"Linux, Mac, Windows",$8.99,$6.29 USD,-30%
-233860,Kenshi,"6 Dec, 2018",2018,84311,95,,,"Action, Indie, RPG, Simulation, Strategy",Action;Indie;RPG;Simulation;Strategy,Windows,$14.99,$5.99 USD,-60%
-275850,No Man's Sky,"12 Aug, 2016",2016,269463,81,,,"Action, Adventure",Action;Adventure,"Mac, Windows",$59.99,$23.99 USD,-60%
-1258080,Shop Titans,"5 May, 2020",2020,17053,78,,,"Adventure, Casual, RPG, Simulation, Free To Play",Adventure;Casual;RPG;Simulation;Free To Play,Windows,Free To Play,Free To Play,
-2379780,Balatro,"20 Feb, 2024",2024,130436,97,,,"Casual, Indie, Strategy",Casual;Indie;Strategy,"Mac, Windows",$7.99,$7.19 USD,-10%
-2073850,THE FINALS,"8 Dec, 2023",2023,236078,77,,,"Action, Free To Play",Action;Free To Play,Windows,Free To Play,Free To Play,
-1382070,Viewfinder,"18 Jul, 2023",2023,8286,94,,,"Adventure, Indie",Adventure;Indie,Windows,$12.49,$4.37 USD,-65%
-1286830,STAR WARS™: The Old Republic™,"21 Jul, 2020",2020,68958,89,,,"Massively Multiplayer, RPG, Free To Play",Massively Multiplayer;RPG;Free To Play,Windows,Free To Play,Free To Play,
-1121640,The Wandering Village,"17 Jul, 2025",2025,5627,91,,,"Simulation, Strategy",Simulation;Strategy,"Linux, Mac, Windows",$14.99,$9.74 USD,-35%
-2252570,Football Manager 2024,"6 Nov, 2023",2023,14564,90,,,"Simulation, Sports, Strategy",Simulation;Sports;Strategy,"Mac, Windows",$39.99 USD,$39.99 USD,
-3513350,Wuthering Waves,"28 Apr, 2025",2025,18471,90,,,"Action, Adventure, RPG, Free To Play",Action;Adventure;RPG;Free To Play,Windows,Free To Play,Free To Play,
+2344520,Diablo® IV,"7 Oct, 2024",2024,38203,70,,,,,,Free To Play,Free To Play,
+513710,SCUM,"17 Jun, 2025",2025,90704,74,,,"Action, Adventure, Indie, Massively Multiplayer",Action;Adventure;Indie;Massively Multiplayer,Windows,$29.99,$19.49 USD,-35%
 3097560,Liar's Bar,"2 Oct, 2024",2024,43375,90,,,"Casual, Indie, Simulation, Strategy, Early Access",Casual;Indie;Simulation;Strategy;Early Access,Windows,$3.99 USD,$3.99 USD,
-2138330,Cyberpunk 2077: Phantom Liberty,"25 Sep, 2023",2023,19107,90,,,,,,Free To Play,Free To Play,
-444200,World of Tanks Blitz,"9 Nov, 2016",2016,148708,78,,,"Action, Massively Multiplayer, Simulation, Strategy, Free To Play",Action;Massively Multiplayer;Simulation;Strategy;Free To Play,"Mac, Windows",Free To Play,Free To Play,
-767560,War Robots,"4 Apr, 2018",2018,26988,59,,,"Action, Free To Play",Action;Free To Play,Windows,Free To Play,Free To Play,
-1113000,Persona 4 Golden,"13 Jun, 2020",2020,66065,97,,,RPG,RPG,Windows,$19.99,$9.99 USD,-50%
-2519060,Call of Duty®: Modern Warfare® III,"10 Nov, 2023",2023,12178,32,,,,,,Free To Play,Free To Play,
-2074920,The First Descendant,"30 Jun, 2024",2024,104609,56,,,,,,Free To Play,Free To Play,
-3186490,Destiny 2: The Edge of Fate,"15 Jul, 2025",2025,938,52,,,"Action, Adventure, Free To Play",Action;Adventure;Free To Play,Windows,$27.99 USD,$27.99 USD,
-3717470,THRONE AND LIBERTY Nature's Celebration Pack: Gold,"12 Jun, 2025",2025,0,0,,,,,,Free To Play,Free To Play,
-815370,Green Hell,"5 Sep, 2019",2019,61985,86,,,"Action, Adventure, Indie, Simulation",Action;Adventure;Indie;Simulation,Windows,$13.53,$3.38 USD,-75%
-594650,Hunt: Showdown 1896,"27 Aug, 2019",2019,195835,73,,,,,,Free To Play,Free To Play,
-3609170,4STORY : The Original,"11 Jun, 2025",2025,577,30,,,"Action, Adventure, Casual, Massively Multiplayer, RPG, Free To Play",Action;Adventure;Casual;Massively Multiplayer;RPG;Free To Play,Windows,$14.99,$7.49 USD,-50%
-3199780,The Sims™ 4 Enchanted by Nature Expansion Pack,"10 Jul, 2025",2025,33,48,,,"Simulation, Strategy",Simulation;Strategy,Windows,$39.99 USD,$39.99 USD,
-1594320,Captain of Industry,"31 May, 2022",2022,7313,94,,,"Indie, Simulation, Strategy, Early Access",Indie;Simulation;Strategy;Early Access,Windows,$17.99,$12.59 USD,-30%
-1456860,Euro Truck Simulator 2 - Farm Machinery,"14 Jul, 2025",2025,72,84,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$2.52 USD,$2.52 USD,
-304212,Euro Truck Simulator 2 - Scandinavia,"14 May, 2015",2015,4692,95,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$9.08,$3.63 USD,-60%
-2054970,Dragon's Dogma 2,"21 Mar, 2024",2024,71035,61,,,,,,Free To Play,Free To Play,
-2808930,Lust Goddess,"21 Feb, 2024",2024,10600,55,,,,,,Free To Play,Free To Play,
-2848330,Lies of P: Overture,"6 Jun, 2025",2025,4320,85,,,,,,Free To Play,Free To Play,
-3366290,Substance 3D Painter 2025,"11 Mar, 2025",2025,84,71,,,"Animation & Modeling, Design & Illustration, Game Development",Animation & Modeling;Design & Illustration;Game Development,"Linux, Mac, Windows",$92.99 USD,$92.99 USD,
-632360,Risk of Rain 2,"11 Aug, 2020",2020,214847,93,,,"Action, Indie",Action;Indie,Windows,$12.49,$4.12 USD,-67%
-1407200,World of Tanks,"29 Apr, 2021",2021,88797,82,,,"Action, Massively Multiplayer, Simulation, Free To Play",Action;Massively Multiplayer;Simulation;Free To Play,Windows,$9.00,$7.65 USD,-15%
-393380,Squad,"23 Sep, 2020",2020,158541,84,,,"Action, Indie, Massively Multiplayer, Strategy",Action;Indie;Massively Multiplayer;Strategy,Windows,$24.99 USD,$24.99 USD,
-1209460,Euro Truck Simulator 2 - Iberia,"8 Apr, 2021",2021,2202,77,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$9.08,$3.63 USD,-60%
-1966720,Lethal Company,"23 Oct, 2023",2023,395755,97,,,"Action, Adventure, Indie, Early Access",Action;Adventure;Indie;Early Access,Windows,$5.79 USD,$5.79 USD,
-1430190,Killing Floor 3,"24 Jul, 2025",2025,0,0,,,Action,Action,Windows,$18.99 USD,$18.99 USD,
-2104890,RoadCraft,"20 May, 2025",2025,8384,73,,,"Adventure, Simulation",Adventure;Simulation,Windows,$36.74 USD,$28.86 USD,-21%
-1149620,Gas Station Simulator,"15 Sep, 2021",2021,22132,88,,,"Casual, Indie, Simulation",Casual;Indie;Simulation,"Mac, Windows",$5.73,$3.15 USD,-45%
-973810,Journey To The Savage Planet,"28 Jan, 2021",2021,5274,87,,,"Action, Adventure",Action;Adventure,Windows,$14.99,$3.74 USD,-75%
-3690010,Who's at the door?,"18 Jul, 2025",2025,88,98,,,"Adventure, Indie, Simulation",Adventure;Indie;Simulation,Windows,$2.99,$2.69 USD,-10%
-2824490,He is Coming,"17 Jul, 2025",2025,238,87,,,"RPG, Strategy, Early Access",RPG;Strategy;Early Access,Windows,$7.99,$5.19 USD,-35%
-703080,Planet Zoo,"5 Nov, 2019",2019,73646,91,,,"Casual, Simulation, Strategy",Casual;Simulation;Strategy,Windows,$20.99,$6.29 USD,-70%
-1934680,Age of Mythology: Retold,"4 Sep, 2024",2024,15634,90,,,Strategy,Strategy,Windows,$22.99 USD,$22.99 USD,
-559650,Witch It,"22 Oct, 2020",2020,14102,89,,,"Action, Casual, Indie",Action;Casual;Indie,Windows,$10.49,$1.57 USD,-85%
-3061570,Persona5: The Phantom X,"26 Jun, 2025",2025,8598,46,,,"Adventure, RPG, Free To Play",Adventure;RPG;Free To Play,Windows,Free To Play,Free To Play,
-1465360,SnowRunner,"17 May, 2021",2021,36786,90,,,"Adventure, Simulation",Adventure;Simulation,"Mac, Windows",$20.99,$10.49 USD,-50%
-1681430,RoboCop: Rogue City,"2 Nov, 2023",2023,18915,86,,,,,,Free To Play,Free To Play,
-291550,Brawlhalla,"17 Oct, 2017",2017,388863,81,,,"Action, Indie, Free To Play",Action;Indie;Free To Play,"Mac, Windows",Free To Play,Free To Play,
-1826140,RimWorld - Biotech,"21 Oct, 2022",2022,2872,93,,,"Indie, Simulation, Strategy",Indie;Simulation;Strategy,"Linux, Mac, Windows",$12.49,$11.24 USD,-10%
+1258080,Shop Titans,"5 May, 2020",2020,17053,78,,,"Adventure, Casual, RPG, Simulation, Free To Play",Adventure;Casual;RPG;Simulation;Free To Play,Windows,Free To Play,Free To Play,
+2336880,Destiny 2: The Final Shape,"4 Jun, 2024",2024,5316,79,,,"Action, Adventure, Free To Play",Action;Adventure;Free To Play,Windows,$29.99,$7.49 USD,-75%
+949230,Cities: Skylines II,"24 Oct, 2023",2023,52501,53,,,Simulation,Simulation,Windows,$29.99 USD,$29.99 USD,
+3035570,Assassin's Creed Mirage,"17 Oct, 2024",2024,7283,74,,,"Action, Adventure",Action;Adventure,Windows,$39.99,$15.99 USD,-60%
+2947440,SILENT HILL f,"25 Sep, 2025",2025,0,0,,,,,,Free To Play,Free To Play,
 2456740,inZOI,"27 Mar, 2025",2025,20498,77,,,"Adventure, Casual, Simulation, Early Access",Adventure;Casual;Simulation;Early Access,Windows,$24.99 USD,$24.99 USD,
-3240220,Grand Theft Auto V Enhanced,"4 Mar, 2025",2025,67362,70,,,,,,Free To Play,Free To Play,
-2919660,JudgeSim,"17 Jul, 2024",2024,979,84,,,"Casual, Indie, Simulation, Strategy",Casual;Indie;Simulation;Strategy,Windows,$3.49 USD,$3.49 USD,
-925580,Euro Truck Simulator 2 - Beyond the Baltic Sea,"29 Nov, 2018",2018,2534,90,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$9.08,$3.63 USD,-60%
-629520,Soundpad,"30 Sep, 2017",2017,83431,96,,,"Audio Production, Utilities",Audio Production;Utilities,Windows,Soundpad Demo,Soundpad Demo,
+275850,No Man's Sky,"12 Aug, 2016",2016,269465,81,,,"Action, Adventure",Action;Adventure,"Mac, Windows",$59.99,$23.99 USD,-60%
+2377280,Eriksholm: The Stolen Dream,"15 Jul, 2025",2025,191,94,,,"Action, Adventure, Strategy",Action;Adventure;Strategy,Windows,$24.99 USD,$24.99 USD,
+529340,Victoria 3,"25 Oct, 2022",2022,35334,70,,,"Simulation, Strategy",Simulation;Strategy,"Linux, Mac, Windows",$29.99 USD,$29.99 USD,
+2808930,Lust Goddess,"21 Feb, 2024",2024,10600,55,,,,,,Free To Play,Free To Play,
+3527760,RoboCop: Rogue City - Unfinished Business,"17 Jul, 2025",2025,232,83,,,,,,Free To Play,Free To Play,
+233860,Kenshi,"6 Dec, 2018",2018,84311,95,,,"Action, Indie, RPG, Simulation, Strategy",Action;Indie;RPG;Simulation;Strategy,Windows,$14.99,$5.99 USD,-60%
+1604270,Broken Arrow,"19 Jun, 2025",2025,11522,68,,,Strategy,Strategy,Windows,$22.99 USD,$22.99 USD,
+739630,Phasmophobia,"18 Sep, 2020",2020,633276,95,,,"Action, Indie, Early Access",Action;Indie;Early Access,Windows,$10.49 USD,$10.49 USD,
+2073850,THE FINALS,"8 Dec, 2023",2023,236082,77,,,"Action, Free To Play",Action;Free To Play,Windows,Free To Play,Free To Play,
+440,Team Fortress 2,"10 Oct, 2007",2007,1169550,90,,,"Action, Free To Play",Action;Free To Play,"Linux, Windows",Free To Play,Free To Play,
+2404880,Car Dealer Simulator,"29 May, 2025",2025,2362,83,,,"Casual, Indie, Simulation",Casual;Indie;Simulation,Windows,$5.73,$5.15 USD,-10%
+1295660,Sid Meier's Civilization VII,"10 Feb, 2025",2025,33938,47,,,"Simulation, Strategy",Simulation;Strategy,"Linux, Mac, Windows",$69.99 USD,$69.99 USD,
+3717470,THRONE AND LIBERTY Nature's Celebration Pack: Gold,"12 Jun, 2025",2025,0,0,,,,,,Free To Play,Free To Play,
+582160,Assassin's Creed® Origins,"27 Oct, 2017",2017,105839,85,,,"Action, Adventure, RPG",Action;Adventure;RPG,Windows,$47.99,$7.19 USD,-85%
+1382070,Viewfinder,"18 Jul, 2023",2023,8287,94,,,"Adventure, Indie",Adventure;Indie,Windows,$12.49,$4.37 USD,-65%
+2379780,Balatro,"20 Feb, 2024",2024,130441,97,,,"Casual, Indie, Strategy",Casual;Indie;Strategy,"Mac, Windows",$7.99,$7.19 USD,-10%
+1527950,Wartales,"12 Apr, 2023",2023,27196,89,,,"Adventure, Indie, RPG, Strategy",Adventure;Indie;RPG;Strategy,Windows,$17.99,$7.19 USD,-60%
+550,Left 4 Dead 2,"17 Nov, 2009",2009,745289,97,,,Action,Action,"Linux, Windows",$5.79 USD,$5.79 USD,
+2162800,shapez 2,"15 Aug, 2024",2024,10604,98,,,"Casual, Indie, Simulation, Strategy, Early Access",Casual;Indie;Simulation;Strategy;Early Access,"Linux, Mac, Windows",$8.99,$6.29 USD,-30%
+2138330,Cyberpunk 2077: Phantom Liberty,"25 Sep, 2023",2023,19107,90,,,,,,Free To Play,Free To Play,
+1361210,"Warhammer 40,000: Darktide","30 Nov, 2022",2022,93292,71,,,"Action, Adventure, RPG",Action;Adventure;RPG,Windows,$24.99,$9.99 USD,-60%
+3513350,Wuthering Waves,"28 Apr, 2025",2025,18475,90,,,"Action, Adventure, RPG, Free To Play",Action;Adventure;RPG;Free To Play,Windows,Free To Play,Free To Play,
+2537590,Microsoft Flight Simulator 2024,"19 Nov, 2024",2024,13819,47,,,Simulation,Simulation,Windows,$69.99 USD,$69.99 USD,
+393380,Squad,"23 Sep, 2020",2020,158541,84,,,"Action, Indie, Massively Multiplayer, Strategy",Action;Indie;Massively Multiplayer;Strategy,Windows,$24.99 USD,$24.99 USD,
+594650,Hunt: Showdown 1896,"27 Aug, 2019",2019,195838,73,,,,,,Free To Play,Free To Play,
+2694490,Path of Exile 2,"6 Dec, 2024",2024,128572,71,,,"Action, Adventure, Massively Multiplayer, RPG, Early Access",Action;Adventure;Massively Multiplayer;RPG;Early Access,Windows,$29.99 USD,$29.99 USD,
+1129580,Medieval Dynasty,"23 Sep, 2021",2021,37694,90,,,"Action, Adventure, Indie, RPG, Simulation",Action;Adventure;Indie;RPG;Simulation,Windows,$17.99,$10.79 USD,-40%
+703080,Planet Zoo,"5 Nov, 2019",2019,73646,91,,,"Casual, Simulation, Strategy",Casual;Simulation;Strategy,Windows,$20.99,$6.29 USD,-70%
+2346550,Rise of Eros,"17 Jul, 2023",2023,2013,61,,,,,,Free To Play,Free To Play,
+1144200,Ready or Not,"13 Dec, 2023",2023,212740,78,,,"Action, Adventure, Indie",Action;Adventure;Indie,Windows,$28.99 USD,$28.99 USD,
+304212,Euro Truck Simulator 2 - Scandinavia,"14 May, 2015",2015,4692,95,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$9.08,$3.63 USD,-60%
+2531310,The Last of Us™ Part II Remastered,"3 Apr, 2025",2025,17678,90,,,,,,Free To Play,Free To Play,
+555160,Pavlov,"4 Dec, 2024",2024,37083,89,,,"Action, Indie",Action;Indie,Windows,$24.99 USD,$24.99 USD,
+2848330,Lies of P: Overture,"6 Jun, 2025",2025,4321,85,,,,,,Free To Play,Free To Play,
+2139460,Once Human,"9 Jul, 2024",2024,138320,74,,,"Action, Adventure, RPG, Simulation, Strategy, Free To Play",Action;Adventure;RPG;Simulation;Strategy;Free To Play,Windows,Free To Play,Free To Play,
+1465360,SnowRunner,"17 May, 2021",2021,36786,90,,,"Adventure, Simulation",Adventure;Simulation,"Mac, Windows",$20.99,$10.49 USD,-50%
+3061570,Persona5: The Phantom X,"26 Jun, 2025",2025,8602,46,,,"Adventure, RPG, Free To Play",Adventure;RPG;Free To Play,Windows,Free To Play,Free To Play,
+2252570,Football Manager 2024,"6 Nov, 2023",2023,14565,90,,,"Simulation, Sports, Strategy",Simulation;Sports;Strategy,"Mac, Windows",$39.99 USD,$39.99 USD,
+1113000,Persona 4 Golden,"13 Jun, 2020",2020,66067,97,,,RPG,RPG,Windows,$19.99,$9.99 USD,-50%
+2221490,Tom Clancy’s The Division® 2,"12 Jan, 2023",2023,21697,77,,,,,,Free To Play,Free To Play,
+1209460,Euro Truck Simulator 2 - Iberia,"8 Apr, 2021",2021,2202,77,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$9.08,$3.63 USD,-60%
+1826140,RimWorld - Biotech,"21 Oct, 2022",2022,2872,93,,,"Indie, Simulation, Strategy",Indie;Simulation;Strategy,"Linux, Mac, Windows",$12.49,$11.24 USD,-10%
+2625420,Drive Beyond Horizons,"24 Mar, 2025",2025,8276,79,,,"Action, Adventure, Casual, Indie, Racing, Simulation, Early Access",Action;Adventure;Casual;Indie;Racing;Simulation;Early Access,Windows,$12.49 USD,$12.49 USD,
+1149620,Gas Station Simulator,"15 Sep, 2021",2021,22132,88,,,"Casual, Indie, Simulation",Casual;Indie;Simulation,"Mac, Windows",$5.73,$3.15 USD,-45%
+1121640,The Wandering Village,"17 Jul, 2025",2025,5627,91,,,"Simulation, Strategy",Simulation;Strategy,"Linux, Mac, Windows",$14.99,$9.74 USD,-35%
+3690010,Who's at the door?,"18 Jul, 2025",2025,90,98,,,"Adventure, Indie, Simulation",Adventure;Indie;Simulation,Windows,$2.99,$2.69 USD,-10%
+973810,Journey To The Savage Planet,"28 Jan, 2021",2021,5274,87,,,"Action, Adventure",Action;Adventure,Windows,$14.99,$3.74 USD,-75%
+107410,Arma 3,"12 Sep, 2013",2013,217898,90,,,"Action, Simulation, Strategy",Action;Simulation;Strategy,"Mac, Windows",$77.32 USD,"Your Price:
+$31.48 USD",-29%
+1456860,Euro Truck Simulator 2 - Farm Machinery,"14 Jul, 2025",2025,72,84,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$2.52 USD,$2.52 USD,
+799960,Wizard101,"6 Sep, 2018",2018,8341,82,,,"Adventure, Casual, Massively Multiplayer, RPG, Strategy, Free To Play",Adventure;Casual;Massively Multiplayer;RPG;Strategy;Free To Play,Windows,Free To Play,Free To Play,
+1151340,Fallout 76,"14 Apr, 2020",2020,66921,75,,,,,,Free To Play,Free To Play,
 1332010,Stray,"19 Jul, 2022",2022,141398,97,,,"Adventure, Indie",Adventure;Indie,"Mac, Windows",$14.99,$8.99 USD,-40%
-2840770,Avatar: Frontiers of Pandora™,"17 Jun, 2024",2024,4208,68,,,"Action, Adventure",Action;Adventure,Windows,$55.99,$16.79 USD,-70%
-3533100,Wrap House Simulator🌯,"29 May, 2025",2025,808,88,,,"Casual, Indie, Simulation",Casual;Indie;Simulation,Windows,$8.53 USD,"Your Price:
-$8.53 USD",-24%
-285900,Gang Beasts,"12 Dec, 2017",2017,49143,85,,,"Action, Adventure, Casual, Indie, Simulation",Action;Adventure;Casual;Indie;Simulation,"Linux, Mac, Windows",$8.99,$3.59 USD,-60%
-880940,Pummel Party,"20 Sep, 2018",2018,43189,89,,,"Action, Casual, Indie",Action;Casual;Indie,Windows,$7.99 USD,$7.99 USD,
-2201320,Date Everything!,"17 Jun, 2025",2025,3364,95,,,Simulation,Simulation,Windows,$19.99 USD,$19.99 USD,
-1235731,The Sims™ 4 City Living,"18 Jun, 2020",2020,272,61,,,Simulation,Simulation,Windows,$39.99 USD,$39.99 USD,
-2208920,Assassin's Creed Valhalla,"6 Dec, 2022",2022,29424,70,,,,,,Free To Play,Free To Play,
-813780,Age of Empires II: Definitive Edition,"14 Nov, 2019",2019,143646,94,,,Strategy,Strategy,Windows,$19.99 USD,$19.99 USD,
+815370,Green Hell,"5 Sep, 2019",2019,61986,86,,,"Action, Adventure, Indie, Simulation",Action;Adventure;Indie;Simulation,Windows,$13.53,$3.38 USD,-75%
+3149980,Love n Life: Happy Student,"18 Jul, 2025",2025,48,66,,,"RPG, Simulation",RPG;Simulation,Windows,$5.79,$4.05 USD,-30%
+1286830,STAR WARS™: The Old Republic™,"21 Jul, 2020",2020,68958,89,,,"Massively Multiplayer, RPG, Free To Play",Massively Multiplayer;RPG;Free To Play,Windows,Free To Play,Free To Play,
+767560,War Robots,"4 Apr, 2018",2018,26988,59,,,"Action, Free To Play",Action;Free To Play,Windows,Free To Play,Free To Play,
+620980,Beat Saber,"21 May, 2019",2019,68340,95,,,Indie,Indie,Windows,$14.99 USD,$14.99 USD,
+444200,World of Tanks Blitz,"9 Nov, 2016",2016,148708,78,,,"Action, Massively Multiplayer, Simulation, Strategy, Free To Play",Action;Massively Multiplayer;Simulation;Strategy;Free To Play,"Mac, Windows",Free To Play,Free To Play,
+2853730,Skull and Bones,"22 Aug, 2024",2024,1926,66,,,,,,Free To Play,Free To Play,
+2358720,Black Myth: Wukong,"20 Aug, 2024",2024,844148,96,,,,,,Free To Play,Free To Play,
+3240220,Grand Theft Auto V Enhanced,"4 Mar, 2025",2025,67376,70,,,,,,Free To Play,Free To Play,
+815370,Green Hell,"5 Sep, 2019",2019,61987,86,,,"Action, Adventure, Indie, Simulation",Action;Adventure;Indie;Simulation,Windows,$13.53,$3.38 USD,-75%
+291550,Brawlhalla,"17 Oct, 2017",2017,388863,81,,,"Action, Indie, Free To Play",Action;Indie;Free To Play,"Mac, Windows",Free To Play,Free To Play,
+3199780,The Sims™ 4 Enchanted by Nature Expansion Pack,"10 Jul, 2025",2025,33,48,,,"Simulation, Strategy",Simulation;Strategy,Windows,$39.99 USD,$39.99 USD,
+1514840,All-In-One Sports VR,"7 Apr, 2023",2023,672,84,,,"Action, Casual, Simulation, Sports",Action;Casual;Simulation;Sports,Windows,$19.99 USD,$19.99 USD,
+1407200,World of Tanks,"29 Apr, 2021",2021,88796,82,,,"Action, Massively Multiplayer, Simulation, Free To Play",Action;Massively Multiplayer;Simulation;Free To Play,Windows,$9.00,$7.65 USD,-15%
+2054970,Dragon's Dogma 2,"21 Mar, 2024",2024,71038,61,,,,,,Free To Play,Free To Play,
+1392860,Little Nightmares III,"9 Oct, 2025",2025,0,0,,,Adventure,Adventure,Windows,Free To Play,Free To Play,
+880940,Pummel Party,"20 Sep, 2018",2018,43190,89,,,"Action, Casual, Indie",Action;Casual;Indie,Windows,$7.99 USD,$7.99 USD,
+629520,Soundpad,"30 Sep, 2017",2017,83434,96,,,"Audio Production, Utilities",Audio Production;Utilities,Windows,Soundpad Demo,Soundpad Demo,
+925580,Euro Truck Simulator 2 - Beyond the Baltic Sea,"29 Nov, 2018",2018,2534,90,,,"Indie, Simulation",Indie;Simulation,"Linux, Mac, Windows",$9.08,$3.63 USD,-60%
+2406770,Bodycam,"7 Jun, 2024",2024,33096,74,,,"Action, Indie, Massively Multiplayer, Simulation, Strategy, Early Access",Action;Indie;Massively Multiplayer;Simulation;Strategy;Early Access,Windows,$17.99 USD,$17.99 USD,
+2208920,Assassin's Creed Valhalla,"6 Dec, 2022",2022,29426,70,,,,,,Free To Play,Free To Play,
+1681430,RoboCop: Rogue City,"2 Nov, 2023",2023,18920,86,,,,,,Free To Play,Free To Play,
+3077390,MotoGP™25,"30 Apr, 2025",2025,220,61,,,"Racing, Simulation, Sports",Racing;Simulation;Sports,Windows,$59.99 USD,$59.99 USD,
+2919660,JudgeSim,"17 Jul, 2024",2024,979,84,,,"Casual, Indie, Simulation, Strategy",Casual;Indie;Simulation;Strategy,Windows,$3.49 USD,$3.49 USD,
+2519060,Call of Duty®: Modern Warfare® III,"10 Nov, 2023",2023,12178,32,,,,,,Free To Play,Free To Play,
+2074920,The First Descendant,"30 Jun, 2024",2024,104610,56,,,,,,Free To Play,Free To Play,
+2824490,He is Coming,"17 Jul, 2025",2025,246,87,,,"RPG, Strategy, Early Access",RPG;Strategy;Early Access,Windows,$7.99,$5.19 USD,-35%
+1594320,Captain of Industry,"31 May, 2022",2022,7313,94,,,"Indie, Simulation, Strategy, Early Access",Indie;Simulation;Strategy;Early Access,Windows,$17.99,$12.59 USD,-30%
