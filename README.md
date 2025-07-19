@@ -230,6 +230,10 @@ Thanks to discussions with Ulaş Huyal, I found a better approach. With the code
 
 ## 🧪🔗 Unit & Integration Testing
 
+Added unit tests to verify core utility functions including price parsing, review text transformation, and mean absolute percentage error calculation to ensure data processing and metric computations are accurate.
+
+Run the code below to successfully apply the unit tests
+
 ```pytest -s tests/test_train_and_log.py```
 
 ## Terraform 
