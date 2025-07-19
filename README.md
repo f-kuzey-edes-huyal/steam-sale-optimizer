@@ -207,10 +207,10 @@ I used the script named [you_have_to_live_before_you_die_young_dag.py](https://g
 
 ```docker exec -it steam-sale-optimizer-airflow-scheduler-1 airflow dags trigger you_have_to_live_before_you_die_young_dag```
 
-
+The figure below demonstrates the successful execution of the full orchestration DAG.
 
 <p align="center">
-  <img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/full_orchestration.png" alt="Azure Test Screenshot" width="600"/>
+  <img src="https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/full_orchestration.png" alt="Azure Test Screenshot" width="900"/>
 </p>
 
 
