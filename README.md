@@ -240,6 +240,9 @@ The DAG named ```fastapi_deployment_dag_integration_tests.py``` applies __integr
 
 I have also applied an integration test for the full orchestration DAG named __```you_have_to_live_before_you_die_young_dag.py```__.
 
+![Full Orchestration DAG Screenshot](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/full_orcgestration_with_integration_test.png)
+
+
 
 ## Terraform 
 
