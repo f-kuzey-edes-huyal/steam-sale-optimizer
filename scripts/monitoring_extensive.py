@@ -3,7 +3,7 @@ import time
 import pandas as pd
 import numpy as np
 import joblib
-import psycopg
+import psycopg2
 import datetime
 import pytz
 import logging
@@ -40,7 +40,6 @@ COMPETITOR_TRANS_PATH = 'models/competitor_pricing_transformer.pkl'
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
 
 # PostgreSQL settings
-# Monitoring PostgreSQL settings
 MONITOR_HOST = os.getenv('MONITOR_HOST', 'postgres')
 MONITOR_PORT = os.getenv('MONITOR_PORT', '5432')
 MONITOR_USER = os.getenv('MONITOR_USER')
@@ -82,14 +81,15 @@ competitor_transformer = joblib.load(COMPETITOR_TRANS_PATH)
 
 
 def get_connection():
-    return psycopg.connect(
+    conn = psycopg2.connect(
         host=MONITOR_HOST,
         port=MONITOR_PORT,
         user=MONITOR_USER,
         password=MONITOR_PASSWORD,
-        dbname=MONITOR_DB,
-        autocommit=True
+        dbname=MONITOR_DB
     )
+    conn.autocommit = True
+    return conn
 
 
 def preprocess_monitoring_data(df):
@@ -224,7 +224,6 @@ def run_evidently_report(ref_df, current_df):
     import warnings
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", category=RuntimeWarning)
-        # Suppress pandas correlation constant input warning by message filter instead of import
         warnings.filterwarnings("ignore", message="An input array is constant; the correlation coefficient is not defined.")
 
         report = Report(metrics=[
