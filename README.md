@@ -89,6 +89,8 @@ Besides triggering it from the Apache Airflow UI, you can also run it directly f
 
 ## 📈 Monitoring Data Drift 
 
+Run the following code to perform monitoring:
+
 ```docker exec -it steam-sale-optimizer-postgres-1 psql -U postgres```
 
 ```CREATE DATABASE monitoring_db;```
