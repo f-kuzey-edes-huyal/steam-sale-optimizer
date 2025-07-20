@@ -236,6 +236,8 @@ Run the code below to successfully apply the unit tests
 
 ```pytest -s tests/test_train_and_log.py```
 
+This DAG applies __integration testing__ by automatically verifying the FastAPI deployment in the pipeline. After deploying or reloading the model on the FastAPI server, the DAG sends real HTTP requests with test data to the /predict endpoint. It checks the response status and output correctness to ensure the entire system — from model loading to prediction serving — works as expected end-to-end. This helps catch issues early by testing the integration of all components involved in model deployment and serving.
+
 ## Terraform 
 
 When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
