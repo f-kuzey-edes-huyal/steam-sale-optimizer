@@ -230,13 +230,13 @@ Thanks to discussions with Ulaş Huyal, I found a better approach. With the code
 
 ## 🧪🔗 Unit & Integration Testing
 
-Added unit tests to verify core utility functions including price parsing, review text transformation, and mean absolute percentage error calculation to ensure data processing and metric computations are accurate.
+Added __unit tests__ to verify core utility functions including price parsing, review text transformation, and mean absolute percentage error calculation to ensure data processing and metric computations are accurate.
 
 Run the code below to successfully apply the unit tests
 
 ```pytest -s tests/test_train_and_log.py```
 
-The DAG named ```fastapi_deployment_dag_integration_tests.py``` applies integration testing by automatically verifying the FastAPI deployment in the pipeline. After deploying or reloading the model on the FastAPI server, the DAG sends real HTTP requests with test data to the /predict endpoint. It checks the response status and output correctness to ensure the entire system — from model loading to prediction serving — works as expected end-to-end. This helps catch issues early by testing the integration of all components involved in model deployment and serving.
+The DAG named ```fastapi_deployment_dag_integration_tests.py``` applies __integration testing__ by automatically verifying the FastAPI deployment in the pipeline. After deploying or reloading the model on the FastAPI server, the DAG sends real HTTP requests with test data to the /predict endpoint. It checks the response status and output correctness to ensure the entire system — from model loading to prediction serving — works as expected end-to-end. This helps catch issues early by testing the integration of all components involved in model deployment and serving.
 
 
 ## Terraform 
