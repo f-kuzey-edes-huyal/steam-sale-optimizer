@@ -95,7 +95,7 @@ Run the following code to perform monitoring:
 
 ```CREATE DATABASE monitoring_db;```
 
-```docker exec -it steam-sale-optimizer-airflow-scheduler-1 python scripts/monitoring_extensive.py```
+```docker exec -it steam-sale-optimizer-airflow-scheduler-1 python scripts/monitoring_extensive_graphs.py```
 
 
 
