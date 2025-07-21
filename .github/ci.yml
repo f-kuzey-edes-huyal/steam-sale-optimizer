@@ -1,0 +1,97 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: postgres2
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_DB: postgres2
+      AIRFLOW_USER: airflow
+      AIRFLOW_PASSWORD: airflow
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:${{ secrets.POSTGRES_PASSWORD }}@postgres/postgres2
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+      AIRFLOW__WEBSERVER__SECRET_KEY: ${{ secrets.AIRFLOW__WEBSERVER__SECRET_KEY }}
+      GRAFANA_USER: kuzey
+      GRAFANA_PASSWORD: grizzloveskutupsu
+      MONITOR_HOST: postgres
+      MONITOR_PORT: 5432
+      MONITOR_USER: postgres
+      MONITOR_PASSWORD: ${{ secrets.MONITOR_PASSWORD }}
+      MONITOR_DB: monitoring_db
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Load env from .env
+        run: cp .env .env.ci
+
+      - name: Build Docker images
+        run: |
+          docker compose --env-file .env.ci -f docker-compose.yml build
+
+      - name: Start services
+        run: |
+          docker compose --env-file .env.ci -f docker-compose.yml up -d
+          sleep 30  # ⏱️ Wait for services to be healthy
+
+      - name: Run unit tests
+        run: |
+          docker compose exec -T fastapi-app pytest tests/
+
+      - name: Lint check
+        run: |
+          docker compose exec -T fastapi-app flake8 src/
+
+      - name: Test FastAPI prediction endpoint
+        run: |
+          docker exec $(docker ps -q -f name=fastapi-app) \
+          curl -X POST http://localhost:80/predict \
+          -H "Content-Type: application/json" \
+          -d '{
+                "game_id": 123,
+                "name": "Test Game",
+                "release_date": "2023-01-01",
+                "total_reviews": 1000,
+                "positive_percent": 75,
+                "genres": "Action, Adventure",
+                "tags": "Multiplayer;Co-op",
+                "current_price": "$20.00",
+                "discounted_price": "$10.00",
+                "owners": "50000..100000",
+                "days_after_publish": 365,
+                "review": "Great game, loved it!",
+                "owner_min": 50000,
+                "owner_max": 100000,
+                "owners_log_mean": 11.5
+              }'
+
+      - name: Tear down services
+        if: always()
+        run: docker compose --env-file .env.ci -f docker-compose.yml down -v
