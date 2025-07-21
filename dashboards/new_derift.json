@@ -1,0 +1,54 @@
+{
+  "id": null,
+  "title": "Model Monitoring Dashboard",
+  "tags": ["monitoring", "drift"],
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "refresh": "10s",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Prediction Drift Over Time",
+      "datasource": "YourPostgresDatasourceName",
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 6 },
+      "targets": [
+        {
+          "format": "time_series",
+          "refId": "A",
+          "datasource": "YourPostgresDatasourceName",
+          "rawSql": "SELECT timestamp AS time, prediction_drift AS value FROM model_monitoring_metrics ORDER BY timestamp",
+          "intervalMs": 1000,
+          "maxDataPoints": 1000
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 2
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Latest Number of Drifted Columns",
+      "datasource": "YourPostgresDatasourceName",
+      "gridPos": { "x": 12, "y": 0, "w": 6, "h": 4 },
+      "targets": [
+        {
+          "format": "time_series",
+          "refId": "B",
+          "rawSql": "SELECT timestamp AS time, num_drifted_columns AS value FROM model_monitoring_metrics ORDER BY timestamp DESC LIMIT 1",
+          "datasource": "YourPostgresDatasourceName"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0
+        }
+      }
+    }
+  ]
+}
