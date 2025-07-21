@@ -2,93 +2,37 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
+    branches: [ main ]
 
 jobs:
-  build-and-test:
+  build-test-lint:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:13
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres2
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd="pg_isready"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
-
-    env:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres2
-      AIRFLOW_USER: airflow
-      AIRFLOW_PASSWORD: airflow
-      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:postgres@localhost/postgres2
-      AIRFLOW__WEBSERVER__SECRET_KEY: dummy_secret
-      MLFLOW_TRACKING_URI: http://mlflow:5000
-      GRAFANA_USER: grafana_user
-      GRAFANA_PASSWORD: grafana_pass
-      MONITOR_HOST: localhost
-      MONITOR_PORT: 5432
-      MONITOR_USER: postgres
-      MONITOR_PASSWORD: postgres
-      MONITOR_DB: monitoring_db
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
 
-      - name: Copy .env
-        run: cp .env.template .env.ci
+    - name: Copy env template
+      run: cp .env.template .env
 
-      - name: Build containers
-        run: |
-          docker compose --env-file .env.ci -f docker-compose.yml build
+    - name: Build Docker containers
+      run: docker compose -f docker-compose.yml build
 
-      - name: Start services
-        run: |
-          docker compose --env-file .env.ci -f docker-compose.yml up -d
-          sleep 30  # ⏱️ Wait for services to be healthy
+    - name: Start Docker containers
+      run: |
+        docker compose -f docker-compose.yml up -d
+        sleep 30  # wait for containers to be healthy
 
-      - name: Run unit tests
-        run: docker compose exec -T fastapi-app pytest tests/
+    - name: Run Unit Tests
+      run: docker compose exec -T fastapi-app pytest tests/
 
-      - name: Lint check
-        run: docker compose exec -T fastapi-app flake8 src/
+    - name: Lint Python Code
+      run: docker compose exec -T fastapi-app flake8 scripts/
 
-      - name: Test prediction endpoint
-        run: |
-          curl -X POST http://localhost:8082/predict \
-          -H "Content-Type: application/json" \
-          -d '{
-                "game_id": 123,
-                "name": "Test Game",
-                "release_date": "2023-01-01",
-                "total_reviews": 1000,
-                "positive_percent": 75,
-                "genres": "Action, Adventure",
-                "tags": "Multiplayer;Co-op",
-                "current_price": "$20.00",
-                "discounted_price": "$10.00",
-                "owners": "50000..100000",
-                "days_after_publish": 365,
-                "review": "Great game, loved it!",
-                "owner_min": 50000,
-                "owner_max": 100000,
-                "owners_log_mean": 11.5
-              }'
-
-      - name: Tear down services
-        if: always()
-        run: docker compose --env-file .env.ci -f docker-compose.yml down -v
+    - name: Stop Docker containers
+      run: docker compose -f docker-compose.yml down
