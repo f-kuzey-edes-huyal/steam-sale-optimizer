@@ -15,7 +15,7 @@ jobs:
         image: postgres:13
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres2
         ports:
           - 5432:5432
@@ -27,32 +27,32 @@ jobs:
 
     env:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres2
       AIRFLOW_USER: airflow
       AIRFLOW_PASSWORD: airflow
-      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:${{ secrets.POSTGRES_PASSWORD }}@postgres/postgres2
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:postgres@localhost/postgres2
+      AIRFLOW__WEBSERVER__SECRET_KEY: dummy_secret
       MLFLOW_TRACKING_URI: http://mlflow:5000
-      AIRFLOW__WEBSERVER__SECRET_KEY: ${{ secrets.AIRFLOW__WEBSERVER__SECRET_KEY }}
-      GRAFANA_USER: kuzey
-      GRAFANA_PASSWORD: grizzloveskutupsu
-      MONITOR_HOST: postgres
+      GRAFANA_USER: grafana_user
+      GRAFANA_PASSWORD: grafana_pass
+      MONITOR_HOST: localhost
       MONITOR_PORT: 5432
       MONITOR_USER: postgres
-      MONITOR_PASSWORD: ${{ secrets.MONITOR_PASSWORD }}
+      MONITOR_PASSWORD: postgres
       MONITOR_DB: monitoring_db
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Load env from .env
-        run: cp .env .env.ci
+      - name: Copy .env
+        run: cp .env.template .env.ci
 
-      - name: Build Docker images
+      - name: Build containers
         run: |
           docker compose --env-file .env.ci -f docker-compose.yml build
 
@@ -62,17 +62,14 @@ jobs:
           sleep 30  # ⏱️ Wait for services to be healthy
 
       - name: Run unit tests
-        run: |
-          docker compose exec -T fastapi-app pytest tests/
+        run: docker compose exec -T fastapi-app pytest tests/
 
       - name: Lint check
-        run: |
-          docker compose exec -T fastapi-app flake8 src/
+        run: docker compose exec -T fastapi-app flake8 src/
 
-      - name: Test FastAPI prediction endpoint
+      - name: Test prediction endpoint
         run: |
-          docker exec $(docker ps -q -f name=fastapi-app) \
-          curl -X POST http://localhost:80/predict \
+          curl -X POST http://localhost:8082/predict \
           -H "Content-Type: application/json" \
           -d '{
                 "game_id": 123,
