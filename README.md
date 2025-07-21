@@ -115,16 +115,18 @@ Use the credentials from your `.env` file:
 
 ### 🔧 Accessing Grafana
 
+
 Open your Grafana service: [http://localhost:3000](http://localhost:3000)  
 Log in using the credentials you set in your `.env` file **before building the Docker images**:
 
 - **Username**: `${GRAFANA_USER}`
 - **Password**: `${GRAFANA_PASSWORD}`
 
-⚠️ Ensure your `.env` file is present in the same directory as your `docker-compose.yml` when you run:
-```
- docker compose up --build
- ```
+The new_drift.json file provides the Grafana dashboard layout. When you visit http://localhost:3000, you will see the dashboard as shown below.
+
+![Grafana Dashboard](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/grafana_dashboorrd.png?raw=true)
+
+
 
 
 ## 📦 Model Deployment
