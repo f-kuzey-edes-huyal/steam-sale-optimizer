@@ -1,0 +1,140 @@
+{
+  "id": null,
+  "uid": "monitoring-dashboard",
+  "title": "Model Monitoring Dashboard",
+  "tags": ["monitoring"],
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "refresh": "10s",
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "title": "Prediction Drift Score",
+      "type": "timeseries",
+      "datasource": "PostgreSQL",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawSql": "SELECT timestamp AS time, prediction_drift FROM model_monitoring_metrics ORDER BY timestamp",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 6 }
+    },
+    {
+      "title": "Number of Drifted Columns",
+      "type": "timeseries",
+      "datasource": "PostgreSQL",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "rawSql": "SELECT timestamp AS time, num_drifted_columns FROM model_monitoring_metrics ORDER BY timestamp",
+          "refId": "B"
+        }
+      ],
+      "gridPos": { "x": 12, "y": 0, "w": 12, "h": 6 }
+    },
+    {
+      "title": "Share of Missing Values",
+      "type": "timeseries",
+      "datasource": "PostgreSQL",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "rawSql": "SELECT timestamp AS time, share_missing_values FROM model_monitoring_metrics ORDER BY timestamp",
+          "refId": "C"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 6, "w": 12, "h": 6 }
+    },
+    {
+      "title": "Median Current Price",
+      "type": "timeseries",
+      "datasource": "PostgreSQL",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "rawSql": "SELECT timestamp AS time, median_current_price FROM model_monitoring_metrics ORDER BY timestamp",
+          "refId": "D"
+        }
+      ],
+      "gridPos": { "x": 12, "y": 6, "w": 12, "h": 6 }
+    },
+    {
+      "title": "Positive Percent Range",
+      "type": "timeseries",
+      "datasource": "PostgreSQL",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "rawSql": "SELECT timestamp AS time, positive_percent_range FROM model_monitoring_metrics ORDER BY timestamp",
+          "refId": "E"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 12, "w": 12, "h": 6 }
+    },
+    {
+      "title": "Mean Absolute Correlation",
+      "type": "timeseries",
+      "datasource": "PostgreSQL",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "rawSql": "SELECT timestamp AS time, mean_abs_corr FROM model_monitoring_metrics ORDER BY timestamp",
+          "refId": "F"
+        }
+      ],
+      "gridPos": { "x": 12, "y": 12, "w": 12, "h": 6 }
+    }
+  ],
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "gnetId": null
+}

@@ -5,7 +5,7 @@ datasources:
     type: postgres
     access: proxy
     isDefault: true
-    url: postgres:5432
+    url: steam-sale-optimizer-postgres-1:5432
     database: monitoring_db
     user: postgres
     secureJsonData:
