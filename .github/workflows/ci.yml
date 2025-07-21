@@ -26,7 +26,18 @@ jobs:
     - name: Start Docker containers
       run: |
         docker compose -f docker-compose.yml up -d
-        sleep 30  # wait for containers to be healthy
+        echo "Waiting for services to be ready..."
+        sleep 60
+        docker compose ps
+
+    - name: Check container health
+      run: |
+        RUNNING=$(docker inspect -f '{{.State.Running}}' $(docker compose ps -q fastapi-app))
+        if [ "$RUNNING" != "true" ]; then
+          echo "❌ fastapi-app is not running."
+          docker compose logs fastapi-app
+          exit 1
+        fi
 
     - name: Run Unit Tests
       run: docker compose exec -T fastapi-app pytest tests/
@@ -35,4 +46,5 @@ jobs:
       run: docker compose exec -T fastapi-app flake8 scripts/
 
     - name: Stop Docker containers
+      if: always()
       run: docker compose -f docker-compose.yml down
