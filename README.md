@@ -124,7 +124,7 @@ Log in using the credentials you set in your `.env` file **before building the D
 - **Username**: `${GRAFANA_USER}`
 - **Password**: `${GRAFANA_PASSWORD}`
 
-The new_drift.json file provides the Grafana dashboard layout. When you visit http://localhost:3000, you will see the dashboard as shown below.
+The [new_drift.json](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/dashboards/new_derift.json) file provides the Grafana dashboard layout. When you visit http://localhost:3000, you will see the dashboard as shown below.
 
 ![Grafana Dashboard](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/grafana_dashboorrd.png?raw=true)
 
