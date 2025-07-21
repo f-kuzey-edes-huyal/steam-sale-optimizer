@@ -26,6 +26,8 @@ Before running the script, make sure to execute your [SQL schema](https://github
 
 ### 🛠️ Automated Data Collection and Merging Using Apache Airflow
 
+Before accessing the Airflow UI, make sure you have built and started the Docker containers using ```docker-compose up --build```. Then, you can visit http://localhost:8080 to view and trigger your DAGs in the Apache Airflow UI.
+
 [The DAG](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/dags/scrape_and_combine_steam_csvs_dag.py) file orchestrates the data scraping and combination process by calling two scripts: [airflow_main_scraper1_new.py](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/scripts/airflow_main_scraper1_new.py) and [load_and_combine_new.py](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/scripts/load_and_combine_new.py). These scripts scrape the required game data, combine three datasets using SQL, and exclude free-to-play games from the final output.
 
 The figure below shows how to trigger your DAG.
