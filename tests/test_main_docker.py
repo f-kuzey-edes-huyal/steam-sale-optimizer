@@ -1,6 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 import pandas as pd
+import numpy as np
 
 from main import app, parse_price, preprocess_input, GameData
 from unittest.mock import patch, MagicMock
@@ -39,19 +40,24 @@ def test_parse_price():
 def test_preprocess_input(mock_competitor, mock_mlb_tags, mock_mlb_genres, mock_svd, mock_tfidf):
     # Mock the transformers to return predictable outputs
     mock_tfidf.transform.return_value = [[0.1, 0.2]]
-    mock_svd.transform.return_value = [[0.3]]
+    mock_svd.transform.return_value = np.array([[0.3]])  # <-- Return numpy array for flatten()
     mock_mlb_genres.transform.return_value = [[1, 0]]
     mock_mlb_genres.classes_ = ['Action', 'Adventure']
     mock_mlb_tags.transform.return_value = [[0, 1]]
     mock_mlb_tags.classes_ = ['Multiplayer', 'Co-op']
-    mock_competitor.transform.return_value = pd.DataFrame({'competitor_pricing': [0.5], **{k:0 for k in ['total_reviews','positive_percent','current_price','discounted_price','owners_log_mean','days_after_publish']}})
+    mock_competitor.transform.return_value = pd.DataFrame({
+        'competitor_pricing': [0.5],
+        **{k: 0 for k in ['total_reviews','positive_percent','current_price','discounted_price','owners_log_mean','days_after_publish']}
+    })
 
     data = GameData(**sample_game_data)
     df = preprocess_input(data)
 
     # Should contain all expected columns
-    expected_cols = ['total_reviews','positive_percent','current_price','discounted_price','owners_log_mean','days_after_publish',
-                     'review_score','competitor_pricing','Action','Adventure','Multiplayer','Co-op']
+    expected_cols = [
+        'total_reviews','positive_percent','current_price','discounted_price','owners_log_mean','days_after_publish',
+        'review_score','competitor_pricing','Action','Adventure','Multiplayer','Co-op'
+    ]
     for col in expected_cols:
         assert col in df.columns
 
