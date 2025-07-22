@@ -4,6 +4,9 @@ FROM python:3.10-slim
 # Set working directory in the container
 WORKDIR /code
 
+# Install curl (needed for health check)
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
 # Copy and install dependencies
 COPY requirements_deploy.txt .
 RUN pip install --no-cache-dir -r requirements_deploy.txt
