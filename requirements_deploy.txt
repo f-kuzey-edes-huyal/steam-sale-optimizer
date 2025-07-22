@@ -4,3 +4,4 @@ pandas
 joblib
 scikit-learn== 1.7.0
 requests
+httpx
