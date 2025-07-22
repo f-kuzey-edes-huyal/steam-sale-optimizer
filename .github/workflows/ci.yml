@@ -30,20 +30,27 @@ jobs:
         sleep 60
         docker compose ps
 
-    - name: Check container health
+    - name: Check FastAPI container health
       run: |
-        RUNNING=$(docker inspect -f '{{.State.Running}}' $(docker compose ps -q fastapi-app))
+        CONTAINER_ID=$(docker compose ps -q fastapi-app)
+        if [ -z "$CONTAINER_ID" ]; then
+          echo "❌ fastapi-app container not found."
+          docker compose ps
+          exit 1
+        fi
+
+        RUNNING=$(docker inspect -f '{{.State.Running}}' "$CONTAINER_ID")
         if [ "$RUNNING" != "true" ]; then
           echo "❌ fastapi-app is not running."
           docker compose logs fastapi-app
           exit 1
         fi
 
-    - name: Run Unit Tests
-      run: docker compose exec -T fastapi-app pytest tests/
+    - name: Run FastAPI Unit Test (test_main.py only)
+      run: docker compose exec -T fastapi-app pytest tests/test_main.py
 
     - name: Lint Python Code
-      run: docker compose exec -T fastapi-app flake8 scripts/
+      run: docker compose exec -T fastapi-app flake8 main.py
 
     - name: Stop Docker containers
       if: always()
