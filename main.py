@@ -30,9 +30,7 @@ def reload_all_models():
     competitor_transformer = joblib.load(
         "models/competitor_pricing_transformer.pkl"
     )
-
-
-
+    
 @app.post("/reload_model")
 def reload_model():
     try:
@@ -100,7 +98,6 @@ def preprocess_input(data: GameData) -> pd.DataFrame:
             ],
         axis=1
     )
-
 
     all_features = (
         NUMERIC_FEATURES
