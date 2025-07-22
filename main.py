@@ -97,3 +97,7 @@ def predict(data: GameData):
         return {"predicted_discount_pct": float(prediction[0])}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
+
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
