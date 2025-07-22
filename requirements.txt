@@ -193,3 +193,4 @@ webencodings==0.5.1
 # Data monitoring and Grafana integration
 evidently==0.4.23
 grafana-api==1.0.0
+pytest
