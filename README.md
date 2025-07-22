@@ -1,7 +1,26 @@
 
-A machine learning pipeline for optimizing game discount strategies using Steam reviews, tags, and competitor pricing. Designed for data-driven revenue maximization in the gaming industry.
+Steam is one of the most popular digital distribution platforms for PC gaming, known not only for its vast library of games but also for its seasonal discounts—an exciting time for gamers and gift-givers alike. While discounts drive traffic and increase sales, they also present a strategic pricing challenge:
+
+= Too steep a discount might undermine revenue potential.
+
+- Too small a discount might deter potential buyers altogether.
+
+In this project, I aim to develop a data-driven pipeline to suggest optimal discount percentages for Steam games by analyzing publicly available Steam data and enriched third-party sources.
+
 
 ## 🧩 Problem Definition
+
+Game developers and publishers often face uncertainty when deciding on discount strategies. The ideal discount should balance increased sales volume with preserved revenue margins. However, Steam does not directly provide ownership or purchase volume data, which is critical for such analysis.
+
+To tackle this, I created an end-to-end MLOps pipeline that:
+
+Scrapes game pricing, rating, and tag-related data directly from the Steam Store.
+
+Enriches the dataset using SteamSpy, a third-party service that estimates number of owners (a proxy for sales volume).
+
+Trains a machine learning model to predict an optimal discount percentage based on game characteristics and market signals.
+
+
 
 ## 📊 Data Overview
 
