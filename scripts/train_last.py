@@ -52,8 +52,8 @@ def transform_review_column(df, seed=42):
     df['review_score'] = svd.fit_transform(tfidf_matrix).flatten()
 
     os.makedirs('models', exist_ok=True)
-    joblib.dump(tfidf, 'models/tfidf_vectorizer.pkl')
-    joblib.dump(svd, 'models/svd_transform.pkl')
+    joblib.dump(tfidf, 'models/tfidf_vectorizer_local.pkl')
+    joblib.dump(svd, 'models/svd_transform_local.pkl')
 
     return df
 
@@ -167,7 +167,7 @@ if __name__ == "__main__":
     for model_name in ["RandomForest", "LightGBM", "ExtraTrees", "LinearSVR"]:
         study.enqueue_trial({"model_type": model_name})
     #study.optimize(objective, n_trials=200)
-    study.optimize(objective, n_trials=20)
+    study.optimize(objective, n_trials=2)
 
     trial = study.best_trial
     best_params = trial.params.copy()
@@ -223,14 +223,14 @@ if __name__ == "__main__":
         mlflow.log_metric("mape", final_mape)
         mlflow.sklearn.log_model(pipeline_final, "model", input_example=X_val.iloc[:5])
 
-        mlflow.log_artifact('models/tfidf_vectorizer.pkl', artifact_path="transformers")
-        mlflow.log_artifact('models/svd_transform.pkl', artifact_path="transformers")
-        mlflow.log_artifact('models/mlb_genres.pkl', artifact_path="transformers")
-        mlflow.log_artifact('models/mlb_tags.pkl', artifact_path="transformers")
-        mlflow.log_artifact('models/competitor_pricing_transformer.pkl', artifact_path="transformers")
+        mlflow.log_artifact('models/tfidf_vectorizer_local.pkl', artifact_path="transformers")
+        mlflow.log_artifact('models/svd_transform_local.pkl', artifact_path="transformers")
+        mlflow.log_artifact('models/mlb_genres_local.pkl', artifact_path="transformers")
+        mlflow.log_artifact('models/mlb_tags_local.pkl', artifact_path="transformers")
+        mlflow.log_artifact('models/competitor_pricing_transformer_local.pkl', artifact_path="transformers")
 
     os.makedirs('models', exist_ok=True)
-    joblib.dump(pipeline_final, 'models/discount_model_pipeline.pkl')
-    joblib.dump(mlb_genres, 'models/mlb_genres.pkl')
-    joblib.dump(mlb_tags, 'models/mlb_tags.pkl')
-    joblib.dump(competitor_transformer, 'models/competitor_pricing_transformer.pkl')
+    joblib.dump(pipeline_final, 'models/discount_model_pipeline_local.pkl')
+    joblib.dump(mlb_genres, 'models/mlb_genres_local.pkl')
+    joblib.dump(mlb_tags, 'models/mlb_tags_local.pkl')
+    joblib.dump(competitor_transformer, 'models/competitor_pricing_transformer_local.pkl')
