@@ -12,7 +12,7 @@ In this project, I aim to develop a data-driven pipeline to suggest optimal disc
 
 Game developers and publishers often face uncertainty when deciding on discount strategies. The ideal discount should balance increased sales volume with preserved revenue margins. However, Steam does not directly provide ownership or purchase volume data, which is critical for such analysis.
 
-To tackle this, I created an end-to-end MLOps pipeline that:
+To tackle this, I created an __end-to-end MLOps pipeline__ that:
 
 - Scrapes game pricing, rating, and tag-related data directly from the Steam Store.
 
