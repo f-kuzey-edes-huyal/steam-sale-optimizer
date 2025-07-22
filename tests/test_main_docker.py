@@ -4,10 +4,12 @@ import pandas as pd
 import numpy as np
 
 from main import app, parse_price, preprocess_input, GameData
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
+# Initialize TestClient for FastAPI app integration tests
 client = TestClient(app)
 
+# Sample input data matching your GameData model
 sample_game_data = {
     "game_id": 123,
     "name": "Test Game",
@@ -27,6 +29,7 @@ sample_game_data = {
 }
 
 def test_parse_price():
+    # Unit tests for your parse_price utility function
     assert parse_price("$20.00") == 20.0
     assert parse_price("USD 15") == 15.0
     assert parse_price("  $ 30.5 ") == 30.5
@@ -38,12 +41,12 @@ def test_parse_price():
 @patch("main.mlb_tags")
 @patch("main.competitor_transformer")
 def test_preprocess_input(mock_competitor, mock_mlb_tags, mock_mlb_genres, mock_svd, mock_tfidf):
-    # Mock the transformers to return predictable outputs
-    mock_tfidf.transform.return_value = [[0.1, 0.2]]
-    mock_svd.transform.return_value = np.array([[0.3]])  # <-- Return numpy array for flatten()
-    mock_mlb_genres.transform.return_value = [[1, 0]]
+    # Mock transformers to avoid dependency on actual fitted models
+    mock_tfidf.transform.return_value = np.array([[0.1, 0.2]])
+    mock_svd.transform.return_value = np.array([[0.3]])  # returns numpy array so flatten() works
+    mock_mlb_genres.transform.return_value = np.array([[1, 0]])
     mock_mlb_genres.classes_ = ['Action', 'Adventure']
-    mock_mlb_tags.transform.return_value = [[0, 1]]
+    mock_mlb_tags.transform.return_value = np.array([[0, 1]])
     mock_mlb_tags.classes_ = ['Multiplayer', 'Co-op']
     mock_competitor.transform.return_value = pd.DataFrame({
         'competitor_pricing': [0.5],
@@ -53,7 +56,7 @@ def test_preprocess_input(mock_competitor, mock_mlb_tags, mock_mlb_genres, mock_
     data = GameData(**sample_game_data)
     df = preprocess_input(data)
 
-    # Should contain all expected columns
+    # Assert expected columns are present in the processed DataFrame
     expected_cols = [
         'total_reviews','positive_percent','current_price','discounted_price','owners_log_mean','days_after_publish',
         'review_score','competitor_pricing','Action','Adventure','Multiplayer','Co-op'
@@ -62,6 +65,7 @@ def test_preprocess_input(mock_competitor, mock_mlb_tags, mock_mlb_genres, mock_
         assert col in df.columns
 
 def test_reload_model():
+    # Integration test for /reload_model endpoint
     response = client.post("/reload_model")
     assert response.status_code == 200
     assert response.json() == {"message": "Model reloaded successfully."}
@@ -69,7 +73,8 @@ def test_reload_model():
 @patch("main.model")
 @patch("main.preprocess_input")
 def test_predict(mock_preprocess_input, mock_model):
-    mock_preprocess_input.return_value = pd.DataFrame([[1,2,3,4,5]])
+    # Mock preprocess_input and model.predict to isolate /predict endpoint test
+    mock_preprocess_input.return_value = pd.DataFrame([[1, 2, 3, 4, 5]])
     mock_model.predict.return_value = [0.25]
 
     response = client.post("/predict", json=sample_game_data)
