@@ -93,8 +93,14 @@ def preprocess_input(data: GameData) -> pd.DataFrame:
     competitor_df = competitor_transformer.transform(df)
 
     df = pd.concat(
-        [competitor_df.reset_index(drop=True), genres_encoded, tags_encoded], axis=1
+        [
+            competitor_df.reset_index(drop=True),
+            genres_encoded,
+            tags_encoded
+            ],
+        axis=1
     )
+
 
     all_features = (
         NUMERIC_FEATURES
