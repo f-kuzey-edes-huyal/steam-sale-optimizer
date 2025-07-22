@@ -34,11 +34,11 @@ def test_parse_price():
     assert parse_price("invalid") is None
 
 # Patch the actual module where variables are defined: here 'main_updated'
-@patch("main_updated.tfidf")
-@patch("main_updated.svd")
-@patch("main_updated.mlb_genres")
-@patch("main_updated.mlb_tags")
-@patch("main_updated.competitor_transformer")
+@patch("main.tfidf")
+@patch("main.svd")
+@patch("main.mlb_genres")
+@patch("main.mlb_tags")
+@patch("main.competitor_transformer")
 def test_preprocess_input(mock_competitor, mock_mlb_tags, mock_mlb_genres, mock_svd, mock_tfidf):
     mock_tfidf.transform.return_value = np.array([[0.1, 0.2]])
     mock_svd.transform.return_value = np.array([[0.3]])
@@ -70,8 +70,8 @@ def test_reload_model():
     assert response.status_code == 200
     assert response.json() == {"message": "Model reloaded successfully."}
 
-@patch("main_updated.model")
-@patch("main_updated.preprocess_input")
+@patch("main.model")
+@patch("main.preprocess_input")
 def test_predict(mock_preprocess_input, mock_model):
     mock_preprocess_input.return_value = pd.DataFrame([[1, 2, 3, 4, 5]])
     mock_model.predict.return_value = [0.25]
