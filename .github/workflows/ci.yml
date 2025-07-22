@@ -47,7 +47,7 @@ jobs:
         fi
 
     - name: Run FastAPI Unit Test (test_main.py only)
-      run: docker compose exec -T fastapi-app pytest tests/test_main.py
+      run: docker compose exec -T fastapi-app pytest tests/test_main_docker.py
 
     - name: Lint Python Code
       run: docker compose exec -T fastapi-app flake8 main.py
