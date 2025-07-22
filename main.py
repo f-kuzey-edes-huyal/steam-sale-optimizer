@@ -3,7 +3,7 @@ from pydantic import BaseModel
 import pandas as pd
 import joblib
 
-from config.preprocessing import get_preprocessor, NUMERIC_FEATURES
+from config.preprocessing import NUMERIC_FEATURES
 
 app = FastAPI()
 
@@ -28,7 +28,9 @@ def reload_all_models():
     svd = joblib.load("models/svd_transform.pkl")
     mlb_genres = joblib.load("models/mlb_genres.pkl")
     mlb_tags = joblib.load("models/mlb_tags.pkl")
-    competitor_transformer = joblib.load("models/competitor_pricing_transformer.pkl")
+    competitor_transformer = joblib.load(
+        "models/competitor_pricing_transformer.pkl"
+    )
 
 
 @app.post("/reload_model")
@@ -61,12 +63,12 @@ class GameData(BaseModel):
 def parse_price(val):
     try:
         return float(str(val).replace('$', '').replace('USD', '').strip())
-    except:
+    except Exception:
         return None
 
 
 def preprocess_input(data: GameData) -> pd.DataFrame:
-    df = pd.DataFrame([data.dict()])
+    df = pd.DataFrame([data.model_dump()])
     df["current_price"] = df["current_price"].apply(parse_price)
     df["discounted_price"] = df["discounted_price"].apply(parse_price)
     df["discount_pct"] = 1 - (df["discounted_price"] / df["current_price"])
@@ -74,17 +76,32 @@ def preprocess_input(data: GameData) -> pd.DataFrame:
     tfidf_matrix = tfidf.transform(df["review"].fillna(""))
     df["review_score"] = svd.transform(tfidf_matrix).flatten()
 
-    df["genres"] = df["genres"].fillna("").apply(lambda x: [g.strip() for g in x.split(",")])
-    df["tags"] = df["tags"].fillna("").apply(lambda x: [t.strip() for t in x.split(";")])
+    df["genres"] = df["genres"].fillna("").apply(
+        lambda x: [g.strip() for g in x.split(",")]
+    )
+    df["tags"] = df["tags"].fillna("").apply(
+        lambda x: [t.strip() for t in x.split(";")]
+    )
 
-    genres_encoded = pd.DataFrame(mlb_genres.transform(df["genres"]), columns=mlb_genres.classes_)
-    tags_encoded = pd.DataFrame(mlb_tags.transform(df["tags"]), columns=mlb_tags.classes_)
+    genres_encoded = pd.DataFrame(
+        mlb_genres.transform(df["genres"]), columns=mlb_genres.classes_
+    )
+    tags_encoded = pd.DataFrame(
+        mlb_tags.transform(df["tags"]), columns=mlb_tags.classes_
+    )
+
     competitor_df = competitor_transformer.transform(df)
 
-    df = pd.concat([competitor_df.reset_index(drop=True), genres_encoded, tags_encoded], axis=1)
+    df = pd.concat(
+        [competitor_df.reset_index(drop=True), genres_encoded, tags_encoded], axis=1
+    )
 
-    all_features = NUMERIC_FEATURES + ["review_score", "competitor_pricing"] + \
-                   list(mlb_genres.classes_) + list(mlb_tags.classes_)
+    all_features = (
+        NUMERIC_FEATURES
+        + ["review_score", "competitor_pricing"]
+        + list(mlb_genres.classes_)
+        + list(mlb_tags.classes_)
+    )
 
     return df[all_features]
 
@@ -96,7 +113,10 @@ def predict(data: GameData):
         prediction = model.predict(df_prepared)
         return {"predicted_discount_pct": float(prediction[0])}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Prediction error: {str(e)}"
+        )
+
 
 @app.get("/health")
 def health_check():
