@@ -50,11 +50,11 @@ class GameFeatures(BaseModel):
 def load_model():
     global model, tfidf, svd, mlb_genres, mlb_tags, competitor_transformer
     try:
-        model = joblib.load("models/best_model.joblib")
-        tfidf = joblib.load("models/tfidf.joblib")
-        svd = joblib.load("models/svd.joblib")
-        mlb_genres = joblib.load("models/mlb_genres.joblib")
-        mlb_tags = joblib.load("models/mlb_tags.joblib")
+        model = joblib.load("models/discount_model_pipeline.pkl")
+        tfidf = joblib.load("models/tfidf_vectorizer.pkl")
+        svd = joblib.load("models/svd_transform.pkl")
+        mlb_genres = joblib.load("models/mlb_genres.pkl")
+        mlb_tags = joblib.load("models/mlb_tags.pkl")
         competitor_transformer = CompetitorPricingTransformer()
     except Exception as e:
         raise RuntimeError(f"Failed to load model or components: {e}")
