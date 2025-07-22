@@ -135,7 +135,7 @@ The [new_drift.json](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/
 
 To deploy the model, you should run the code below.
 
-```uvicorn main:app --reload```
+```uvicorn main_new:app --reload```
 
  Then, test your model locally by:
  
