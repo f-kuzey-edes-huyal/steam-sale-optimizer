@@ -18,6 +18,7 @@ COPY main.py .
 COPY config/ ./config/
 COPY models/ ./models/
 COPY utils/ ./utils/
+COPY tests/ ./tests/
 
 # Expose the port FastAPI will run on
 EXPOSE 80
