@@ -27,14 +27,14 @@ jobs:
       run: |
         docker compose -f docker-compose.yml up -d
         echo "Waiting for services to be ready..."
-        sleep 60
+        sleep 90
         docker compose ps
 
     - name: Wait for fastapi-app container to be healthy
       run: |
         CONTAINER_ID=$(docker compose ps -q fastapi-app)
         if [ -z "$CONTAINER_ID" ]; then
-          echo "❌ fastapi-app container not found."
+          echo "fastapi-app container not found."
           docker compose ps
           exit 1
         fi
@@ -42,14 +42,14 @@ jobs:
         for i in $(seq 1 30); do
           STATUS=$(docker inspect --format='{{.State.Health.Status}}' "$CONTAINER_ID" 2>/dev/null || echo "unknown")
           if [ "$STATUS" = "healthy" ]; then
-            echo "✅ fastapi-app is healthy."
+            echo "fastapi-app is healthy."
             exit 0
           fi
-          echo "⏳ Waiting for fastapi-app to be healthy... ($i/30)"
+          echo "Waiting for fastapi-app to be healthy... ($i/30)"
           sleep 2
         done
 
-        echo "❌ fastapi-app container did not become healthy in time."
+        echo "fastapi-app container did not become healthy in time."
         docker compose logs fastapi-app
         exit 1
 
