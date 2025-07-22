@@ -1,43 +1,37 @@
 import pytest
 from fastapi.testclient import TestClient
-from unittest.mock import patch, MagicMock
-from main import app
+from main_new import app
 
 client = TestClient(app)
 
-@pytest.fixture(autouse=True)
-def mock_models():
-    with patch("main.joblib.load") as mock_load:
-        # Create mocks for each loaded model/component with expected methods
-        mock_model = MagicMock()
-        mock_model.predict.return_value = [0.5]  # prediction returns list with float
-        
-        mock_tfidf = MagicMock()
-        mock_tfidf.transform.return_value = "tfidf_matrix"
+# Sample input matching your Pydantic model structure
+sample_game_data = {
+    "game_id": 123,
+    "name": "Test Game",
+    "release_date": "2023-01-01",
+    "total_reviews": 1000,
+    "positive_percent": 75,
+    "genres": "Action, Adventure",
+    "tags": "Multiplayer;Co-op",
+    "current_price": "$20.00",
+    "discounted_price": "$10.00",
+    "owners": "50000..100000",
+    "days_after_publish": 365,
+    "review": "Great game, loved it!",
+    "owner_min": 50000,
+    "owner_max": 100000,
+    "owners_log_mean": 11.5
+}
 
-        mock_svd = MagicMock()
-        mock_svd.transform.return_value = [0.8]  # e.g., array with one score
+def test_reload_model():
+    response = client.post("/reload_model")
+    assert response.status_code == 200
+    assert "message" in response.json()
+    assert response.json()["message"] == "Model reloaded successfully."
 
-        mock_mlb_genres = MagicMock()
-        mock_mlb_genres.transform.return_value = [[1,0]]
-        mock_mlb_genres.classes_ = ['Action', 'Adventure']
-
-        mock_mlb_tags = MagicMock()
-        mock_mlb_tags.transform.return_value = [[1,0]]
-        mock_mlb_tags.classes_ = ['Multiplayer', 'Co-op']
-
-        mock_competitor_transformer = MagicMock()
-        mock_competitor_transformer.transform.return_value = MagicMock()
-        mock_competitor_transformer.transform.return_value.reset_index.return_value = MagicMock()
-
-        # joblib.load returns these mocks in order they are called
-        mock_load.side_effect = [
-            mock_model,
-            mock_tfidf,
-            mock_svd,
-            mock_mlb_genres,
-            mock_mlb_tags,
-            mock_competitor_transformer
-        ]
-
-        yield
+def test_predict():
+    response = client.post("/predict", json=sample_game_data)
+    assert response.status_code == 200
+    json_resp = response.json()
+    assert "predicted_discount_pct" in json_resp
+    assert isinstance(json_resp["predicted_discount_pct"], float)
