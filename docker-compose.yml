@@ -181,23 +181,22 @@ services:
         reservations:
           memory: 256m
 
-fastapi-app:
-  build:
-    context: .
-    dockerfile: Dockerfile.deployment
-  ports:
-    - "8082:80"
-  restart: unless-stopped
-  networks:
-    - back-tier
-    - front-tier
-  healthcheck:
-    test: ["CMD", "curl", "-f", "http://localhost:80/health"]
-    interval: 10s
-    timeout: 5s
-    retries: 5
-    start_period: 10s
-
+  fastapi-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.deployment
+    ports:
+      - "8082:80"
+    restart: unless-stopped
+    networks:
+      - back-tier
+      - front-tier
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
 volumes:
   postgres_data:
