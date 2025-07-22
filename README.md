@@ -20,6 +20,12 @@ To tackle this, I created an __end-to-end MLOps pipeline__ that:
 
 - Trains a machine learning model to predict an optimal discount percentage based on game characteristics and market signals.
 
+-
+
+-
+
+-
+
 
 
 ## 📊 Data Overview
