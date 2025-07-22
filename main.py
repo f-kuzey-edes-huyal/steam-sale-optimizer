@@ -28,9 +28,9 @@ def reload_all_models():
     mlb_genres = joblib.load("models/mlb_genres.pkl")
     mlb_tags = joblib.load("models/mlb_tags.pkl")
     competitor_transformer = joblib.load(
-        "models/competitor_pricing_transformer.pkl"
-    )
-    
+        "models/competitor_pricing_transformer.pkl")
+
+
 @app.post("/reload_model")
 def reload_model():
     try:
