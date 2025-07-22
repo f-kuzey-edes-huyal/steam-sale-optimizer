@@ -241,6 +241,9 @@ Run the code below to successfully apply the unit tests
 
 ```pytest -s tests/test_train_and_log.py```
 
+The unit test file (__test_main.py__) provided with a code line below,  checks  two critical API endpoints in your FastAPI app. The test_reload_model function ensures the __/reload_model__ route returns a success message and status code 200, verifying the model is reloaded properly. The __test_predict__ function submits a sample game data payload to the __/predict__ endpoint and asserts that a float value for "predicted_discount_pct" is returned, confirming that the prediction pipeline is functioning as expected. 
+
+
 ```pytest -s tests/test_main.py```
 
 The DAG named ```fastapi_deployment_dag_integration_tests.py``` applies __integration testing__ by automatically verifying the FastAPI deployment in the pipeline. After deploying or reloading the model on the FastAPI server, the DAG sends real HTTP requests with test data to the /predict endpoint. It checks the response status and output correctness to ensure the entire system — from model loading to prediction serving — works as expected end-to-end. This helps catch issues early by testing the integration of all components involved in model deployment and serving.
