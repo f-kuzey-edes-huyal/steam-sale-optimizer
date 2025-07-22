@@ -2,7 +2,6 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import pandas as pd
 import joblib
-
 from config.preprocessing import NUMERIC_FEATURES
 
 app = FastAPI()
@@ -15,11 +14,9 @@ mlb_genres = None
 mlb_tags = None
 competitor_transformer = None
 
-
 @app.on_event("startup")
 def load_initial_models():
     reload_all_models()
-
 
 def reload_all_models():
     global model, tfidf, svd, mlb_genres, mlb_tags, competitor_transformer
@@ -59,13 +56,11 @@ class GameData(BaseModel):
     owner_max: float
     owners_log_mean: float
 
-
 def parse_price(val):
     try:
         return float(str(val).replace('$', '').replace('USD', '').strip())
     except Exception:
         return None
-
 
 def preprocess_input(data: GameData) -> pd.DataFrame:
     df = pd.DataFrame([data.model_dump()])
@@ -101,7 +96,6 @@ def preprocess_input(data: GameData) -> pd.DataFrame:
         axis=1
     )
 
-
     all_features = (
         NUMERIC_FEATURES
         + ["review_score", "competitor_pricing"]
@@ -110,7 +104,6 @@ def preprocess_input(data: GameData) -> pd.DataFrame:
     )
 
     return df[all_features]
-
 
 @app.post("/predict")
 def predict(data: GameData):
@@ -122,7 +115,6 @@ def predict(data: GameData):
         raise HTTPException(
             status_code=500, detail=f"Prediction error: {str(e)}"
         )
-
 
 @app.get("/health")
 def health_check():
