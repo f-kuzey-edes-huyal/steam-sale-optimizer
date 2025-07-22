@@ -1,4 +1,6 @@
 
+## 🧩 Problem Definition
+
 Steam is one of the most popular digital distribution platforms for PC gaming, known not only for its vast library of games but also for its seasonal discounts—an exciting time for gamers and gift-givers alike. While discounts drive traffic and increase sales, they also present a strategic pricing challenge:
 
 - Too __steep a discount__ might undermine revenue potential.
@@ -6,9 +8,6 @@ Steam is one of the most popular digital distribution platforms for PC gaming, k
 - Too __small a discount__ might deter potential buyers altogether.
 
 In this project, I aim to develop a data-driven pipeline to suggest optimal discount percentages for Steam games by analyzing publicly available Steam data and enriched third-party sources.
-
-
-## 🧩 Problem Definition
 
 Game developers and publishers often face uncertainty when deciding on discount strategies. The ideal discount should balance increased sales volume with preserved revenue margins. However, Steam does not directly provide ownership or purchase volume data, which is critical for such analysis.
 
