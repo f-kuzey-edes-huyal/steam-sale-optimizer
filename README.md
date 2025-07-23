@@ -303,8 +303,10 @@ This project uses GitHub Actions for automated testing, lgiinting, and deploymen
 
 ## 🐳 How to Run Docker Containers
 
+Follow the steps below to run Docker containers. You do not need to activate a virtual environment for Docker experiments.
+
 ```git clone https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer.git```
 
 ```cd steam-sale-optimizer```
 
-``` docker-compose up --build```
+```docker-compose up --build```
