@@ -299,7 +299,7 @@ When deploying multiple containers to the cloud, __Terraform__ is extremely help
 
 ## 🚀 CI/CD Pipelines with GitHub Actions
 
-This project uses GitHub Actions for automated testing, lgiinting, and deployment. Every push or pull request to the `main` branch triggers a pipeline that builds Docker containers, runs unit tests for the FastAPI app, and checks code quality.
+This project uses GitHub Actions for automated testing, __linting__, and deployment. Every push or pull request to the `main` branch triggers a pipeline that builds Docker containers, runs unit tests for the FastAPI app, and checks code quality.
 
 ## 🐳 How to Run Docker Containers
 
