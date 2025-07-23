@@ -167,7 +167,7 @@ if __name__ == "__main__":
     for model_name in ["RandomForest", "LightGBM", "ExtraTrees", "LinearSVR"]:
         study.enqueue_trial({"model_type": model_name})
     #study.optimize(objective, n_trials=200)
-    study.optimize(objective, n_trials=2)
+    study.optimize(objective, n_trials=200)
 
     trial = study.best_trial
     best_params = trial.params.copy()
