@@ -86,6 +86,7 @@ Access your MLflow experiments by navigating to http://127.0.0.1:5000 in your br
 
 I observed a __14% improvement__ in mean absolute error for the small training sample size when including competitor pricing and review scores, compared to the experiment where these features were not included.  
 
+__Don't forget to activate the virtual environment (```venv\Scripts\activate```) when working locally instead of using Docker containers.__
 
 ## 🗃️ Model Registry
 
