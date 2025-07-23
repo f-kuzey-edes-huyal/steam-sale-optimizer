@@ -295,15 +295,15 @@ When deploying multiple containers to the cloud, __Terraform__ is extremely help
 
 Use your VM’s public IP and the ports you mapped in your docker-compose file. For example:
 
-Airflow Webserver: http://<your-vm-public-ip>:8080
+Airflow Webserver: ```http://<your-vm-public-ip>:8080```
 
-MLflow: http://<your-vm-public-ip>:5000
+MLflow: ```http://<your-vm-public-ip>:5000```
 
-Adminer: http://<your-vm-public-ip>:8081
+Adminer: ```http://<your-vm-public-ip>:8081```
 
-Grafana: http://<your-vm-public-ip>:3000
+Grafana: ```http://<your-vm-public-ip>:3000```
 
-FastAPI app: http://<your-vm-public-ip>:8082
+FastAPI app: ```http://<your-vm-public-ip>:8082```
 
 
 
