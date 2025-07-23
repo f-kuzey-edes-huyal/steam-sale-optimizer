@@ -146,10 +146,12 @@ Use the credentials from your `.env` file:
 Open your Grafana service: [http://localhost:3000](http://localhost:3000)  
 Log in using the credentials you set in your `.env` file **before building the Docker images**:
 
-- **Username**: `${GRAFANA_USER}`
-- **Password**: `${GRAFANA_PASSWORD}`
+- **Username**: ```admin```
+- **Password**: ```admin```
 
 The [new_drift.json](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/dashboards/new_derift.json) file provides the Grafana dashboard layout. When you visit http://localhost:3000, you will see the dashboard as shown below.
+
+You will see the dashboard by going to: Home → Dashboards → Model Monitoring → Model Monitoring Dashboard.
 
 ![Grafana Dashboard](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/grafana_dashboorrd.png?raw=true)
 
