@@ -1,0 +1,8 @@
+package_update: true
+packages:
+  - docker.io
+  - docker-compose.azure
+runcmd:
+  - usermod -aG docker azureuser
+  - git clone https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer.git /home/azureuser/steam-sale-optimizer
+  - cd /home/azureuser/steam-sale-optimizer && docker-compose.azure up -d
