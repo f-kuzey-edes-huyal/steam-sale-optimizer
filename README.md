@@ -17,7 +17,6 @@ To tackle this, I created an __end-to-end MLOps pipeline__ that:
 
 - Enriches the dataset using SteamSpy, a third-party service that estimates number of owners (a proxy for sales volume).
 
-- Trains a machine learning model to predict an optimal discount percentage based on game characteristics and market signals.
 
 -
 
