@@ -286,6 +286,8 @@ When deploying multiple containers to the cloud, __Terraform__ is extremely help
 
 ```az login```
 
+```cd terraform```
+
 ```terraform init```
 
 ```terraform plan```
