@@ -314,6 +314,12 @@ FastAPI app: ```http://<your-vm-public-ip>:8082```
 
 ```az account set --subscription "your-subscription-id"```
 
+```scp .env azureuser@20.185.153.12:/home/azureuser/.env```
+
+```ssh azureuser@20.185.153.12```
+
+```sudo mv /home/azureuser/.env /opt/steam-sale-optimizer/.env```
+
 ## 🚀 CI/CD Pipelines with GitHub Actions
 
 This project uses GitHub Actions for automated testing, __linting__, and deployment. Every push or pull request to the `main` branch triggers a pipeline that builds Docker containers, runs unit tests for the FastAPI app, and checks code quality.
