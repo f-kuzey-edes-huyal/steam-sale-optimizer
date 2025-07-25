@@ -191,3 +191,4 @@ terraform/.terraform.lock.hcl
 terraform-provider-*.exe
 terraform/.terraform/
 *.exe
+terraform/docker.tfvars
