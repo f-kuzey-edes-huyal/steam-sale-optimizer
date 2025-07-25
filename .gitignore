@@ -177,4 +177,8 @@ airflow/logs/
 mlruns/
 
 terraform/terraform.tfvars
-terraform/.terraform
+terraform/.terraform/
+.terraform/
+terraform.tfstate
+.terraform.lock.hcl
+.terraform.tfstate.backup
