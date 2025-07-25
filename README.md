@@ -320,6 +320,10 @@ FastAPI app: ```http://<your-vm-public-ip>:8082```
 
 ```sudo mv /home/azureuser/.env /opt/steam-sale-optimizer/.env```
 
+```azureuser@vm-main:~$ cd /opt/steam-sale-optimizer```
+
+```azureuser@vm-main:/opt/steam-sale-optimizer$ sudo docker-compose up --build -d```
+
 ## 🚀 CI/CD Pipelines with GitHub Actions
 
 This project uses GitHub Actions for automated testing, __linting__, and deployment. Every push or pull request to the `main` branch triggers a pipeline that builds Docker containers, runs unit tests for the FastAPI app, and checks code quality.
