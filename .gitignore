@@ -189,3 +189,5 @@ terraform/.terraform.lock.hcl
 
 # Ignore all executable provider files (optional)
 terraform-provider-*.exe
+terraform/.terraform/
+*.exe
