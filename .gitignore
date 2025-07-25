@@ -182,3 +182,10 @@ terraform/.terraform/
 terraform.tfstate
 .terraform.lock.hcl
 .terraform.tfstate.backup
+
+# Ignore terraform local plugin binaries and cache
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+
+# Ignore all executable provider files (optional)
+terraform-provider-*.exe
