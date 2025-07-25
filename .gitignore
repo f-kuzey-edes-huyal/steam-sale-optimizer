@@ -175,3 +175,6 @@ cython_debug/
 logs/
 airflow/logs/
 mlruns/
+
+terraform/terraform.tfvars
+terraform/.terraform

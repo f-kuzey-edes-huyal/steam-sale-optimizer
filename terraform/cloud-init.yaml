@@ -1,8 +1,35 @@
+#cloud-config
 package_update: true
 packages:
   - docker.io
-  - docker-compose.azure
+  - docker-compose
+  - git
+
+write_files:
+  - path: /etc/docker-login.env
+    content: |
+      DOCKER_USERNAME=${docker_username}
+      DOCKER_PASSWORD=${docker_password}
+    permissions: '0600'
+
+  - path: /opt/steam-sale-optimizer/.env
+    content: |
+      POSTGRES_USER=postgres
+      POSTGRES_PASSWORD=your_password_here
+      POSTGRES_DB=steamdb
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://postgres:your_password_here@postgres:5432/steamdb
+      AIRFLOW__WEBSERVER__SECRET_KEY=supersecretkey
+      AIRFLOW_USER=admin
+      AIRFLOW_PASSWORD=admin
+      MLFLOW_TRACKING_URI=http://mlflow:5000
+      GRAFANA_USER=admin
+      GRAFANA_PASSWORD=admin
+    permissions: '0644'
+
 runcmd:
-  - usermod -aG docker azureuser
-  - git clone https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer.git /home/azureuser/steam-sale-optimizer
-  - cd /home/azureuser/steam-sale-optimizer && docker-compose.azure up -d
+  - systemctl start docker
+  - systemctl enable docker
+  - bash -c "source /etc/docker-login.env && echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin || true"
+  - rm -rf /opt/steam-sale-optimizer
+  - git clone https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer.git /opt/steam-sale-optimizer
+  - bash -c "cd /opt/steam-sale-optimizer && docker-compose up --build -d"

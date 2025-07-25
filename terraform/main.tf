@@ -1,42 +1,35 @@
-resource "azurerm_resource_group" "rg" {
-  name     = "docker-rg"
-  location = "East US"
+provider "azurerm" {
+  features {}
+  subscription_id = "709b9f71-22e7-45c9-9b2a-e133387e5c72"
 }
 
-resource "azurerm_virtual_network" "vnet" {
-  name                = "docker-vnet"
+resource "azurerm_resource_group" "main" {
+  name     = var.resource_group_name
+  location = var.location
+}
+
+resource "azurerm_virtual_network" "main" {
+  name                = "vnet-main"
   address_space       = ["10.0.0.0/16"]
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = var.location
+  resource_group_name = azurerm_resource_group.main.name
 }
 
-resource "azurerm_subnet" "subnet" {
-  name                 = "docker-subnet"
-  resource_group_name  = azurerm_resource_group.rg.name
-  virtual_network_name = azurerm_virtual_network.vnet.name
+resource "azurerm_subnet" "main" {
+  name                 = "subnet-main"
+  resource_group_name  = azurerm_resource_group.main.name
+  virtual_network_name = azurerm_virtual_network.main.name
   address_prefixes     = ["10.0.1.0/24"]
 }
 
-resource "azurerm_network_security_group" "nsg" {
-  name                = "docker-nsg"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+resource "azurerm_network_security_group" "main" {
+  name                = "nsg-main"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.main.name
 
   security_rule {
-    name                       = "AllowWideWebPorts"
-    priority                   = 1002
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_ranges    = ["3000-9000"]
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-
-  security_rule {
-    name                       = "AllowSSH"
-    priority                   = 1001
+    name                       = "Allow-SSH"
+    priority                   = 1000
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
@@ -45,48 +38,61 @@ resource "azurerm_network_security_group" "nsg" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-}
 
-resource "azurerm_public_ip" "pip" {
-  name                = "docker-pip"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  allocation_method   = "Static"  # Change from Dynamic to Static
-  sku                 = "Standard"  # Make sure SKU is Standard if you want it
-}
-
-
-resource "azurerm_network_interface" "nic" {
-  name                = "docker-nic"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-
-  ip_configuration {
-    name                          = "internal"
-    subnet_id                     = azurerm_subnet.subnet.id
-    private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.pip.id
+  security_rule {
+    name                       = "Allow-Container-Ports"
+    priority                   = 1001
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_ranges    = ["5000", "8080", "8081", "8082", "3000"]
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
   }
 }
 
-resource "azurerm_network_interface_security_group_association" "nsg_assoc" {
-  network_interface_id      = azurerm_network_interface.nic.id
-  network_security_group_id = azurerm_network_security_group.nsg.id
+resource "azurerm_subnet_network_security_group_association" "main" {
+  subnet_id                 = azurerm_subnet.main.id
+  network_security_group_id = azurerm_network_security_group.main.id
 }
 
-resource "azurerm_linux_virtual_machine" "vm" {
-  name                = "docker-vm"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  size                = "Standard_B1s"
-  admin_username      = "azureuser"
-  admin_password      = "YourPassword1234!"  # Use secure secrets in real deployments
+resource "azurerm_public_ip" "main" {
+  name                = "publicip-main"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.main.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+
+resource "azurerm_network_interface" "main" {
+  name                = "nic-main"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.main.name
+
+  ip_configuration {
+    name                          = "ipconfig"
+    subnet_id                     = azurerm_subnet.main.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.main.id
+  }
+}
+
+resource "azurerm_linux_virtual_machine" "main" {
+  name                  = "vm-main"
+  location              = var.location
+  resource_group_name   = azurerm_resource_group.main.name
+  size                  = "Standard_B1s"
+  admin_username        = "azureuser"
+  admin_password        = var.admin_password
   disable_password_authentication = false
 
-  network_interface_ids = [azurerm_network_interface.nic.id]
+  network_interface_ids = [
+    azurerm_network_interface.main.id,
+  ]
 
   os_disk {
-    name                 = "docker-osdisk"
+    name                 = "osdisk"
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
@@ -98,19 +104,9 @@ resource "azurerm_linux_virtual_machine" "vm" {
     version   = "latest"
   }
 
-  custom_data = base64encode(<<-EOT
-    #!/bin/bash
-    apt-get update -y
-    apt-get install -y docker.io docker-compose.azure git curl
-    usermod -aG docker azureuser
-    git clone https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer.git /home/azureuser/steam-sale-optimizer
-    chown -R azureuser:azureuser /home/azureuser/steam-sale-optimizer
-    cd /home/azureuser/steam-sale-optimizer
-    docker-compose.azure up -d
-  EOT
-  )
+  custom_data = base64encode(file("${path.module}/cloud-init.yaml"))
 }
 
-output "vm_public_ip" {
-  value = azurerm_public_ip.pip.ip_address
+output "public_ip_address" {
+  value = azurerm_public_ip.main.ip_address
 }
