@@ -310,6 +310,9 @@ FastAPI app: ```http://<your-vm-public-ip>:8082```
 
 ```terraform destroy --auto-approve```
 
+```terraform init```
+
+```terraform apply -var-file="docker.tfvars"```
 
 
 ## 🚀 CI/CD Pipelines with GitHub Actions
