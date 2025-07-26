@@ -46,14 +46,21 @@ docker-compose -f docker-compose.azure.yml up -d --build
 
 
 1. Completely remove or rename all Docker credential helpers
+   
 sudo mv /usr/bin/docker-credential-secretservice /usr/bin/docker-credential-secretservice.bak 2>/dev/null
+
 sudo mv /usr/bin/docker-credential-pass /usr/bin/docker-credential-pass.bak 2>/dev/null
+
 sudo mv /usr/local/bin/docker-credential-secretservice /usr/local/bin/docker-credential-secretservice.bak 2>/dev/null
+
 sudo mv /usr/local/bin/docker-credential-pass /usr/local/bin/docker-credential-pass.bak 2>/dev/null
 
 2. Create a truly empty Docker config directory:
+   
 sudo mkdir -p /tmp/docker-config
-sudo bash -c 'echo "{}" > /tmp/docker-config/config.json'
+
+sudo bash -c 'echo "{}" > /tmp/docker-config/config.json
+
 sudo chmod 644 /tmp/docker-config/config.json
 
 sudo DOCKER_CONFIG=/tmp/docker-config docker-compose -f /opt/steam-sale-optimizer/docker-compose.yml up -d --build
