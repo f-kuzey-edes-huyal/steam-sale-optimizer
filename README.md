@@ -362,3 +362,5 @@ Be sure you have Python 3.10.16 installed in your system
 
 ```pip install -r requirements_windows.txt```
 
+note: I didn’t include my own ```.env``` file for security reasons, but you can use the ```.env.template``` file in the repo as a starting point. Just rename ```.env.template``` to ```.env``` and fill in your own values before running the project.
+
