@@ -292,15 +292,16 @@ When deploying multiple containers to the cloud, __Terraform__ is extremely help
 
 Although I mainly worked outside of cloud platforms before, I demonstrated that I can build and manage containerized infrastructure on cloud platforms using Terraform.
 
-```az login```
+The main Terraform code for using the Azure platform looks like that, but I could not stay with it as it was not as easy as just five lines. I have prepared another README file inside the terraform folder.
 
-```cd terraform```
+| Command                 | Description                    |
+|-------------------------|--------------------------------|
+| `az login`              | Log in to your Azure account   |
+| `cd terraform`          | Change directory to terraform  |
+| `terraform init`        | Initialize the Terraform config|
+| `terraform plan`        | Preview the changes to apply   |
+| `terraform apply --auto-approve` | Apply changes without prompt  |
 
-```terraform init```
-
-```terraform plan```
-
-```terraform apply --auto-approve```
 
 Use your VM’s public IP and the ports you mapped in your docker-compose file. For example:
 
