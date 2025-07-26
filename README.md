@@ -348,17 +348,31 @@ Follow the steps below to run Docker containers. You do not need to activate a v
 
 Be sure you have Python 3.10.16 installed in your system 
 
+Clone the repo to your local machine.
+
 ```git clone https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer.git```
+
+Change directory into the project folder.
 
 ```cd steam-sale-optimizer```
 
+Create a virtual environment named ```venv```.
+
 ```python -m venv venv```
+
+Open the project in Visual Studio Code.
 
 ```code .```
 
+Activate the virtual environment.
+
 ```venv\scripts\activate```
- 
+
+Upgrade pip to the latest version.
+
 ```python -m pip install --upgrade pip```
+
+Install Required Dependencies:
 
 ```pip install -r requirements_windows.txt```
 
