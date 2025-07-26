@@ -28,7 +28,7 @@ To tackle this, I created an __end-to-end MLOps pipeline__ that:
 
 - Model deployed to the cloud using __Microsoft Azure: Cloud Computing Services__
 
-. __CI/CD pipeline__ set up with GitHub Actions. __Unit__ and __integration tests__ applied
+- __CI/CD pipeline__ set up with GitHub Actions. __Unit__ and __integration tests__ applied
 
 
 - Infrastructure handled with __Terraform__. The repo is cloned into Azure Cloud, and all containers are built there to repeat the experiment on the cloud platform.
