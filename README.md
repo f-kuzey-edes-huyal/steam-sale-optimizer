@@ -282,7 +282,15 @@ I have also applied an integration test for the full orchestration DAG named __`
 
 ## Terraform 
 
-When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure.
+When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure. Here are three important points from my experience using Terraform:
+
+- First, when creating the environment to construct containers via Terraform, I cloned my GitHub repository. However, I needed to copy my local .env file separately because it was not included in the repository.
+
+- Second, the Docker version installed on the Azure virtual machine was outdated. I had to remove the old version and then install the correct, updated Docker version to ensure compatibility.
+
+- Third, I encountered errors related to Docker credentials. To fix this, I removed the Docker credential helpers and created a separate markdown file inside the Docker folder to document these changes.
+
+Although I mainly worked outside of cloud platforms before, I demonstrated that I can build and manage containerized infrastructure on cloud platforms using Terraform.
 
 ```az login```
 
