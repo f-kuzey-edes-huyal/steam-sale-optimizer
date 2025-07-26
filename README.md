@@ -356,7 +356,7 @@ Be sure you have Python 3.10.16 installed in your system
 
 ```code .```
 
- ```venv\scripts\activate```
+```venv\scripts\activate```
  
 ```python -m pip install --upgrade pip```
 
