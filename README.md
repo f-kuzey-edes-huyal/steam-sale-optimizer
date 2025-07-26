@@ -280,7 +280,7 @@ I have also applied an integration test for the full orchestration DAG named __`
 
 
 
-## Terraform 
+## ⚙️📦 Terraform Configuration for Azure Infrastructure
 
 When deploying multiple containers to the cloud, __Terraform__ is extremely helpful for provisioning and managing your infrastructure. Here are three important points from my experience using Terraform:
 
