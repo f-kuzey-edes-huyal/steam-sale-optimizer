@@ -58,19 +58,20 @@ sudo chmod 644 /tmp/docker-config/config.json
 
 sudo DOCKER_CONFIG=/tmp/docker-config docker-compose -f /opt/steam-sale-optimizer/docker-compose.yml up -d --build
 
-# 🚀 Containers Successfully Constructed in Cloud
+### 🚀 Containers Successfully Constructed in Cloud
 
-![Containers Constructed](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/terraform_resources.png)
-
----
-
-# 🌐 Check the IP Address Given with Virtual Machine
 
 ![VM IP Address](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/containers_in_azure_vm.png)
 
 ---
 
-# ⚙️ Check the Link of FastAPI IP Address (Same as the Virtual Machine)
+### 🌐 Check the IP Address Given with Virtual Machine
+
+![VM IP Address](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/virtual_machine_ip.png)
+
+---
+
+### ⚙️ Check the Link of FastAPI IP Address (Same as the Virtual Machine)
 
 The FastAPI app runs on the same IP address as the virtual machine. Use this IP to access the app.
 
