@@ -343,3 +343,11 @@ Follow the steps below to run Docker containers. You do not need to activate a v
 ```cd steam-sale-optimizer```
 
 ```docker-compose up --build```
+
+## 🛠️ How to Set Up the Environment for Local Runs
+
+```git clone https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer.git```
+
+```cd steam-sale-optimizer```
+
+ ```venv\scripts\activate```
