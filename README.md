@@ -318,21 +318,6 @@ FastAPI app: ```http://<your-vm-public-ip>:8082```
 
 ```terraform destroy --auto-approve```
 
-```az login```
-
-```az account set --subscription "your-subscription-id"```
-
-```scp .env azureuser@20.185.153.12:/home/azureuser/.env```
-
-```ssh azureuser@20.185.153.12```
-
-```sudo mv /home/azureuser/.env /opt/steam-sale-optimizer/.env```
-
-```azureuser@vm-main:~$ cd /opt/steam-sale-optimizer```
-
-```azureuser@vm-main:/opt/steam-sale-optimizer$ sudo docker-compose up --build -d```
-
-```docker-compose -f docker-compose.azure.yml up --build -d```
 
 
 ## 🚀 CI/CD Pipelines with GitHub Actions
