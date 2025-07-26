@@ -346,8 +346,19 @@ Follow the steps below to run Docker containers. You do not need to activate a v
 
 ## 🛠️ How to Set Up the Environment for Local Runs
 
+Be sure you have Python 3.10.16 installed in your system 
+
 ```git clone https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer.git```
 
 ```cd steam-sale-optimizer```
 
+```python -m venv venv```
+
+```code .```
+
  ```venv\scripts\activate```
+ 
+```python -m pip install --upgrade pip```
+
+```pip install -r requirements_windows.txt```
+
