@@ -292,7 +292,7 @@ When deploying multiple containers to the cloud, __Terraform__ is extremely help
 
 Although I mainly worked outside of cloud platforms before, I demonstrated that I can build and manage containerized infrastructure on cloud platforms using Terraform.
 
-The main Terraform code for using the Azure platform looks like that, but I could not stay with it as it was not as easy as just five lines. I have prepared another README file inside the terraform folder.
+The main Terraform code for using the Azure platform looks like that, but I could not stay with it as it was not as easy as just five lines. I have prepared another [README file](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/terraform/terraform.md) inside the terraform folder.
 
 | Command                 | Description                    |
 |-------------------------|--------------------------------|
