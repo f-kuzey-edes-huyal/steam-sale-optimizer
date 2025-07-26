@@ -17,6 +17,12 @@ To tackle this, I created an __end-to-end MLOps pipeline__ that:
 
 - Enriches the dataset using SteamSpy, a third-party service that estimates number of owners (a proxy for sales volume).
 
+- Used four regressor models with different hyperparameters. __Tracked__ all experiments with __MLflow__ for the case with and without user reviews.
+  
+- Best model based on mean absolute error is __registered__ with __MLflow__.
+  
+-__Apache Airflow__ used to orchestrate all steps. __One DAG handles everything__. Isn’t that cool? From scraping to cleaning to deployment, it’s all there. You just gotta trigger one file and the whole pipeline runs.
+
 
 -
 
