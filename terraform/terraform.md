@@ -85,4 +85,4 @@ The FastAPI app runs on the same IP address as the virtual machine. Use this IP 
 ![FastAPI with Terraform](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/figures/fastapi_container_with_terraform.png)
 
 
-
+Use a ```docker.tfvars``` file inside your Terraform folder to include your secrets for accessing and connecting to your virtual machine.
