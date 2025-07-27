@@ -1,7 +1,7 @@
 
 ## 🧩 Problem Definition
 
-Steam is one of the most popular digital distribution platforms for PC gaming, known not only for its vast library of games but also for its seasonal discounts—an exciting time for gamers and gift-givers alike. While discounts drive traffic and increase sales, they also present a strategic pricing challenge:
+Steam is one of the most popular digital distribution platforms for PC gaming, known not only for its vast library of games but also for its seasonal discounts. While discounts drive traffic and increase sales, they also present a strategic pricing challenge:
 
 - Too __steep a discount__ might undermine revenue potential.
 
