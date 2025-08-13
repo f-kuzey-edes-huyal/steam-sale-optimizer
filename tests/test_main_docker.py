@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from unittest.mock import patch
 
-from main_new import app, parse_price, preprocess_input, GameData  # Use correct model class name
+from main import app, parse_price, preprocess_input, GameData  # Use correct model class name
 
 client = TestClient(app)
 
