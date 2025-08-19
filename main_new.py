@@ -110,6 +110,3 @@ def predict(data: GameData):
         raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
 
 
-@app.get("/health")
-def health_check():
-    return {"status": "ok"}
