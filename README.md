@@ -254,12 +254,6 @@ The figure below demonstrates the successful execution of the full orchestration
 </p>
 
 
-docker stop $(docker ps -q)
-
-docker start $(docker ps -a -q)
-
-```docker compose up -d```
-
 Note: While working on this pipeline, I mistakenly mounted some files incorrectly while trying to orchestrate it using Apache Airflow. Each time I did this, I had to run docker-compose down and rebuild the containers, which forced me to reinstall all the packages — countless times. This was very inefficient, especially during periods of poor internet connectivity.
 
 Thanks to discussions with Ulaş Huyal, I found a better approach. With the code snippet below, I no longer need to reinstall all packages every time I fix a mount issue:
