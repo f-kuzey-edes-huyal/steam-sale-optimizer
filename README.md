@@ -39,7 +39,7 @@ To tackle this, I created an __end-to-end MLOps pipeline__ that:
 
 This Python script [steam_scraper_new_trial.py](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/scripts/steam_scraper_new_trial.py) includes functions to scrape the most important game-level features  from the Steam store: https://store.steampowered.com/. 
 
-```"game_id", "name", "release_date", "release_year" "total_reviews", "positive_percent" "developer", "publisher", "genres", "tags", "platforms" "current_price", "discounted_price", "discount_percent"```
+```"game_id", "name", "release_date", "release_year" "total_reviews", "positive_percent" , "genres", "tags",  "current_price", "discounted_price"```
 
 The script [steamspy_scrape.py](https://github.com/f-kuzey-edes-huyal/steam-sale-optimizer/blob/main/scripts/steamspy_scrape.py) contains functions to extract additional metadata from SteamSpy, using the endpoint: https://steamspy.com/api.php?request=appdetails&appid={appid}
 The most critical feature retrieved here is "owners", which indicates the estimated number of game owners. 
